@@ -54,7 +54,7 @@ function Logo({ size = "sm" }) {
   const f = size === "lg" ? "30px" : "18px";
   return (
     <div style={{ lineHeight: 1, userSelect: "none" }}>
-      <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 700, fontSize: f, color: C.white, letterSpacing: "1px" }}>thefounder</span>
+      <span style={{ fontFamily: "'DM Sans', sans-serif", fontWeight: 600, fontSize: f, color: C.white, letterSpacing: "1px" }}>thefounder.ma</span>
     </div>
   );
 }
@@ -84,6 +84,47 @@ export default function App() {
 
   useEffect(() => { const f = () => setSc(window.scrollY > 50); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
 
+  // ── Validation des étapes ──
+  const handleNext = () => {
+    setError(""); // On réinitialise l'erreur
+    
+    // Vérification Étape 1
+    if (step === 1) {
+      if (!fd.prenom || !fd.nom || !fd.email || !fd.tel) {
+        setError("Veuillez remplir tous les champs pour continuer.");
+        return;
+      }
+      // Vérification basique du format de l'email
+      if (!/\S+@\S+\.\S+/.test(fd.email)) {
+        setError("Veuillez entrer une adresse email valide.");
+        return;
+      }
+    }
+    
+    // Vérification Étape 2
+    if (step === 2) {
+      if (!fd.entreprise || !fd.secteur || !fd.ca || !fd.equipe) {
+        setError("Veuillez remplir tous les champs pour continuer.");
+        return;
+      }
+    }
+    
+    setStep(s => s + 1);
+  };
+
+  const handleFinalSubmit = () => {
+    setError("");
+    // Vérification Étape 3
+    if (step === 3) {
+      if (!fd.probleme || !fd.budget) {
+        setError("Veuillez remplir tous les champs pour continuer.");
+        return;
+      }
+    }
+    // Si tout est bon, on lance l'envoi
+    submitToSalesforce();
+  };
+
   // ── Calendly widget loader ──
   useEffect(() => {
     if (step === 4) {
@@ -98,6 +139,7 @@ export default function App() {
         const script = document.createElement("script");
         script.id = "calendly-js";
         script.src = "https://assets.calendly.com/assets/external/widget.js";
+        const [error, setError] = useState("");
         script.async = true;
         script.onload = () => {
           if (calRef.current && window.Calendly) {
@@ -613,6 +655,29 @@ export default function App() {
                   />
                 </div>
               </div>}
+              {/* Affichage de l'erreur */}
+              {error && (
+                <div style={{ padding: "10px 14px", background: "rgba(224,82,82,0.1)", borderLeft: "3px solid #E05252", color: "#E05252", fontSize: "13px", marginTop: "20px", borderRadius: "4px" }}>
+                  {error}
+                </div>
+              )}
+
+              {/* Nav buttons */}
+              {step < 4 && (
+                <div style={{ display: "flex", justifyContent: "space-between", marginTop: "28px", gap: "12px", flexWrap: "wrap" }}>
+                  {step > 1 ? (
+                    <button className="ob" onClick={() => { setError(""); setStep(s => s-1); }} style={S.btnO}>Retour</button>
+                  ) : <div />}
+                  
+                  {step < 3 ? (
+                    <button className="cb" onClick={handleNext} style={S.btn}>Continuer <I.Arr /></button>
+                  ) : (
+                    <button className="cb" disabled={submitting} onClick={handleFinalSubmit} style={{ ...S.btn, opacity: submitting ? 0.7 : 1, pointerEvents: submitting ? "none" : "auto" }}>
+                      {submitting ? "Envoi en cours..." : <><I.Cal /> Valider et réserver</>}
+                    </button>
+                  )}
+                </div>
+              )}
 
               {/* Nav buttons */}
               {step < 4 && <div style={{ display: "flex", justifyContent: "space-between", marginTop: "28px", gap: "12px", flexWrap: "wrap" }}>
