@@ -70,7 +70,7 @@ function Label({ t }) {
 }
 
 /* ══════════════════════════════ */
-/*  MAIN APP                     */
+/* MAIN APP                     */
 /* ══════════════════════════════ */
 export default function App() {
   const [page, setPage] = useState("home");
@@ -80,9 +80,7 @@ export default function App() {
   const [scrolled, setSc] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-  const calRef = useRef(null);
-
-  useEffect(() => { const f = () => setSc(window.scrollY > 50); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
+  const [error, setError] = useState(""); // <-- Erreur réparée ici
 
   // ── Validation des étapes ──
   const handleNext = () => {
@@ -94,7 +92,6 @@ export default function App() {
         setError("Veuillez remplir tous les champs pour continuer.");
         return;
       }
-      // Vérification basique du format de l'email
       if (!/\S+@\S+\.\S+/.test(fd.email)) {
         setError("Veuillez entrer une adresse email valide.");
         return;
@@ -125,46 +122,16 @@ export default function App() {
     submitToSalesforce();
   };
 
-  // ── Calendly widget loader ──
+  useEffect(() => { const f = () => setSc(window.scrollY > 50); window.addEventListener("scroll", f); return () => window.removeEventListener("scroll", f); }, []);
+
+  // ── Scroll auto quand on arrive au calendrier ──
   useEffect(() => {
     if (step === 4) {
-      if (!document.getElementById("calendly-css")) {
-        const link = document.createElement("link");
-        link.id = "calendly-css";
-        link.rel = "stylesheet";
-        link.href = "https://assets.calendly.com/assets/external/widget.css";
-        document.head.appendChild(link);
-      }
-      if (!document.getElementById("calendly-js")) {
-        const script = document.createElement("script");
-        script.id = "calendly-js";
-        script.src = "https://assets.calendly.com/assets/external/widget.js";
-        const [error, setError] = useState("");
-        script.async = true;
-        script.onload = () => {
-          if (calRef.current && window.Calendly) {
-            calRef.current.innerHTML = "";
-            window.Calendly.initInlineWidget({
-              url: `https://calendly.com/contactajaoub/diagnostic-strategique-visibilite-clients?hide_gdpr_banner=1&name=${encodeURIComponent(fd.prenom + " " + fd.nom)}&email=${encodeURIComponent(fd.email)}`,
-              parentElement: calRef.current,
-            });
-          }
-        };
-        document.head.appendChild(script);
-      } else if (calRef.current && window.Calendly) {
-        calRef.current.innerHTML = "";
-        window.Calendly.initInlineWidget({
-          url: `https://calendly.com/contactajaoub/diagnostic-strategique-visibilite-clients?hide_gdpr_banner=1&name=${encodeURIComponent(fd.prenom + " " + fd.nom)}&email=${encodeURIComponent(fd.email)}`,
-          parentElement: calRef.current,
-        });
-      }
-      // Scroll to booking section
       setTimeout(() => document.getElementById("booking")?.scrollIntoView({ behavior: "smooth" }), 300);
     }
   }, [step]);
 
   // ── Salesforce Web-to-Lead (direct POST via hidden iframe) ──
-  // Replace YOUR_SALESFORCE_OID with your actual Salesforce Organization ID
   const SF_OID = "00DQH00000LGRD3";
   const submitToSalesforce = async () => {
     setSubmitting(true);
@@ -208,7 +175,6 @@ export default function App() {
       document.body.appendChild(form);
       form.submit();
 
-      // Cleanup after submission
       setTimeout(() => {
         document.body.removeChild(form);
         document.body.removeChild(iframe);
@@ -218,7 +184,6 @@ export default function App() {
       setStep(4);
     } catch (err) {
       console.error("Salesforce submission error:", err);
-      // Still proceed to Calendly even if SF fails
       setSubmitted(true);
       setStep(4);
     } finally {
@@ -558,7 +523,7 @@ export default function App() {
             <div style={{ textAlign: "center", marginBottom: "44px" }}>
               <Label t="Commencer" />
               <h2 style={{ ...S.h2, marginBottom: "14px" }}>Réservez votre <span style={{ color: C.accentLight, fontStyle: "italic" }}>diagnostic stratégique</span></h2>
-              <p style={{ ...S.p, maxWidth: "500px", margin: "0 auto" }}>Chaque programme est sur mesure. Partagez votre situation pour un accompagnement parfaitement adapté.</p>
+              <p style={{ ...S.p, maxWidth: "500px", margin: "0 auto" }}>Chaque programme est sur sur mesure. Partagez votre situation pour un accompagnement parfaitement adapté.</p>
             </div>
           </Anim>
           <Anim d={0.15}>
@@ -655,6 +620,7 @@ export default function App() {
                   />
                 </div>
               </div>}
+
               {/* Affichage de l'erreur */}
               {error && (
                 <div style={{ padding: "10px 14px", background: "rgba(224,82,82,0.1)", borderLeft: "3px solid #E05252", color: "#E05252", fontSize: "13px", marginTop: "20px", borderRadius: "4px" }}>
@@ -662,7 +628,7 @@ export default function App() {
                 </div>
               )}
 
-              {/* Nav buttons */}
+              {/* Nav buttons (Corrigés et uniques) */}
               {step < 4 && (
                 <div style={{ display: "flex", justifyContent: "space-between", marginTop: "28px", gap: "12px", flexWrap: "wrap" }}>
                   {step > 1 ? (
@@ -679,14 +645,6 @@ export default function App() {
                 </div>
               )}
 
-              {/* Nav buttons */}
-              {step < 4 && <div style={{ display: "flex", justifyContent: "space-between", marginTop: "28px", gap: "12px", flexWrap: "wrap" }}>
-                {step > 1 ? <button className="ob" onClick={() => setStep(s => s-1)} style={S.btnO}>Retour</button> : <div />}
-                {step < 3 ? <button className="cb" onClick={() => setStep(s => s+1)} style={S.btn}>Continuer <I.Arr /></button>
-                : <button className="cb" disabled={submitting} onClick={submitToSalesforce} style={{ ...S.btn, opacity: submitting ? 0.7 : 1, pointerEvents: submitting ? "none" : "auto" }}>
-                    {submitting ? "Envoi en cours..." : <><I.Cal /> Valider et réserver</>}
-                  </button>}
-              </div>}
             </div>
           </Anim>
         </div>
