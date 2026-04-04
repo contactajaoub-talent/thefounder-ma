@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://thefounder.ma/sitemap.xml
