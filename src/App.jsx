@@ -581,6 +581,7 @@ export default function App() {
                 <div style={{ marginBottom: "14px" }}><label style={{ fontSize: "11px", fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "1px", display: "block", marginBottom: "7px" }}>Budget d'investissement</label>
                 <select className="if" style={{ ...S.inp, cursor: "pointer", appearance: "none" }} value={fd.budget} onChange={e => uf("budget", e.target.value)}>
                   <option value="" style={{ background: C.navy }}>Sélectionner votre fourchette</option>
+                  <option value="1-5k" style={{ background: C.navy }}>1 000 - 5 000 MAD</option>
                   <option value="5-10k" style={{ background: C.navy }}>5 000 - 10 000 MAD</option>
                   <option value="10-20k" style={{ background: C.navy }}>10 000 - 20 000 MAD</option>
                   <option value="20-50k" style={{ background: C.navy }}>20 000 - 50 000 MAD</option>
@@ -588,7 +589,7 @@ export default function App() {
                 </select></div>
               </div>}
 
-              {/* Step 4 - Calendly */}
+              {/* Step 4 - Google Agenda */}
               {step === 4 && <div>
                 <div style={{ textAlign: "center", marginBottom: "20px" }}>
                   <div style={{ display: "inline-flex", alignItems: "center", gap: "8px", padding: "8px 16px", background: "rgba(46,107,204,0.1)", borderRadius: "8px", marginBottom: "16px" }}>
@@ -597,19 +598,17 @@ export default function App() {
                   </div>
                   <p style={{ fontSize: "14px", color: C.muted, lineHeight: 1.6 }}>Choisissez maintenant le créneau qui vous convient pour votre diagnostic stratégique.</p>
                 </div>
-                <div
-                  ref={calRef}
-                  className="calendly-frame"
-                  style={{ minHeight: "660px", borderRadius: "8px", overflow: "hidden" }}
+                
+                <div 
+                  className="google-calendar-frame" 
+                  style={{ minHeight: "660px", borderRadius: "8px", overflow: "hidden", background: C.white }}
                 >
-                  {/* Calendly inline embed - widget.js will replace this, iframe is fallback */}
                   <iframe
-                    src={`https://calendly.com/contactajaoub/diagnostic-strategique-visibilite-clients?hide_gdpr_banner=1&background_color=0a1628&text_color=dee4ef&primary_color=2e6bcc&name=${encodeURIComponent(fd.prenom + " " + fd.nom)}&email=${encodeURIComponent(fd.email)}`}
+                    src="https://calendar.google.com/calendar/appointments/AcZssZ11YLJJY2L9Fioms4HKT_HZtUp_Rv12lMEG-X4=?gv=true"
                     width="100%"
                     height="660"
                     frameBorder="0"
-                    title="Calendly"
-                    className="calendly-frame"
+                    title="Google Agenda"
                     style={{ borderRadius: "8px", border: "none" }}
                   />
                 </div>
