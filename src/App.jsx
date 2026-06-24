@@ -132,7 +132,7 @@ export default function App() {
   }, [step]);
 
   // ── Salesforce Web-to-Lead (direct POST via hidden iframe) ──
-  const SF_OID = "00DQH00000LGRD3";
+  const SF_OID = "00Dd3000008Bhcw";
   const submitToSalesforce = async () => {
     setSubmitting(true);
     try {
@@ -154,13 +154,33 @@ export default function App() {
         email: fd.email,
         phone: fd.tel,
         company: fd.entreprise,
-        industry: fd.secteur,
-        lead_source: "Website - TheFounder.ma",
+
+        // Standard Salesforce field
+        lead_source: "Web",
+
+        // Custom Salesforce fields
+        "00Nd300000AmvSr": "The Founder",              // Brand
+        "00Nd300000AmgIY": "Strategic Diagnostic",     // Request Type
+        "00Nd300000Amve9": "90-Day Program",           // Requested Offer
+        "00Nd300000AmvmD": "New",                      // Qualification Stage
+        "00Nd300000Amvsf": fd.secteur || "",           // Business Sector
+        "00Nd300000Amvnp": fd.ca || "",                // Monthly Revenue
+        "00Nd300000AmvpR": fd.equipe || "",            // Team Size
+        "00Nd300000Amvr3": fd.probleme || "",          // Main Challenge
+        "00Nd300000AmvhN": "Custom Quote",             // Estimated Budget
+        "00Nd300000Amvkb": window.location.href,       // Website Page URL
+
+        // Backup summary for fast review in Salesforce
         description: [
-          `CA mensuel: ${fd.ca}`,
-          `Taille équipe: ${fd.equipe}`,
-          `Défi principal: ${fd.probleme}`,
-          `Budget d'investissement: ${fd.budget}`,
+          "Brand: The Founder",
+          "Request Type: Strategic Diagnostic",
+          `Company: ${fd.entreprise || ""}`,
+          `Business Sector: ${fd.secteur || ""}`,
+          `Monthly Revenue: ${fd.ca || ""}`,
+          `Team Size: ${fd.equipe || ""}`,
+          `Main Challenge: ${fd.probleme || ""}`,
+          `Investment Budget: ${fd.budget || ""}`,
+          `Website Page: ${window.location.href}`,
         ].join("\n"),
       };
 
@@ -573,10 +593,11 @@ export default function App() {
                   <div><label style={{ fontSize: "11px", fontWeight: 600, color: C.muted, textTransform: "uppercase", letterSpacing: "1px", display: "block", marginBottom: "7px" }}>Taille équipe</label>
                   <select className="if" style={{ ...S.inp, cursor: "pointer", appearance: "none" }} value={fd.equipe} onChange={e => uf("equipe", e.target.value)}>
                     <option value="" style={{ background: C.navy }}>Sélectionner</option>
-                    <option value="solo" style={{ background: C.navy }}>Solo / Fondateur seul</option>
-                    <option value="2-5" style={{ background: C.navy }}>2 à 5 personnes</option>
-                    <option value="5-15" style={{ background: C.navy }}>5 à 15 personnes</option>
-                    <option value="15+" style={{ background: C.navy }}>Plus de 15</option>
+                    <option value="Solo Founder" style={{ background: C.navy }}>Solo / Fondateur seul</option>
+                    <option value="2–5 people" style={{ background: C.navy }}>2 à 5 personnes</option>
+                    <option value="6–10 people" style={{ background: C.navy }}>6 à 10 personnes</option>
+                    <option value="11–25 people" style={{ background: C.navy }}>11 à 25 personnes</option>
+                    <option value="More than 25 people" style={{ background: C.navy }}>Plus de 25 personnes</option>
                   </select></div>
                 </div>
               </div>}
