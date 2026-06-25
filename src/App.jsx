@@ -632,7 +632,7 @@ export default function App() {
                   style={{ minHeight: "660px", borderRadius: "8px", overflow: "hidden", background: C.white }}
                 >
                   <iframe
-                    src="https://calendar.google.com/calendar/appointments/AcZssZ11YLJJY2L9Fioms4HKT_HZtUp_Rv12lMEG-X4=?gv=true"
+                    src="https://calendar.app.google/2rQEaXEthDjFJ2bg8"
                     width="100%"
                     height="660"
                     frameBorder="0"
