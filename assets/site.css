@@ -214,7 +214,7 @@
 .tf-final{padding:34px 22px 80px;background:#fff;color:#fff}
 .tf-final-inner{max-width:1120px;margin:0 auto;padding:74px 30px 78px;border-radius:24px;text-align:center;background:radial-gradient(circle at 80% 10%,rgba(136,98,255,.24),transparent 38%),linear-gradient(135deg,#15121c,#0c0b0f);border:1px solid #28212e}
 .tf-final-label{display:block;color:#ae95ff;font-size:12px;letter-spacing:.16em;font-weight:750;margin-bottom:22px}
-.tf-final h2{font-size:clamp(32px,4.5vw,54px);font-weight:600;line-height:1.08;letter-spacing:-.038em;max-width:820px;margin:0 auto 18px;color:#fff}
+.tf-final h2{font-size:clamp(32px,4.5vw,54px);font-weight:600;line-height:1.08;letter-spacing:-.038em;max-width:820px;margin:0 auto 18px;color:#fff;text-wrap:balance}
 .tf-final h2 span{color:#9f7aff}
 .tf-final p{max-width:660px;margin:0 auto 29px;color:#d5d0df;line-height:1.6;font-size:clamp(15px,1.6vw,18px)}
 .tf-final-cta{display:inline-flex;align-items:center;gap:14px;justify-content:center;padding:15px 28px;border-radius:999px;background:#7357ff;color:#fff!important;font-weight:650;font-size:15px;text-decoration:none;transition:background-color .2s ease,transform .2s ease}
