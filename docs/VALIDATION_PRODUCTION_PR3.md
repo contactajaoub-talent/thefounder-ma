@@ -31,8 +31,9 @@ Revue du 24 novembre 2026 sur `refonte/thefounder-v2`, à partir de `8cc8e4faceb
 
 ## TODO_CLIENT bloquants
 
-- Mise à jour client : identité, statut d’auto-entrepreneur, activité et responsables confirmés ; ville Rabat communiquée ; ICE/IF/TP relevés dans la capture du guichet fournie et intégrés aux mentions. Compléter/vérifier les coordonnées postales exactes et les mentions réellement applicables.
-- Responsable du traitement Othmane Ajaoub intégré ; sources officielles Vercel/Google ajoutées. Restent les modalités réelles de conservation, destinataires, base juridique et transferts/formalités applicables, sans inventer de preuve CNDP.
-- Mise à jour client : les noms textuels stylisés sont autorisés en remplacement des visuels incertains, tout en conservant les neuf noms et la grille. Le lot preloader conserve les six sections ; appliquer et contrôler cette mise en conformité dans le lot de production. Voir `LOGOS_ET_DROITS.md`.
+- Identité, statut, activité, responsables, ICE/IF/TP et adresse exacte confirmée AV MED V, 11102 Rabat, Maroc intégrés aux mentions : validation d’identification acquise.
+- Neuf noms textuels stylisés autorisés par le client, anciens visuels retirés du rendu/export/code courant, grille 3 × 3 et interactions contrôlées : validation de présentation acquise.
+- Accord explicite de publication réitéré et enregistré : aucun nouvel accord de publication à demander.
+- **Seul dossier restant : confidentialité.** Le client confirme qu’aucune démarche CNDP n’a encore été faite. Vérifier/régulariser les formalités et transferts applicables, documenter les modalités réelles de conservation/destinataires, puis finaliser la notice. `privacyApproved=false`. Voir `CNDP_AVANT_PUBLICATION.md` et `VALIDATIONS_CLIENT_ET_RELEASE.md`.
 
 Après réception des preuves : compléter les notices, documenter les validations, puis seulement refléter leur état dans `config/release.json`. Exécuter les tests et le build Production, vérifier le dossier et les contrôles au SHA exact, passer Ready et fusionner selon l’autorisation conditionnelle existante. Ne pas supprimer la sauvegarde. Vérifier ensuite HTTPS, redirections, huit pages indexables, vraie 404 et absence de fichiers internes sur la Production réellement déployée. Ne jamais promouvoir directement cette Preview non indexable.

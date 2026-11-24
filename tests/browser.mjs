@@ -44,15 +44,16 @@ try{
       assert.ok(sizes.scroll<=width,`${file} déborde à ${width}: ${sizes.scroll}`);assert.equal(sizes.h1,1);assert.deepEqual(sizes.broken,[]);
       if(file==='index.html'){
         await page.locator('#technologies').scrollIntoViewIfNeeded();
-        await page.waitForFunction(()=>[...document.querySelectorAll('.tf-tool-logo')].every(x=>x.complete&&x.naturalWidth>0));
+        assert.equal(await page.locator('.tf-tool-name').count(),9);
         const grid=await page.locator('.tf-stack-tool').evaluateAll(xs=>xs.map(x=>{const r=x.getBoundingClientRect();return {x:Math.round(r.x),y:Math.round(r.y)}}));
         assert.equal(new Set(grid.map(x=>x.x)).size,3);assert.equal(new Set(grid.map(x=>x.y)).size,3);
-        assert.ok((await page.locator('[data-tool="make"] img').boundingBox()).width>=96,'Logo Make : largeur minimale 96 px');
+        const clipped=await page.locator('.tf-tool-name').evaluateAll(xs=>xs.filter(x=>x.scrollWidth>x.clientWidth).map(x=>x.textContent));
+        assert.deepEqual(clipped,[],'Les noms des technologies doivent rester entiers');
       }
       result.pageChecks.push({file,width,pass:true});
     }
   }
-  result.checks.push('54 contrôles de pages à 320/375/768/1024/1440/1920 px, logos et grille 3 × 3');
+  result.checks.push('54 contrôles de pages à 320/375/768/1024/1440/1920 px, neuf noms et grille 3 × 3');
   // Menu, keyboard dismissal, all anchor links, actual navigation.
   await page.setViewportSize({width:375,height:812});await visit(page,base);
   const button=page.locator('#menu-button');await button.focus();await page.keyboard.press('Enter');assert.equal(await button.getAttribute('aria-expanded'),'true');
@@ -78,12 +79,12 @@ try{
   assert.equal(await page.locator('.bubble').first().evaluate(x=>getComputedStyle(x).animationName),'none');
   result.checks.push('Compteurs au scroll, valeur française, une seule exécution, animations réduites');
   await page.emulateMedia({reducedMotion:'no-preference'});await visit(page,base);await page.locator('#technologies').scrollIntoViewIfNeeded();
-  const logo=page.locator('[data-tool="supabase"] img');assert.equal(await logo.evaluate(x=>getComputedStyle(x).filter),'grayscale(1)');
-  await page.locator('[data-tool="supabase"]').hover();await page.waitForTimeout(300);assert.equal(await logo.evaluate(x=>getComputedStyle(x).filter),'none');
-  await page.mouse.move(0,0);await page.locator('[data-tool="supabase"]').focus();await page.waitForTimeout(300);assert.equal(await logo.evaluate(x=>getComputedStyle(x).filter),'none');
-  result.checks.push('Logos gris au repos et authentiques au survol et au focus');
-  const touch=await newContext({viewport:{width:375,height:812},hasTouch:true,isMobile:true});const touchPage=await touch.newPage();await visit(touchPage,base);await touchPage.locator('#technologies').scrollIntoViewIfNeeded();assert.equal(await touchPage.locator('[data-tool="supabase"] img').evaluate(x=>getComputedStyle(x).filter),'none');await touch.close();
-  result.checks.push('Couleurs des logos sur appareil tactile');
+  const tool=page.locator('[data-tool="supabase"] .tf-tool-name');assert.equal(await tool.evaluate(x=>getComputedStyle(x).color),'rgb(87, 83, 95)');
+  await page.locator('[data-tool="supabase"]').hover();await page.waitForTimeout(300);assert.equal(await tool.evaluate(x=>getComputedStyle(x).color),'rgb(103, 71, 245)');
+  await page.mouse.move(0,0);await page.locator('[data-tool="supabase"]').focus();await page.waitForTimeout(300);assert.equal(await tool.evaluate(x=>getComputedStyle(x).color),'rgb(103, 71, 245)');
+  result.checks.push('Noms des technologies gris au repos, violet TheFounder au survol et au focus');
+  const touch=await newContext({viewport:{width:375,height:812},hasTouch:true,isMobile:true});const touchPage=await touch.newPage();await visit(touchPage,base);await touchPage.locator('#technologies').scrollIntoViewIfNeeded();assert.equal(await touchPage.locator('[data-tool="supabase"] .tf-tool-name').evaluate(x=>getComputedStyle(x).color),'rgb(103, 71, 245)');await touch.close();
+  result.checks.push('Noms lisibles et accent TheFounder sur appareil tactile');
   // Accessibility engine in the real browser, across all pages, at desktop and mobile.
   for(const width of [375,1440]){
     await page.setViewportSize({width,height:900});

@@ -37,16 +37,16 @@ Version de revue du 24 novembre 2026, complétée pour la PR #3. **La publicatio
 
 ## Blocages externes
 
-- [ ] Identité, statut, responsables et ICE/IF/TP fournis et intégrés aux notices ; compléter/vérifier les coordonnées postales exactes et les mentions réellement applicables.
+- [x] Identité, statut, responsables, ICE/IF/TP et adresse confirmée AV MED V, 11102 Rabat, Maroc intégrés aux mentions.
 - [x] Hébergeur Vercel et ses coordonnées publiques confirmés. Identité de l’éditeur toujours manquante.
 - [ ] Notice de confidentialité complète, modalités de messagerie et traitements, formalités CNDP et éventuels transferts validés.
-- [ ] Conditions de marque / variante Codex / gris au repos validés. Largeur Make minimale contrôlée à 96 px en mobile.
+- [x] Alternative textuelle autorisée appliquée aux neuf technologies ; aucun visuel tiers dans le rendu ou l’export, grille 3 × 3 et noms complets contrôlés sur mobile/desktop.
 - [ ] Modèles de facturation et clauses revus par un conseiller compétent avant usage.
 
 ## Décisions et actions client à autoriser
 
 - [ ] Valider le rendu de la version livrée et les textes publics.
-- [ ] Réunir toutes les conditions de l’autorisation de fusion/publication fournie dans la demande : informations légales, droits et build Production validés sur la version identifiée.
+- [ ] Autorisation de publication reçue et enregistrée ; identification et présentation des technologies validées. Seul le dossier de confidentialité empêche encore le build Production. Le client confirme qu’aucune démarche CNDP n’a encore été faite ; voir `docs/CNDP_AVANT_PUBLICATION.md`.
 - [ ] Autoriser toute modification de domaine, DNS ou compte d’hébergement.
 - [ ] Choisir le moyen d’encaissement et transmettre les coordonnées vérifiées ; décider de l’acompte proposé de 50 %.
 - [ ] Valider, signer et émettre les documents commerciaux réels.

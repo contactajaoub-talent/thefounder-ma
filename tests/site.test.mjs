@@ -34,8 +34,12 @@ test('tous les CTA projet ciblent le contact confirmé et son objet',()=>{
     if(url.searchParams.get('subject')?.startsWith('Demande de projet')) {assert.equal(url.searchParams.get('subject'),'Demande de projet - TheFounder');count++;}
   }}assert.ok(count>=10);
 });
-test('les neuf logos locaux sont des SVG sans script ni ressource externe',()=>{
-  for(const file of assets.filter(x=>x.endsWith('.svg'))){const svg=text(file);assert.match(svg,/<svg\b/);assert.ok(!/<script|onload=|<foreignObject|href="https?:/i.test(svg),file);}
+test('neuf noms de technologies, sans visuel de marque tiers dans l’export public',()=>{
+  const html=text('index.html');
+  assert.equal((html.match(/class="tf-tool-name"/g)||[]).length,9);
+  for(const name of ['n8n','Supabase','Next.js','Make','Codex','Claude','GitHub','Docker','Vercel'])assert.ok(html.includes(`class="tf-tool-name">${name}</span>`));
+  assert.ok(!html.includes('assets/logos/'));
+  assert.ok(!assets.some(x=>x.startsWith('assets/logos/')));
 });
 test('accueil : ordre et nombre des sections conservés, valeurs accessibles sans JS',()=>{
   const html=text('index.html');assert.equal((html.match(/<section\b/g)||[]).length,6);

@@ -1,7 +1,7 @@
 {
   "siteOrigin": "https://thefounder.ma",
-  "publicationApproved": false,
-  "legalApproved": false,
+  "publicationApproved": true,
+  "legalApproved": true,
   "privacyApproved": false,
-  "brandUseApproved": false
+  "brandUseApproved": true
 }

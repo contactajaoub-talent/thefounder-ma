@@ -77,8 +77,8 @@ test('export preview et serveur HTTP sécurisé, indépendants des validations r
     assert.equal(response.headers.get('x-content-type-options'),'nosniff');
     assert.match(response.headers.get('content-security-policy'),/frame-ancestors 'none'/);
     assert.match(response.headers.get('x-robots-tag'),/noindex/);
-    for(const path of ['/solutions.html','/assets/logos/claude.svg','/assets/site.js'])assert.equal((await fetch(base+path)).status,200,path);
-    for(const path of ['/inconnue','/README.md','/business/modele-facture.md','/config/release.json','/%2e%2e%2fREADME.md','/.git/config'])assert.equal((await fetch(base+path)).status,404,path);
+    for(const path of ['/solutions.html','/assets/preloader/thefounder-symbol.png','/assets/site.js'])assert.equal((await fetch(base+path)).status,200,path);
+    for(const path of ['/inconnue','/README.md','/business/modele-facture.md','/config/release.json','/%2e%2e%2fREADME.md','/.git/config','/assets/logos/claude.svg','/assets/logos/codex.svg'])assert.equal((await fetch(base+path)).status,404,path);
     const missing=await fetch(base+'/absente');assert.match(await missing.text(),/Cette page est introuvable/);
     assert.equal((await fetch(base+'/404.html')).status,404);
     assert.equal((await fetch(base+'/%E0%A4%A')).status,400);
