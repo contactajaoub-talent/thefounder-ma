@@ -1,13 +1,13 @@
-# Grille de neuf technologies — présentation actualisée
+# Grille technologique — ajustement visuel du 24 novembre 2026
 
-TheFounder utilise ces technologies en tant que prestataire indépendant, sans affiliation, partenariat ni certification des éditeurs.
+TheFounder identifie les outils effectivement utilisés, sans affiliation, partenariat, certification ni approbation des éditeurs.
 
-## Visuels
-- **n8n** : wordmark SVG du kit initial provenant du guide officiel https://guidelines.n8n.design/logo ; version colorée originale, grisée au repos.
-- **Supabase** : wordmark SVG officiel du kit initial https://supabase.com/brand ; couleurs officielles conservées au repos comme au survol.
-- **GitHub** : wordmark SVG officiel du kit initial https://brand.github.com/ ; variante noire permanente et lien au site officiel.
-- **Next.js, Make, Codex, Claude, Docker, Vercel** : pictogrammes géométriques *génériques* créés pour TheFounder et accompagnés de leurs noms. Ils ne reproduisent pas les logos des éditeurs.
+## Présentation des neuf outils
 
-Les pictogrammes sont gris au repos et colorés au survol/focus ; transition de 300 ms sauf préférence de réduction des animations. Les trois wordmarks conservent leurs proportions et leurs tracés. Ne pas réintroduire de logos commerciaux dont les conditions ne couvrent pas ce contexte sans une nouvelle vérification.
+- n8n, Supabase, Next.js, Make, GitHub et Vercel : les wordmarks SVG du kit initial sont utilisés dans leurs variantes originales, sans modifier leurs chemins ou leurs couleurs. Sources documentées dans les guides de marque : n8n, supabase.com/brand, vercel.com/geist/brands, make.com/press, brand.github.com.
+- Docker : le pictogramme SVG officiel d'origine, accompagné du nom en texte. Voir docker.com/company/newsroom/media-resources/.
+- Codex et Claude : pictogrammes géométriques génériques indépendants (cube et étoile) accompagnés de leurs noms, **pas** les marques graphiques officielles.
 
-Ce dossier ne constitue pas une preuve d'autorisation générale des titulaires des marques. Les conditions d'utilisation doivent être vérifiées avant un changement de variante ou d'emplacement.
+Les neuf éléments sont centrés **horizontalement** à échelle cohérente dans la grille 3 × 3, responsive sur mobile. Les ressources restent locales. Transitions d'environ 300 ms : gris vers couleur pour les marques et pictogrammes concernés ; Supabase conserve son vert officiel, et les marques monochromes restent dans leur variante originale. La préférence d'animation réduite désactive les transitions.
+
+La disponibilité publique des fichiers SVG n'accorde pas de licence générale de marque. L'usage doit être conforme aux règles des titulaires et ne doit pas suggérer une relation officielle. Avant toute publication définitive, revoir les cas où les guides de marque nécessitent une permission spécifique, notamment pour la présentation commerciale des wordmarks Next.js et Vercel. En cas de refus ou d'incertitude persistante, utiliser uniquement le nom avec une icône générique indépendante.
