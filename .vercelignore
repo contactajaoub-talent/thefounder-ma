@@ -1,0 +1,16 @@
+.git
+.github
+.vercel
+node_modules
+dist
+.env*
+business
+docs
+references
+tests
+*.md
+*.zip
+*.bundle
+assets/thefounder-identity-approved.png
+assets/thefounder-icon-1080.png
+assets/thefounder-mark.png

@@ -1,6 +1,9 @@
-node_modules
-dist
-.env
-.vercel
+node_modules/
+.env*
+!.env.example
 .DS_Store
-*.local
+.vercel/
+dist/
+coverage/
+docs/qa/
+RAPPORT_FINAL.md
