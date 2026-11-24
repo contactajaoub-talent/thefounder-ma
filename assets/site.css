@@ -373,3 +373,108 @@ html{scroll-padding-top:24px} :focus-visible{outline:3px solid #6040d0;outline-o
   .tf-stack-tool[data-tool] .tf-tech-pictogram {stroke:var(--tf-tech-accent)}
   .tf-stack-tool[data-tool] .tf-tool-name {color:var(--tf-tech-accent)}
 }
+
+
+/* S05 — Mobile-only compact grid: keep all 9 identities inside their 3-column cells. */
+@media (max-width: 550px) {
+  .tf-stack-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    width: 100%;
+    max-width: 100%;
+  }
+  .tf-stack-tool {
+    box-sizing: border-box;
+    min-width: 0;
+    min-height: 102px;
+    padding: 14px 7px;
+    gap: 5px;
+    justify-content: center;
+    overflow: hidden;
+  }
+  /* Complete wordmarks already include the tool name. Make them optical peers. */
+  .tf-stack-tool:is(
+    [data-tool="n8n"],
+    [data-tool="supabase"],
+    [data-tool="nextjs"],
+    [data-tool="make"],
+    [data-tool="github"],
+    [data-tool="vercel"]
+  ) .tf-tech-media {
+    flex: 0 1 94px;
+    width: min(94px, 100%);
+    max-width: 100%;
+    height: 36px;
+    min-width: 0;
+  }
+  .tf-stack-tool[data-tool="make"] .tf-tech-media {
+    flex-basis: 82px;
+    width: min(82px, 100%);
+    max-width: 100%;
+  }
+  .tf-stack-tool:is(
+    [data-tool="n8n"],
+    [data-tool="supabase"],
+    [data-tool="nextjs"],
+    [data-tool="make"],
+    [data-tool="github"],
+    [data-tool="vercel"]
+  ) .tf-tech-wordmark {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    max-height: 36px;
+    object-fit: contain;
+  }
+  /* Icon-and-label combinations must fit in the same column width. */
+  .tf-stack-tool:is([data-tool="docker"],[data-tool="codex"],[data-tool="claude"]) {
+    gap: 5px;
+  }
+  .tf-stack-tool:is([data-tool="docker"],[data-tool="codex"],[data-tool="claude"]) .tf-tech-media {
+    flex: 0 0 22px;
+    width: 22px;
+    height: 26px;
+  }
+  .tf-stack-tool[data-tool="docker"] .tf-tech-wordmark {
+    width: 22px;
+    max-width: 22px;
+    height: 25px;
+    max-height: 25px;
+  }
+  .tf-stack-tool .tf-tech-pictogram {
+    width: 22px;
+    height: 22px;
+  }
+  .tf-stack-tool .tf-tool-name {
+    min-width: 0;
+    font-size: clamp(11px, 3.1vw, 14px);
+    letter-spacing: -.035em;
+  }
+}
+@media (max-width: 370px) {
+  .tf-stack-tool { padding-inline: 3px; gap: 3px; }
+  .tf-stack-tool:is(
+    [data-tool="n8n"],[data-tool="supabase"],[data-tool="nextjs"],
+    [data-tool="make"],[data-tool="github"],[data-tool="vercel"]
+  ) .tf-tech-media {
+    flex-basis: 80px;
+    width: min(80px, 100%);
+  }
+  .tf-stack-tool[data-tool="make"] .tf-tech-media {
+    flex-basis: 73px;
+    width: min(73px, 100%);
+  }
+  .tf-stack-tool:is([data-tool="docker"],[data-tool="codex"],[data-tool="claude"]) .tf-tech-media {
+    flex-basis: 18px;
+    width: 18px;
+    height: 22px;
+  }
+  .tf-stack-tool[data-tool="docker"] .tf-tech-wordmark,
+  .tf-stack-tool .tf-tech-pictogram {
+    width: 18px;
+    max-width: 18px;
+    height: 18px;
+  }
+  .tf-stack-tool .tf-tool-name {font-size: 10.5px;}
+}
