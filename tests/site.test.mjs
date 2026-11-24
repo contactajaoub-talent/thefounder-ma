@@ -1,7 +1,7 @@
 import {readFileSync,existsSync} from 'node:fs';
 import assert from 'node:assert/strict';
 import {test} from 'node:test';
-import {pages,assets} from '../scripts/site-files.mjs';
+import {pages,assets,cleanUrlForPage} from '../scripts/site-files.mjs';
 const text=path=>readFileSync(new URL('../'+path,import.meta.url),'utf8');
 const ids=file=>new Set([...text(file).matchAll(/\bid="([^"]+)"/g)].map(x=>x[1]));
 
@@ -9,7 +9,7 @@ test('tous les liens internes, ressources et fragments existent',()=>{
   for(const file of pages){
     for(const m of text(file).matchAll(/\b(?:href|src)="([^"]+)"/g)){
       const href=m[1];if(/^(https?:|mailto:)/.test(href))continue;
-      const [path,hash]=href.replace(/^\//,'').split('#');const target=path||file;
+      const url=new URL(href,'https://thefounder.ma/'+file);const path=url.pathname;const hash=url.hash.slice(1);const target=pages.find(p=>cleanUrlForPage(p)===path)||path.replace(/^\//,'')||file;
       assert.ok(existsSync(new URL('../'+target,import.meta.url)),`${file}: ${href}`);
       if(hash)assert.ok(ids(target).has(hash),`${file}: ancre ${href}`);
     }
@@ -96,9 +96,20 @@ test('page solutions : quatre illustrations animées avec ancrages stables',()=>
   for (const className of ['sv-ai-canvas','sv-flow-visual','sv-software-window','sv-crm-window'])
     assert.ok(html.includes('class="'+className) || html.includes(' '+className+'"'),className);
   assert.equal((html.match(/class="sv-feature"/g)||[]).length,12);
-  assert.ok(html.includes('href="departements.html"'));
+  assert.ok(html.includes('href="/departements"'));
   assert.ok(html.includes('Commençons par votre besoin.'));
   assert.match(css,/@media\(max-width:470px\)/);
   assert.match(css,/@media\(prefers-reduced-motion:reduce\)\{\.sv-page/);
   assert.match(js,/IntersectionObserver/);
+});
+
+test('liens internes sans extension .html',()=>{
+  for(const file of pages){
+    for(const [,href] of text(file).matchAll(/\bhref="([^"]+)"/g))
+      if(!/^(https?:|mailto:|#)/.test(href))
+        assert.doesNotMatch(href,/\.html(?:#|$)/,file+' : '+href);
+  }
+  assert.equal(cleanUrlForPage('index.html'),'/');
+  assert.equal(cleanUrlForPage('solutions.html'),'/solutions');
+  assert.equal(cleanUrlForPage('departements.html'),'/departements');
 });

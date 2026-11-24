@@ -9,3 +9,7 @@ export const securityHeaders = {
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Permissions-Policy': 'camera=(), microphone=(), geolocation=(), payment=()',
 };
+
+/* URL publiques sans extension et noms de fichiers utilisés par le build. */
+export const cleanUrlForPage = file => file === 'index.html' ? '/' : '/' + file.replace(/\.html$/, '');
+export const routedPages = pages.filter(file => file !== 'index.html' && file !== '404.html');

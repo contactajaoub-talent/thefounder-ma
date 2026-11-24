@@ -2,10 +2,11 @@ import http from 'node:http';
 import {readFile, realpath, stat} from 'node:fs/promises';
 import {resolve, extname, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {publicFiles, securityHeaders} from './site-files.mjs';
+import {publicFiles, securityHeaders, routedPages, cleanUrlForPage} from './site-files.mjs';
 const root = resolve(fileURLToPath(new URL('..', import.meta.url)), process.argv.includes('--dist') ? 'dist' : '.');
 const builtHeaders = process.argv.includes('--dist') ? JSON.parse(await readFile(resolve(root, 'build-manifest.json'), 'utf8')).headers : {};
 const allow = new Set([...publicFiles, 'sitemap.xml']);
+const routes = new Map(routedPages.map(file => [cleanUrlForPage(file), file]));
 const mime = {'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.png':'image/png','.svg':'image/svg+xml','.txt':'text/plain; charset=utf-8','.xml':'application/xml; charset=utf-8'};
 const port = Number(process.env.PORT || 4173);
 const server = http.createServer(async (req,res) => {
@@ -17,7 +18,17 @@ const server = http.createServer(async (req,res) => {
   try {
     const pathname = decodeURIComponent(new URL(req.url,'http://localhost').pathname);
     if (pathname.includes('\\') || pathname.includes('\0')) {send(400,'Adresse incorrecte');return;}
-    const relative = pathname === '/' ? 'index.html' : pathname.slice(1);
+    const requestUrl = new URL(req.url,'http://localhost');
+    const requestedFile = pathname.slice(1);
+    let redirect = null;
+    if (pathname === '/index.html') redirect = '/';
+    else if (routedPages.includes(requestedFile)) redirect = cleanUrlForPage(requestedFile);
+    else if (pathname.endsWith('/') && routes.has(pathname.slice(0,-1))) redirect = pathname.slice(0,-1);
+    if (redirect !== null) {
+      res.writeHead(308,{...headers,Location:redirect+requestUrl.search});
+      res.end();return;
+    }
+    const relative = pathname === '/' ? 'index.html' : (routes.get(pathname) || requestedFile);
     if (!allow.has(relative)) {send(404,await readFile(resolve(root,'404.html')),mime['.html']);return;}
     const file = await realpath(resolve(root,relative));
     if (!file.startsWith(root+sep) || !(await stat(file)).isFile()) {send(403,'Accès refusé');return;}

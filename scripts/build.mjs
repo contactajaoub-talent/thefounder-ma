@@ -2,7 +2,7 @@ import {mkdir, readFile, writeFile, lstat, rm} from 'node:fs/promises';
 import {resolve, dirname, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {createHash} from 'node:crypto';
-import {pages, assets, csp, securityHeaders} from './site-files.mjs';
+import {pages, assets, csp, securityHeaders, cleanUrlForPage, routedPages} from './site-files.mjs';
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const explicitProduction = process.argv.includes('--production');
@@ -35,7 +35,7 @@ const website = production ? JSON.stringify({
   publisher:{
     '@type':'Person',
     name:'Othmane Ajaoub',
-    url:origin+'/fondateur.html',
+    url:origin+'/fondateur',
     brand:{'@type':'Brand',name:'TheFounder'}
   },
   about:[
@@ -50,7 +50,7 @@ for (const file of pages) {
   let html = await readFile(resolve(root, file), 'utf8');
   if (production) {
     if ((html.match(/<meta name="robots" content="noindex, nofollow">/g) || []).length !== 1 || /rel="canonical"/.test(html)) throw Error(`Métadonnées sources inattendues : ${file}.`);
-    const path = file === 'index.html' ? '/' : '/'+file;
+    const path = cleanUrlForPage(file);
     html = html.replace('<meta name="robots" content="noindex, nofollow">', `<meta name="robots" content="${file === '404.html' ? 'noindex, follow' : 'index, follow'}">`);
     html = html.replace('content="/assets/og-thefounder.png"', `content="${origin}/assets/og-thefounder.png"`);
     html = html.replace("script-src 'self'", `script-src 'self' 'sha256-${hash}'`);
@@ -61,7 +61,7 @@ for (const file of pages) {
 }
 for (const file of assets) output.set(file, await readFile(resolve(root, file)));
 output.set('robots.txt', production ? `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n');
-output.set('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${production ? pages.filter(x => x !== '404.html').map(x => `<url><loc>${origin}${x === 'index.html' ? '/' : '/'+x}</loc></url>`).join('') : ''}</urlset>\n`);
+output.set('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${production ? pages.filter(x => x !== '404.html').map(x => `<url><loc>${origin}${cleanUrlForPage(x)}</loc></url>`).join('') : ''}</urlset>\n`);
 const headers = {...securityHeaders, 'Content-Security-Policy':policy, ...(production ? {'Strict-Transport-Security':'max-age=31536000'} : {'X-Robots-Tag':'noindex, nofollow'})};
 
 // Never delete through a junction/symlink, or outside this repository.
@@ -92,10 +92,25 @@ const manifest = {mode:production ? 'production' : 'preview', files:[...output.k
 await writeFile(resolve(dist, 'build-manifest.json'), JSON.stringify(manifest, null, 2)+'\n');
 // _headers is useful for portable exports but is not interpreted by Vercel.
 // Build Output API v3 supplies the effective mode-dependent HTTP policy.
+// Vercel Build Output API : anciennes adresses redirigées, nouvelles adresses réécrites.
+const cleanRedirects = [
+  {src:'^/index\\.html$', status:308, headers:{Location:'/'}},
+  ...routedPages.map(file => ({
+    src:'^/'+file.replace('.', '\\.')+'$',status:308,
+    headers:{Location:cleanUrlForPage(file)}
+  })),
+  ...routedPages.map(file => ({
+    src:'^'+cleanUrlForPage(file)+'/$',status:308,
+    headers:{Location:cleanUrlForPage(file)}
+  }))
+];
+const cleanRewrites = routedPages.map(file => ({src:'^'+cleanUrlForPage(file)+'$',dest:'/'+file}));
 const config = {version:3, routes:[
   {src:'/(.*)', headers, continue:true},
+  ...cleanRedirects,
   {src:'/404\\.html', dest:'/404.html', status:404, headers:{'X-Robots-Tag':'noindex, follow'}},
   {handle:'filesystem'},
+  ...cleanRewrites,
   {src:'/(.*)', dest:'/404.html', status:404, headers:{'X-Robots-Tag':'noindex, follow'}},
 ]};
 await writeFile(resolve(adapter, 'config.json'), JSON.stringify(config, null, 2)+'\n');
