@@ -36,6 +36,8 @@ Les dépendances Playwright et axe-core sont uniquement des dépendances de dév
 
 ## Contenu livré
 
+Le [preloader fourni de deux secondes](docs/PRELOADER_INTEGRATION.md) est intégré uniquement à l’accueil. Ses trois images originales, CSS et JS sont dans `assets/preloader/`. `npm run test:preloader` vérifie sa séquence, sa fermeture et ses modes de secours dans le navigateur.
+
 - `index.html` : six sections, structure et identité d’origine conservées.
 - `solutions.html`, `realisations.html`, `fondateur.html`, `methode.html`, `contact.html` : pages secondaires réelles, sans fausse référence ni biographie inventée.
 - `mentions-legales.html`, `confidentialite.html` : notices de revue avec informations confirmées et TODO_CLIENT explicites.

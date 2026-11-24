@@ -26,7 +26,7 @@ Neuf fichiers SVG locaux sont utilisés dans la grille 3 × 3. Aucun logo n’a 
 
 ## TODO_CLIENT — avant publication
 
-Le client a choisi de conserver les visuels Claude et Codex et de fournir une autorisation ou une source officielle couvrant leur usage. Ce choix ne remplace pas une autorisation du titulaire. Les visuels et le comportement restent donc inchangés dans la Preview protégée ; leur usage en production reste bloqué.
+Lors de la première revue, le client souhaitait conserver les visuels Claude et Codex sous réserve de preuve. Sa décision suivante autorise une alternative textuelle pour tout visuel non autorisé ou incertain, avec les neuf noms et la grille 3 × 3 conservés. Cette décision remplace la préférence précédente. Le lot preloader laisse les six sections intactes ; la mise en conformité des visuels fait partie du lot de production restant. Aucune autorisation du titulaire ne doit être inventée.
 
 Nouvelle vérification des sources officielles le 24 novembre 2026 :
 

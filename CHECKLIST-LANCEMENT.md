@@ -37,7 +37,7 @@ Version de revue du 24 novembre 2026, complétée pour la PR #3. **La publicatio
 
 ## Blocages externes
 
-- [ ] Identité légale, adresse, statut et identifiants applicables fournis et confirmés.
+- [ ] Identité, statut, responsables et ICE/IF/TP fournis et intégrés aux notices ; compléter/vérifier les coordonnées postales exactes et les mentions réellement applicables.
 - [x] Hébergeur Vercel et ses coordonnées publiques confirmés. Identité de l’éditeur toujours manquante.
 - [ ] Notice de confidentialité complète, modalités de messagerie et traitements, formalités CNDP et éventuels transferts validés.
 - [ ] Conditions de marque / variante Codex / gris au repos validés. Largeur Make minimale contrôlée à 96 px en mobile.

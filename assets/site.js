@@ -42,5 +42,18 @@
   };
   if (!('IntersectionObserver' in window)) { render(1); return; }
   const observer = new IntersectionObserver(entries => { if (entries.some(e => e.isIntersecting)) { play(); observer.disconnect(); } }, {threshold: .15});
-  observer.observe(section);
+  // Preserve the counters' visible animation after the cosmetic preloader.
+  let observing = false, fallback;
+  const observe = () => {
+    if (observing) return;
+    observing = true;
+    clearTimeout(fallback);
+    document.removeEventListener('thefounder:preloader-ready', observe);
+    observer.observe(section);
+  };
+  if (document.getElementById('thefounder-preloader')) {
+    document.addEventListener('thefounder:preloader-ready', observe, {once:true});
+    // CSS still hides the overlay if its dedicated JavaScript cannot load.
+    fallback = setTimeout(observe, 2000);
+  } else observe();
 })();

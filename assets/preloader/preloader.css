@@ -1,0 +1,142 @@
+/* TheFounder — preloader 2 secondes. Sans bibliothèque ni animation traversant le texte. */
+.tfp-screen,
+.tfp-screen * {box-sizing:border-box}
+.tfp-screen {
+  position:fixed;
+  inset:0;
+  z-index:2147483646;
+  display:grid;
+  place-items:center;
+  width:100%;
+  min-height:100dvh;
+  overflow:hidden;
+  background:
+    radial-gradient(ellipse 45% 50% at 0% 0%, rgba(215,185,255,.32), transparent 78%),
+    radial-gradient(ellipse 40% 48% at 100% 100%, rgba(215,185,255,.29), transparent 78%),
+    #fefcff;
+  animation:tfp-screen-out 2s linear both;
+  isolation:isolate;
+}
+.tfp-screen::before {
+  content:"";
+  position:absolute;
+  width:min(82vw,900px);
+  aspect-ratio:1.6;
+  border-radius:50%;
+  background:radial-gradient(ellipse,rgba(160,104,255,.085),transparent 68%);
+  filter:blur(20px);
+  pointer-events:none;
+}
+.tfp-lockup {
+  position:relative;
+  width:min(91vw,1100px);
+  aspect-ratio:1460 / 270;
+  flex:none;
+  isolation:isolate;
+  transform:translateY(-2vh);
+}
+.tfp-lockup img {
+  position:absolute;
+  display:block;
+  height:auto;
+  max-width:none;
+  user-select:none;
+  -webkit-user-drag:none;
+}
+.tfp-symbol {
+  left:0;
+  top:0;
+  width:23.25%;
+  opacity:0;
+  animation:tfp-symbol-in .57s cubic-bezier(.17,.8,.29,1) .08s forwards;
+}
+/* The supplied symbol PNG includes a caption fragment at its bottom right.
+   Mask only that corner while preserving the complete F and the original file. */
+.tfp-lockup .tfp-symbol {
+  clip-path:polygon(0 0,100% 0,100% 82%,70% 82%,70% 100%,0 100%);
+}
+.tfp-separator {
+  position:absolute;
+  left:23.8%;
+  top:16.8%;
+  height:49%;
+  width:clamp(1px,.28vw,3px);
+  background:#a28de6;
+  opacity:0;
+  transform:scaleY(.4);
+  transform-origin:center;
+  animation:tfp-separator-in .25s ease-out .47s forwards;
+}
+.tfp-wordmark {
+  left:25.9%;
+  top:12.25%;
+  width:73.7%;
+  opacity:0;
+  clip-path:inset(0 100% 0 0);
+  animation:tfp-name-in .63s cubic-bezier(.18,.78,.24,1) .59s forwards;
+}
+.tfp-tagline {
+  left:16.3%;
+  top:76.5%;
+  width:85.2%;
+  opacity:0;
+  transform:translateY(8px);
+  animation:tfp-caption-in .35s ease-out 1.11s forwards;
+}
+.tfp-mobile-caption {display:none}
+.tfp-sr-only {
+  position:absolute;
+  width:1px;
+  height:1px;
+  padding:0;
+  margin:-1px;
+  overflow:hidden;
+  clip:rect(0,0,0,0);
+  white-space:nowrap;
+  border:0;
+}
+@keyframes tfp-symbol-in {
+  0% {opacity:0;transform:translateX(-46px) scale(.985);filter:blur(11px)}
+  65% {opacity:1;filter:blur(1.5px)}
+  100% {opacity:1;transform:translateX(0) scale(1);filter:blur(0)}
+}
+@keyframes tfp-separator-in {
+  from {opacity:0;transform:scaleY(.4)}
+  to {opacity:1;transform:scaleY(1)}
+}
+@keyframes tfp-name-in {
+  0% {opacity:0;clip-path:inset(0 100% 0 0);transform:translateX(9px)}
+  100% {opacity:1;clip-path:inset(0 0 0 0);transform:translateX(0)}
+}
+@keyframes tfp-caption-in {
+  from {opacity:0;transform:translateY(8px)}
+  to {opacity:1;transform:translateY(0)}
+}
+@keyframes tfp-screen-out {
+  0%,90% {opacity:1;visibility:visible;pointer-events:auto}
+  100% {opacity:0;visibility:hidden;pointer-events:none}
+}
+@media(max-width:650px) {
+  .tfp-lockup {width:min(94vw,430px);aspect-ratio:1.44;transform:translateY(-2vh)}
+  .tfp-symbol {width:31%;left:34.5%;top:0}
+  .tfp-separator {display:none}
+  .tfp-wordmark {left:4.5%;width:91%;top:47%}
+  .tfp-lockup .tfp-tagline {display:none}
+  .tfp-mobile-caption {
+    position:absolute;
+    display:block;
+    left:3%;width:94%;top:75%;
+    color:#292038;
+    font:700 clamp(8px,2.15vw,11px)/1.6 system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+    letter-spacing:.075em;
+    text-align:center;
+    opacity:0;
+    animation:tfp-caption-in .35s ease-out 1.11s forwards;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  .tfp-screen {animation:tfp-screen-out .12s linear both!important}
+  .tfp-symbol,.tfp-wordmark,.tfp-tagline,.tfp-separator,.tfp-mobile-caption {
+    animation:none;opacity:1;transform:none;filter:none;clip-path:none;
+  }
+}

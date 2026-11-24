@@ -31,8 +31,8 @@ Revue du 24 novembre 2026 sur `refonte/thefounder-v2`, à partir de `8cc8e4faceb
 
 ## TODO_CLIENT bloquants
 
-- Identité/statut de l’éditeur, adresse professionnelle, responsable de publication et identifiants applicables réellement confirmés.
-- Responsable de traitement, base/finalités, destinataires, conservation, droits, conditions Gmail/Vercel et transferts ; formalités CNDP applicables vérifiées.
-- Droits des neuf marques et variantes affichées. Le client souhaite conserver Claude et Codex. Les sources publiques ne prouvent pas l’autorisation du visuel Claude avec effet gris ni celle du Codex distribué par un tiers. Fournir une autorisation du titulaire ou une règle officielle couvrant précisément ces usages ; voir `LOGOS_ET_DROITS.md`.
+- Mise à jour client : identité, statut d’auto-entrepreneur, activité et responsables confirmés ; ville Rabat communiquée ; ICE/IF/TP relevés dans la capture du guichet fournie et intégrés aux mentions. Compléter/vérifier les coordonnées postales exactes et les mentions réellement applicables.
+- Responsable du traitement Othmane Ajaoub intégré ; sources officielles Vercel/Google ajoutées. Restent les modalités réelles de conservation, destinataires, base juridique et transferts/formalités applicables, sans inventer de preuve CNDP.
+- Mise à jour client : les noms textuels stylisés sont autorisés en remplacement des visuels incertains, tout en conservant les neuf noms et la grille. Le lot preloader conserve les six sections ; appliquer et contrôler cette mise en conformité dans le lot de production. Voir `LOGOS_ET_DROITS.md`.
 
 Après réception des preuves : compléter les notices, documenter les validations, puis seulement refléter leur état dans `config/release.json`. Exécuter les tests et le build Production, vérifier le dossier et les contrôles au SHA exact, passer Ready et fusionner selon l’autorisation conditionnelle existante. Ne pas supprimer la sauvegarde. Vérifier ensuite HTTPS, redirections, huit pages indexables, vraie 404 et absence de fichiers internes sur la Production réellement déployée. Ne jamais promouvoir directement cette Preview non indexable.
