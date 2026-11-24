@@ -338,3 +338,38 @@ html{scroll-padding-top:24px} :focus-visible{outline:3px solid #6040d0;outline-o
   .tf-tech-pictogram{width:21px;height:21px}
 }
 @media(prefers-reduced-motion:reduce){.tf-tech-wordmark,.tf-tech-pictogram,.tf-stack-tool .tf-tool-name{transition:none!important;transform:none!important}}
+
+
+/* S05 — Hover-enabled desktop: neutral grayscale at rest, original allowed colors on interaction. */
+@media (hover:hover) and (pointer:fine) {
+  .tf-stack-tool[data-tool] .tf-tech-wordmark {
+    filter:grayscale(1);
+    opacity:.46;
+  }
+  .tf-stack-tool[data-tool] .tf-tech-pictogram {
+    stroke:#96939d;
+  }
+  .tf-stack-tool[data-tool] .tf-tool-name {
+    color:#77727d;
+  }
+  .tf-stack-tool[data-tool]:hover .tf-tech-wordmark,
+  .tf-stack-tool[data-tool]:focus-visible .tf-tech-wordmark {
+    filter:none;
+    opacity:1;
+    transform:scale(1.035);
+  }
+  .tf-stack-tool[data-tool]:hover .tf-tech-pictogram,
+  .tf-stack-tool[data-tool]:focus-visible .tf-tech-pictogram {
+    stroke:var(--tf-tech-accent);
+  }
+  .tf-stack-tool[data-tool]:hover .tf-tool-name,
+  .tf-stack-tool[data-tool]:focus-visible .tf-tool-name {
+    color:var(--tf-tech-accent);
+  }
+}
+/* Touchscreens show identities without requiring an unavailable hover action. */
+@media (hover:none) {
+  .tf-stack-tool[data-tool] .tf-tech-wordmark {filter:none;opacity:1}
+  .tf-stack-tool[data-tool] .tf-tech-pictogram {stroke:var(--tf-tech-accent)}
+  .tf-stack-tool[data-tool] .tf-tool-name {color:var(--tf-tech-accent)}
+}
