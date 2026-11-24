@@ -1,10 +1,10 @@
-# TheFounder.ma — version locale à valider
+# TheFounder.ma — préparation de la production (PR #3)
 
-Reprise du kit fourni, version 0.2.0 du 24 novembre 2026. L’accueil statique existant a été conservé et finalisé ; aucun changement de framework. **Aucune publication effectuée.**
+Reprise du kit fourni et de la branche `refonte/thefounder-v2`, le 24 novembre 2026. L’accueil statique existant et son identité sont conservés. La production reste sur l’ancienne version tant que les validations ci-dessous manquent. Ne pas supprimer `archive/ancienne-version`.
 
 ## Prévisualiser
 
-Node.js 20 ou plus récent. Aucune dépendance nécessaire à l’exécution du site, au build ou aux tests statiques / HTTP.
+Node.js 24 LTS, comme le projet Vercel existant. Aucune dépendance nécessaire à l’exécution du site, au build ou aux tests statiques / HTTP. Les anciennes dépendances React et Vite ont déjà été retirées.
 
 ```sh
 npm run dev
@@ -20,7 +20,7 @@ npm run build
 npm run preview
 ```
 
-Arrêter le serveur de développement avant `npm run preview` si le port 4173 est déjà utilisé. Le build par défaut produit `dist/` en mode **preview non indexable**. Ne pas envoyer tout le projet à un hébergeur : seul `dist/` contient les fichiers prévus pour l’affichage.
+Arrêter le serveur de développement avant `npm run preview` si le port 4173 est déjà utilisé. Le build local et Vercel Preview produit `dist/` en mode **preview non indexable**. Sur Vercel Production (`VERCEL_ENV` ou `VERCEL_TARGET_ENV=production`), la commande habituelle exécute obligatoirement les protections de production. `--preview` ne peut pas les désactiver. Le serveur local reste toujours non indexable.
 
 Pour des tests navigateur reproductibles sur un autre poste :
 
@@ -32,7 +32,7 @@ npm run dev
 npm run test:browser
 ```
 
-Les dépendances Playwright et axe-core sont uniquement des dépendances de développement. Le script QA accepte `BASE_URL`, `BROWSER_EXECUTABLE`, `PLAYWRIGHT_MODULE_PATH` et `AXE_SOURCE_PATH` pour réutiliser un navigateur / runtime installé. Les résultats et captures sont dans `docs/qa/`.
+Les dépendances Playwright et axe-core sont uniquement des dépendances de développement. Le script QA accepte `BASE_URL`, `BROWSER_EXECUTABLE`, `PLAYWRIGHT_MODULE_PATH`, `AXE_SOURCE_PATH` et `QA_OUTPUT_DIR`. Par défaut, les résultats sont dans `docs/qa/`. Pour une Preview protégée, utiliser le jeton OIDC temporaire du même projet via `vercel env run` ; le test l’envoie uniquement à l’origine contrôlée et n’enregistre aucune valeur de cookie ni de jeton. Ne pas désactiver la protection Vercel.
 
 ## Contenu livré
 
@@ -49,10 +49,10 @@ Les dépendances Playwright et axe-core sont uniquement des dépendances de dév
 
 ## Publication : validation préalable obligatoire
 
-Le domaine est une cible envisagée ; sa propriété, son origine canonique HTTPS et l’hébergement ne sont pas confirmés. Compléter d’abord les pages légales et la confidentialité, valider les droits de marque et obtenir l’accord explicite de publication. Consulter [TODO_CLIENT](TODO_CLIENT.md) et la [checklist](CHECKLIST-LANCEMENT.md).
+Le domaine canonique `https://thefounder.ma` et son rattachement au projet existant `thefounder-ma-pcwy` sont confirmés. Compléter les pages légales et la confidentialité et justifier les droits de marque. L’autorisation de fusion/publication donnée dans la demande est conditionnelle à la validation complète : tant que ces conditions manquent, conserver la PR #3 en brouillon et ne pas fusionner. Consulter [TODO_CLIENT](TODO_CLIENT.md), [la checklist](CHECKLIST-LANCEMENT.md) et [le contrôle de production](docs/VALIDATION_PRODUCTION_PR3.md).
 
-`config/release.json` conserve toutes les autorisations à `false` et `siteOrigin` à `null`. `npm run build:production` échoue volontairement tant que ces validations manquent ou que les pages légales contiennent encore `TODO_CLIENT`. Il ne déploie rien, même une fois autorisé : il génère seulement les fichiers locaux, les canonical, OG absolus, WebSite JSON-LD, robots et sitemap.
+`config/release.json` conserve les quatre autorisations à `false` et renseigne seulement l’origine confirmée. `npm run build:production` échoue volontairement tant que les validations ne valent pas strictement `true` ou que les pages légales contiennent `TODO_CLIENT`. Un test positif utilise exclusivement une fixture jetable avec `example.invalid` : il ne constitue aucune autorisation réelle. Une fois autorisé, le build produit canonical, OG absolus, WebSite JSON-LD avec empreinte CSP, robots et sitemap ; il ne déploie rien.
 
-Le fichier `_headers` doit être pris en charge ou traduit dans la configuration de l’hébergeur choisi. Configurer une vraie 404 et vérifier HTTPS / redirections. `noindex` n’est pas un contrôle d’accès : tout preview distant contenant des données internes doit aussi être protégé par l’hébergeur.
+`vercel.json` surcharge l’ancien preset Vite uniquement pour ce code : framework statique, `npm ci --omit=dev --ignore-scripts`, `npm run build`, export `dist/`. Le build copie uniquement les pages et ressources autorisées dans `.vercel/output/static` et génère les routes/en-têtes effectifs via [Build Output API v3](https://vercel.com/docs/build-output-api). Le fichier portable `dist/_headers` n’est pas interprété par Vercel. Le manifeste et `_headers` ne font pas partie du site servi ; docs, configuration, sources internes et modèles commerciaux n’y sont jamais copiés. Les deux sorties sont nettoyées à chaque build réussi, sans suivre de lien symbolique. Les routes absentes et `/404.html` répondent 404. Aucun catch-all vers l’accueil.
 
-Seul le contact `contactajaoub@gmail.com` est confirmé. Aucun paiement, envoi de message, modification DNS ou déploiement n’a été effectué.
+Le site reste entièrement modifiable en HTML/CSS/JS. Aucun nouveau dépôt/projet, changement DNS, facturation ou affaiblissement des protections n’est nécessaire. Après validation réelle seulement : rerun tests et build Production, pousser, contrôler le SHA exact de la PR, passer Ready, fusionner sans supprimer la sauvegarde puis vérifier le déploiement Production et ses URL. Ne jamais promouvoir une Preview non indexable.

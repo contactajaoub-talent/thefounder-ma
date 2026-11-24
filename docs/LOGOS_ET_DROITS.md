@@ -26,4 +26,15 @@ Neuf fichiers SVG locaux sont utilisés dans la grille 3 × 3. Aucun logo n’a 
 
 ## TODO_CLIENT — avant publication
 
-Valider les droits et variantes de marque, en particulier Claude et le filtre gris demandé. Confirmer ou fournir le SVG Codex officiel approuvé, ou autoriser la variante distribuée par LobeHub après vérification. Aucun message à un éditeur n’a été envoyé. Le build de production reste bloqué tant que `brandUseApproved` n’est pas explicitement confirmé, en plus des autres validations.
+Le client a choisi de conserver les visuels Claude et Codex et de fournir une autorisation ou une source officielle couvrant leur usage. Ce choix ne remplace pas une autorisation du titulaire. Les visuels et le comportement restent donc inchangés dans la Preview protégée ; leur usage en production reste bloqué.
+
+Nouvelle vérification des sources officielles le 24 novembre 2026 :
+
+- [Anthropic — Trademark Guidelines](https://www.anthropic.com/legal/trademark-guidelines) : autorisation spécifique et matériaux approuvés ; pas d’altération de couleur. Le kit de presse ne fournit pas une preuve couvrant la grille commerciale actuelle avec filtre CSS. Une autorisation couvrant le visuel exact, le contexte et ses états est encore nécessaire.
+- [OpenAI — Design Guidelines et Usage terms](https://openai.com/brand/) : usage limité aux règles, logo fourni tel quel, pas de suggestion d’approbation ni de modification. Cette page ne prouve pas que le pictogramme Codex du distributeur LobeHub soit une variante officielle autorisée pour cet usage. Obtenir un actif officiel et une règle applicable ou une autorisation portant sur la variante et la présentation exactes.
+- [Vercel et Next.js](https://vercel.com/geist/brands) : ressources et cadre d’usage publiés, sans modification ni confusion sur une affiliation. Le noir reste noir au survol.
+- [GitHub](https://brand.github.com/foundations/logo) : lockup officiel ; préserver proportions, lisibilité, marges et couleurs autorisées. Pas de partenariat revendiqué.
+- [Docker](https://www.docker.com/company/newsroom/media-resources/) : taille minimale du symbole 24 px, espaces de protection et variantes prescrites ; vérifier également les règles de marque liées à cette page pour l’usage commercial et le gris au repos.
+- [n8n](https://guidelines.n8n.design/), [Supabase](https://supabase.com/brand), [Make](https://cdn.make.com/cms/documents/brand-guidelines.pdf) : fichiers/consignes disponibles, mais leur disponibilité seule ne valide pas toutes les variantes CSS utilisées. Contrôler ces états dans la validation finale des neuf marques.
+
+Aucun message à un éditeur n’a été envoyé. Aucune autorisation générale n’est déduite du téléchargement d’un SVG. `brandUseApproved` demeure `false` jusqu’à preuve couvrant les neuf usages réellement affichés.

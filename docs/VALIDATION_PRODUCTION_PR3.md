@@ -1,0 +1,37 @@
+# Préparation de la production — PR #3
+
+Revue du 24 novembre 2026 sur `refonte/thefounder-v2`, à partir de `8cc8e4facebfed03e0468399eab105ae1e074492`. La demande autorise une fusion et une publication **seulement après validation complète**. Cette condition n’est pas remplie. Conserver la PR en brouillon ; ne pas fusionner ni promouvoir la Preview.
+
+## Infrastructure inspectée
+
+- Dépôt et projet existants : `contactajaoub-talent/thefounder-ma`, `thefounder-ma-pcwy`.
+- Production : `main`, commit `484ca41ca6fb01a21713bebb6ee5d6a91d9d06d3` ; sauvegarde `archive/ancienne-version` au même commit.
+- Origine confirmée : `https://thefounder.ma`. Les deux domaines `thefounder.ma` et `www.thefounder.ma` sont vérifiés dans Vercel.
+- Réglages globaux historiques : preset Vite, Node 24.x, racine du dépôt, pas de surcharge build/output/install. Ils n’ont pas été modifiés. La configuration du nouveau site est versionnée dans `vercel.json` et s’applique à ses déploiements.
+- Protection Preview conservée (`all_except_custom_domains`). Aucun changement de DNS, de facturation, de secret ni de variable d’environnement persistante.
+
+## Corrections
+
+1. Le build habituel reconnaît Vercel Production, applique les validations réelles et ne peut pas être forcé en Preview. Les quatre autorisations sont vérifiées avec `=== true` ; une chaîne `"true"` est refusée. L’origine confirmée est renseignée ; aucune autorisation n’a été activée.
+2. `dist/` est l’export statique. Un adaptateur [Build Output API v3](https://vercel.com/docs/build-output-api) copie uniquement les fichiers publics dans `.vercel/output/static` et fournit les en-têtes effectifs à Vercel. `_headers` n’y suffit pas à lui seul et n’est pas servi au public, de même que le manifeste.
+3. Les sorties sont nettoyées avant écriture après validation des entrées ; chemins limités au dépôt, liens symboliques refusés. Aucun fichier interne ou ancien reliquat n’entre dans l’export Vercel.
+4. CSP restrictive, `nosniff`, anti-framing, politique de référent et permissions ; HSTS en Production. La CSP autorise uniquement l’empreinte du JSON-LD généré. Les erreurs et `/404.html` répondent avec un vrai statut 404 et restent non indexables.
+5. En Production validée : canonical et OG absolus, huit URL HTTPS dans le sitemap, robots ouvert, `index, follow` sur les pages publiques. Preview : robots fermé, sitemap vide, méta/en-tête `noindex`. Le serveur de revue local reste volontairement non indexable.
+6. Hébergement Vercel et coordonnées de correspondance publiées par ses [conditions officielles](https://vercel.com/legal/terms) ajoutés aux mentions ; hébergement et messagerie réellement connus précisés dans la confidentialité. Aucune identité de l’éditeur ni durée de conservation n’a été inventée.
+7. UI, textes commerciaux, six sections, navigation, logos, CSS, JS et animations conservés. Aucune dépendance React/Vite à réintroduire : le site statique ne nécessite aucune dépendance runtime. Playwright et axe-core sont uniquement destinés aux tests.
+
+## Contrôles locaux
+
+- `npm.cmd test` : 12 tests réussis, dont production positive sur fixture jetable `example.invalid`, blocages légaux, refus d’une fausse validation, détection du mode Production Vercel, cohérence CSP/JSON-LD, sitemap et nettoyage des fichiers périmés.
+- Navigateur Chrome : 54 contrôles de pages à six largeurs (320–1920 px), neuf pages ; 18 audits axe, aucune violation détectée. Menu mobile et clavier, focus, CTA mailto sans envoi, navigation sans JS, compteurs et mouvement réduit, grille 3 × 3, couleurs au survol/focus et tactile vérifiés.
+- Les quatre statistiques restent attribuées à des études externes avec population et limites ; revue des sources QJE, MIT/Science, Capgemini (figure 16 : réalisé **ou attendu**) et INFORMS. Voir `SOURCES_STATISTIQUES.md`.
+- `npm.cmd run build:production` réel doit rester en échec tant que les conditions suivantes manquent. Le succès de la fixture ne valide pas le site juridiquement.
+- La Preview du commit poussé doit ensuite être vérifiée : état Ready, statut GitHub, en-têtes réels, navigation et non-exposition des fichiers internes. Conserver les preuves hors de l’export public.
+
+## TODO_CLIENT bloquants
+
+- Identité/statut de l’éditeur, adresse professionnelle, responsable de publication et identifiants applicables réellement confirmés.
+- Responsable de traitement, base/finalités, destinataires, conservation, droits, conditions Gmail/Vercel et transferts ; formalités CNDP applicables vérifiées.
+- Droits des neuf marques et variantes affichées. Le client souhaite conserver Claude et Codex. Les sources publiques ne prouvent pas l’autorisation du visuel Claude avec effet gris ni celle du Codex distribué par un tiers. Fournir une autorisation du titulaire ou une règle officielle couvrant précisément ces usages ; voir `LOGOS_ET_DROITS.md`.
+
+Après réception des preuves : compléter les notices, documenter les validations, puis seulement refléter leur état dans `config/release.json`. Exécuter les tests et le build Production, vérifier le dossier et les contrôles au SHA exact, passer Ready et fusionner selon l’autorisation conditionnelle existante. Ne pas supprimer la sauvegarde. Vérifier ensuite HTTPS, redirections, huit pages indexables, vraie 404 et absence de fichiers internes sur la Production réellement déployée. Ne jamais promouvoir directement cette Preview non indexable.

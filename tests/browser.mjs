@@ -8,18 +8,30 @@ const require=createRequire(import.meta.url);
 const {chromium}=process.env.PLAYWRIGHT_MODULE_PATH?require(process.env.PLAYWRIGHT_MODULE_PATH):require('playwright');
 const axe=await readFile(process.env.AXE_SOURCE_PATH||require.resolve('axe-core/axe.min.js'),'utf8');
 const root=fileURLToPath(new URL('..',import.meta.url));
-const out=resolve(root,'docs/qa');await mkdir(out,{recursive:true});
+const out=resolve(process.env.QA_OUTPUT_DIR || resolve(root,'docs/qa'));await mkdir(out,{recursive:true});
 const base=process.env.BASE_URL||'http://127.0.0.1:4173';
 const result={browser:'Chromium',base,widths:[320,375,768,1024,1440,1920],pageChecks:[],accessibility:[],errors:[],checks:[],performance:null};
 const browser=await chromium.launch({headless:true,...(process.env.BROWSER_EXECUTABLE?{executablePath:process.env.BROWSER_EXECUTABLE}:{})});
+// A temporary same-project OIDC token may authenticate a protected Preview.
+// Scope it to the exact origin, never to third-party requests or artifacts.
+async function newContext(options) {
+  const context = await browser.newContext(options);
+  if (process.env.VERCEL_OIDC_TOKEN) await context.route('**/*', route => {
+    const headers = {...route.request().headers()};
+    if (new URL(route.request().url()).origin === new URL(base).origin) headers['x-vercel-trusted-oidc-idp-token'] = process.env.VERCEL_OIDC_TOKEN;
+    return route.continue({headers});
+  });
+  return context;
+}
 try{
-  const context=await browser.newContext();const page=await context.newPage();
+  const context=await newContext();const page=await context.newPage();
   page.on('pageerror',e=>result.errors.push(e.message));
-  page.on('console',m=>{if(m.type()==='error')result.errors.push(m.text())});
+  page.on('console',m=>{if(m.type()==='error' && !(m.text().includes('404') && new URL(m.location().url || base).pathname === '/404.html'))result.errors.push(m.text())});
   for(const width of result.widths){
     await page.setViewportSize({width,height:900});
     for(const file of pages){
-      await page.goto(base+'/'+(file==='index.html'?'':file));
+      const response=await page.goto(base+'/'+(file==='index.html'?'':file));
+      assert.equal(response.status(),file==='404.html'?404:200,`HTTP ${file}`);
       await page.locator('main').waitFor();
       const sizes=await page.evaluate(()=>({width:innerWidth,scroll:document.documentElement.scrollWidth,h1:document.querySelectorAll('h1').length,broken:[...document.images].filter(x=>x.complete&&!x.naturalWidth).map(x=>x.src)}));
       assert.ok(sizes.scroll<=width,`${file} déborde à ${width}: ${sizes.scroll}`);assert.equal(sizes.h1,1);assert.deepEqual(sizes.broken,[]);
@@ -63,7 +75,7 @@ try{
   await page.locator('[data-tool="supabase"]').hover();await page.waitForTimeout(300);assert.equal(await logo.evaluate(x=>getComputedStyle(x).filter),'none');
   await page.mouse.move(0,0);await page.locator('[data-tool="supabase"]').focus();await page.waitForTimeout(300);assert.equal(await logo.evaluate(x=>getComputedStyle(x).filter),'none');
   result.checks.push('Logos gris au repos et authentiques au survol et au focus');
-  const touch=await browser.newContext({viewport:{width:375,height:812},hasTouch:true,isMobile:true});const touchPage=await touch.newPage();await touchPage.goto(base);await touchPage.locator('#technologies').scrollIntoViewIfNeeded();assert.equal(await touchPage.locator('[data-tool="supabase"] img').evaluate(x=>getComputedStyle(x).filter),'none');await touch.close();
+  const touch=await newContext({viewport:{width:375,height:812},hasTouch:true,isMobile:true});const touchPage=await touch.newPage();await touchPage.goto(base);await touchPage.locator('#technologies').scrollIntoViewIfNeeded();assert.equal(await touchPage.locator('[data-tool="supabase"] img').evaluate(x=>getComputedStyle(x).filter),'none');await touch.close();
   result.checks.push('Couleurs des logos sur appareil tactile');
   // Accessibility engine in the real browser, across all pages, at desktop and mobile.
   for(const width of [375,1440]){
@@ -83,10 +95,10 @@ try{
     await page.goto(base+'/solutions.html');await page.screenshot({path:resolve(out,`solutions-${label}.png`),fullPage:true});
   }
   // No-JS navigation and meaningful counters.
-  const nojs=await browser.newContext({javaScriptEnabled:false,viewport:{width:375,height:812}});const nojsPage=await nojs.newPage();await nojsPage.goto(base);assert.ok(await nojsPage.locator('.nav a').first().isVisible());assert.equal(await nojsPage.locator('.impact-number[data-target="15"]').textContent(),'+15');await nojsPage.locator('.cta-secondary').click();assert.match(nojsPage.url(),/realisations.html$/);await nojs.close();
+  const nojs=await newContext({javaScriptEnabled:false,viewport:{width:375,height:812}});const nojsPage=await nojs.newPage();await nojsPage.goto(base);assert.ok(await nojsPage.locator('.nav a').first().isVisible());assert.equal(await nojsPage.locator('.impact-number[data-target="15"]').textContent(),'+15');await nojsPage.locator('.cta-secondary').click();assert.match(nojsPage.url(),/realisations.html$/);await nojs.close();
   result.checks.push('Navigation et chiffres utilisables sans JavaScript');
   // Observe only the first-party static document, without claiming lab scores.
-  await page.goto(base);result.performance=await page.evaluate(()=>({navigation:performance.getEntriesByType('navigation').map(x=>({domContentLoaded:x.domContentLoadedEventEnd,load:x.loadEventEnd,transferSize:x.transferSize})),resources:performance.getEntriesByType('resource').map(x=>({name:x.name,transferSize:x.transferSize})),cookies:document.cookie,storageKeys:Object.keys(localStorage)}));
+  await page.goto(base);result.performance=await page.evaluate(()=>({navigation:performance.getEntriesByType('navigation').map(x=>({domContentLoaded:x.domContentLoadedEventEnd,load:x.loadEventEnd,transferSize:x.transferSize})),resources:performance.getEntriesByType('resource').map(x=>({name:x.name,transferSize:x.transferSize})),cookieNames:document.cookie.split(';').filter(Boolean).map(x=>x.split('=')[0].trim()),storageKeys:Object.keys(localStorage)}));
   result.checks.push('Ressources locales, pas de cookie ni stockage local');
   assert.deepEqual(result.errors,[],'Erreurs navigateur');
   const violations=result.accessibility.flatMap(x=>x.violations.map(v=>({file:x.file,width:x.width,...v})));
