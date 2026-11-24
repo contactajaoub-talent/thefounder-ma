@@ -18,7 +18,7 @@ test('tous les liens internes, ressources et fragments existent',()=>{
 test('SEO local : titres et descriptions distincts avec ciblage Maroc',()=>{
   for(const file of ['index.html','solutions.html','realisations.html','fondateur.html','methode.html','contact.html']){
     const html=text(file);
-    const title=html.match(/<title>([^<]+)<\\/title>/)?.[1];
+    const title=html.match(/<title>([^<]+)<\/title>/)?.[1];
     const description=html.match(/<meta name="description" content="([^"]+)"/)?.[1];
     assert.ok(title?.includes('Maroc'),file+' : titre');
     assert.ok(description?.includes('Maroc')||description?.includes('marocaines'),file+' : description');
