@@ -30,6 +30,11 @@ test('SEO de production et retour en preview sur fixture isolée, sans autorisat
     assert.match(html,/content="https:\/\/example.invalid\/assets\/og-thefounder.png"/);
     const data=html.match(/<script type="application\/ld\+json">([^<]+)<\/script>/)[1];
     assert.equal(JSON.parse(data)['@type'],'WebSite');
+    assert.equal(JSON.parse(data).inLanguage,'fr-MA');
+    assert.equal(JSON.parse(data).publisher.name,'Othmane Ajaoub');
+    assert.equal(JSON.parse(data).publisher.brand.name,'TheFounder');
+    assert.equal(JSON.parse(data).about.length,3);
+    assert.ok(JSON.parse(data).description.includes('Maroc'));
     assert.ok(html.includes("'sha256-"+createHash('sha256').update(data).digest('base64')+"'"));
     const sitemap=await readFile(resolve(fixture,'dist/sitemap.xml'),'utf8');assert.equal((sitemap.match(/<url>/g)||[]).length,8);assert.ok(!sitemap.includes('404.html'));
     assert.match(await readFile(resolve(fixture,'dist/robots.txt'),'utf8'),/Allow: \//);

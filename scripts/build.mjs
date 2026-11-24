@@ -25,7 +25,25 @@ if (production) {
 
 // Prepare and validate all inputs before replacing the generated outputs.
 const output = new Map();
-const website = production ? JSON.stringify({'@context':'https://schema.org', '@type':'WebSite', name:'TheFounder', url:origin+'/', inLanguage:'fr-MA'}) : null;
+const website = production ? JSON.stringify({
+  '@context':'https://schema.org',
+  '@type':'WebSite',
+  name:'TheFounder',
+  url:origin+'/',
+  inLanguage:'fr-MA',
+  description:'Logiciels sur mesure, automatisation et solutions IA pour les entreprises au Maroc.',
+  publisher:{
+    '@type':'Person',
+    name:'Othmane Ajaoub',
+    url:origin+'/fondateur.html',
+    brand:{'@type':'Brand',name:'TheFounder'}
+  },
+  about:[
+    {'@type':'Service',name:'Logiciels métier sur mesure',areaServed:'Maroc'},
+    {'@type':'Service',name:'Automatisation des processus métier',areaServed:'Maroc'},
+    {'@type':'Service',name:'Intégration d’intelligence artificielle',areaServed:'Maroc'}
+  ]
+}) : null;
 const hash = website ? createHash('sha256').update(website).digest('base64') : null;
 const policy = hash ? csp.replace("script-src 'self'", `script-src 'self' 'sha256-${hash}'`) : csp;
 for (const file of pages) {

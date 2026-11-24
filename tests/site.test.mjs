@@ -15,6 +15,18 @@ test('tous les liens internes, ressources et fragments existent',()=>{
     }
   }
 });
+test('SEO local : titres et descriptions distincts avec ciblage Maroc',()=>{
+  for(const file of ['index.html','solutions.html','realisations.html','fondateur.html','methode.html','contact.html']){
+    const html=text(file);
+    const title=html.match(/<title>([^<]+)<\\/title>/)?.[1];
+    const description=html.match(/<meta name="description" content="([^"]+)"/)?.[1];
+    assert.ok(title?.includes('Maroc'),file+' : titre');
+    assert.ok(description?.includes('Maroc')||description?.includes('marocaines'),file+' : description');
+    assert.ok(html.includes(`<meta property="og:title" content="${title}"`),file+' : og:title');
+    assert.ok(html.includes(`<meta property="og:description" content="${description}"`),file+' : og:description');
+  }
+});
+
 test('métadonnées uniques et aucune interception de lien ni code en ligne',()=>{
   const titles=new Set();
   for(const file of pages){const html=text(file);
