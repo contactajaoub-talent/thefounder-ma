@@ -1,0 +1,466 @@
+{
+  "browser": "Chromium",
+  "base": "http://127.0.0.1:4175",
+  "widths": [
+    320,
+    375,
+    768,
+    1024,
+    1440,
+    1920
+  ],
+  "pageChecks": [
+    {
+      "file": "index.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "solutions.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "realisations.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "fondateur.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "methode.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "contact.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "404.html",
+      "width": 320,
+      "pass": true
+    },
+    {
+      "file": "index.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "solutions.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "realisations.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "fondateur.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "methode.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "contact.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "404.html",
+      "width": 375,
+      "pass": true
+    },
+    {
+      "file": "index.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "solutions.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "realisations.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "fondateur.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "methode.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "contact.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "404.html",
+      "width": 768,
+      "pass": true
+    },
+    {
+      "file": "index.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "solutions.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "realisations.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "fondateur.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "methode.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "contact.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "404.html",
+      "width": 1024,
+      "pass": true
+    },
+    {
+      "file": "index.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "solutions.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "realisations.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "fondateur.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "methode.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "contact.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "404.html",
+      "width": 1440,
+      "pass": true
+    },
+    {
+      "file": "index.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "solutions.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "realisations.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "fondateur.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "methode.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "contact.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 1920,
+      "pass": true
+    },
+    {
+      "file": "404.html",
+      "width": 1920,
+      "pass": true
+    }
+  ],
+  "accessibility": [
+    {
+      "file": "index.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "solutions.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "realisations.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "fondateur.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "methode.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "contact.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "404.html",
+      "width": 375,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "index.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "solutions.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "realisations.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "fondateur.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "methode.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "contact.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "mentions-legales.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "confidentialite.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    },
+    {
+      "file": "404.html",
+      "width": 1440,
+      "violations": [],
+      "incomplete": [
+        "color-contrast"
+      ]
+    }
+  ],
+  "errors": [],
+  "checks": [
+    "54 contrôles de pages à 320/375/768/1024/1440/1920 px, logos et grille 3 × 3",
+    "Menu mobile, activation clavier, Échap et retour focus, fermeture après ancre, pages et offres",
+    "Clic CTA vers mailto et objet exact, sans envoi ni ouverture de messagerie",
+    "Compteurs au scroll, valeur française, une seule exécution, animations réduites",
+    "Logos gris au repos et authentiques au survol et au focus",
+    "Couleurs des logos sur appareil tactile",
+    "Navigation et chiffres utilisables sans JavaScript",
+    "Ressources locales, pas de cookie ni stockage local"
+  ],
+  "performance": {
+    "navigation": [
+      {
+        "domContentLoaded": 69.80000000447035,
+        "load": 75.80000000447035,
+        "transferSize": 22384
+      }
+    ],
+    "resources": [
+      {
+        "name": "http://127.0.0.1:4175/assets/site.css",
+        "transferSize": 29941
+      },
+      {
+        "name": "http://127.0.0.1:4175/assets/site.js",
+        "transferSize": 2928
+      },
+      {
+        "name": "http://127.0.0.1:4175/assets/brand-mark.png",
+        "transferSize": 14195
+      }
+    ],
+    "cookies": "",
+    "storageKeys": []
+  }
+}

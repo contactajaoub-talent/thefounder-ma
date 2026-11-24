@@ -1,0 +1,20 @@
+# TODO_CLIENT — éléments à fournir ou à valider
+
+État actualisé au 24 novembre 2026. L’accord de publication, l’identification de l’éditeur et la présentation des technologies sont validés sur les éléments confirmés. Le dossier de confidentialité reste ouvert ; le client confirme qu’aucune démarche CNDP n’a encore été faite. Voir `docs/CNDP_AVANT_PUBLICATION.md`.
+
+| Priorité | Élément | Réponse / preuve attendue | Effet |
+| --- | --- | --- | --- |
+| Confirmé | Identité de l’éditeur | Othmane Ajaoub, TheFounder, auto-entrepreneur inscrit au Maroc ; conseil, hébergement et développement informatique ; responsable de publication et de traitement : Othmane Ajaoub. Adresse confirmée : AV MED V, 11102 Rabat, Maroc | Identification intégrée aux notices, sans inventer de précision supplémentaire |
+| Confirmé | Identifiants administratifs | ICE, IF et TP relevés dans la capture fournie par le client et intégrés aux mentions | Aucun numéro inventé ; le numéro de dossier n’est pas présenté comme une autre immatriculation et la capture du compte reste hors du dépôt |
+| Confirmé techniquement | Domaine et hébergement | `https://thefounder.ma`, projet Vercel existant `thefounder-ma-pcwy` ; domaines vérifiés dans le compte. Prestataire Vercel, Inc., coordonnées publiques ajoutées aux mentions | Origine renseignée ; SEO et headers Production générés seulement après validation réelle |
+| Avant publication | Données personnelles | Responsable confirmé : Othmane Ajaoub ; contact par Gmail, sans formulaire ni suivi dans le code. Hébergeur Vercel et traitements techniques documentés par sa notice officielle. Restent : base juridique et modalités réelles, destinataires autorisés, conservations des échanges/journaux, transferts et formalités CNDP applicables | Les informations confirmées et sources Vercel/Google sont intégrées à `confidentialite.html`, sans inventer de durée ni d’accomplissement réglementaire |
+| Traité | Logos et marques | Neuf noms textuels, sans visuel tiers, dans la typographie du site ; usage réel et alternative confirmés par le client ; indépendance explicite | Grille 3 × 3 et liens préservés ; anciens SVG retirés du code et de l’export ; contrôles navigateur réussis ; brandUseApproved=true |
+| Contrôlé techniquement | Revue visuelle et éditoriale | Design initial et six sections conservés ; alternative textuelle autorisée et preloader fourni intégré | Tests responsive, clavier, navigation et accessibilité exécutés ; aucune référence client ou statistique inventée |
+| Acquis | Autorisation de publication | Ordre explicite et réitéré du client de publier sur main, après validations sans contournement | publicationApproved=true ; aucune nouvelle permission de publication à demander. La validation de confidentialité manque encore |
+| Avant émission commerciale | Régime fiscal et clauses | Validation du statut, traitement TVA / taxes, mentions, numérotation, acomptes, délais, propriété intellectuelle, responsabilité et maintenance | Modèles de devis / facture non contractualisés jusque-là |
+| Avant encaissement | Paiement | Moyen d’encaissement et coordonnées bancaires vérifiées ; acceptation éventuelle de l’acompte proposé de 50 % | Aucune donnée bancaire préremplie ni paiement créé |
+| Avant prospection réelle | Règles d’usage CRM | Sources permises, accès, conservation, oppositions, messages et destinataires validés | CSV vide, aucun prospect inventé ni message envoyé |
+| Facultatif, avant publication de cas | Réalisations | Preuves de projets réels, rôle exact, autorisations clients, captures et résultats vérifiables | Aucun cas client affiché tant que ces preuves manquent |
+| Facultatif, avant biographie | Fondateur | Nom et portrait autorisés, biographie validée ; éventuel récit Othmane / Talentiques / recommencements | Page actuelle limitée à la démarche professionnelle, aucune citation personnelle inventée |
+
+Les valeurs `legalApproved`, `privacyApproved`, `brandUseApproved`, `siteOrigin` et `publicationApproved` du fichier `config/release.json` doivent refléter ces validations effectives. Ne pas les modifier simplement pour faire passer un build.

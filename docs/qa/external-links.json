@@ -1,0 +1,89 @@
+{
+  "checkedOn": "2026-11-24",
+  "results": [
+    {
+      "url": "https://claude.ai/",
+      "status": 403,
+      "finalURL": "https://claude.ai/",
+      "ok": false
+    },
+    {
+      "url": "https://doi.org/10.1093/qje/qjae044",
+      "status": 403,
+      "finalURL": "https://academic.oup.com/qje/article/140/2/889/7990658",
+      "ok": false
+    },
+    {
+      "url": "https://github.com/",
+      "status": 200,
+      "finalURL": "https://github.com/",
+      "ok": true
+    },
+    {
+      "url": "https://n8n.io/",
+      "status": 200,
+      "finalURL": "https://n8n.io/",
+      "ok": true
+    },
+    {
+      "url": "https://news.mit.edu/2023/study-finds-chatgpt-boosts-worker-productivity-writing-0714",
+      "status": 200,
+      "finalURL": "https://news.mit.edu/2023/study-finds-chatgpt-boosts-worker-productivity-writing-0714",
+      "ok": true
+    },
+    {
+      "url": "https://nextjs.org/",
+      "status": 200,
+      "finalURL": "https://nextjs.org/",
+      "ok": true
+    },
+    {
+      "url": "https://openai.com/codex/",
+      "status": 200,
+      "finalURL": "https://openai.com/codex/",
+      "ok": true
+    },
+    {
+      "url": "https://pubsonline.informs.org/doi/10.1287/orsc.2025.21838",
+      "status": 403,
+      "finalURL": "https://pubsonline.informs.org/doi/10.1287/orsc.2025.21838",
+      "ok": false
+    },
+    {
+      "url": "https://supabase.com/",
+      "status": 200,
+      "finalURL": "https://supabase.com/",
+      "ok": true
+    },
+    {
+      "url": "https://vercel.com/",
+      "status": 200,
+      "finalURL": "https://vercel.com/",
+      "ok": true
+    },
+    {
+      "url": "https://www.capgemini.com/wp-content/uploads/2025/07/30062025-Digital-AI-in-Business-Operation-CRI_V6.pdf#page=38",
+      "status": 200,
+      "finalURL": "https://www.capgemini.com/wp-content/uploads/2025/07/30062025-Digital-AI-in-Business-Operation-CRI_V6.pdf",
+      "ok": true
+    },
+    {
+      "url": "https://www.cndp.ma/",
+      "status": 200,
+      "finalURL": "https://www.cndp.ma/",
+      "ok": true
+    },
+    {
+      "url": "https://www.docker.com/",
+      "status": 200,
+      "finalURL": "https://www.docker.com/",
+      "ok": true
+    },
+    {
+      "url": "https://www.make.com/",
+      "status": 200,
+      "finalURL": "https://www.make.com/",
+      "ok": true
+    }
+  ]
+}

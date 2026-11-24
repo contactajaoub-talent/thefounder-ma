@@ -1,0 +1,1447 @@
+[
+  {
+    "id": "color-contrast",
+    "nodes": [
+      {
+        "html": "<span class=\"brand-name\">The<span>Founder</span><span class=\"dot\">.</span></span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "18.8pt (25px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>Founder</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "18.8pt (25px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"#solutions\" class=\"dropdown-label\">Solutions <svg aria-hidden=\"true\" focusable=\"false\" class=\"chev\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\"><path d=\"m7 10 5 5 5-5\"></path></svg></a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"realisations.html\">Réalisations</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"#processus\">Notre méthode</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"#technologies\">Technologies</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"fondateur.html\">Le fondateur</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"mailto:contactajaoub@gmail.com?subject=Demande%20de%20projet%20-%20TheFounder\">Contact</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h1 id=\"hero-title\">Votre prochain levier<br>de croissance ?<strong>L’intelligence artificielle.</strong></h1>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "43.2pt (57.6px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<strong>L’intelligence artificielle.</strong>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "43.2pt (57.6px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p>Nous concevons des logiciels sur mesure, automatisons vos processus et intégrons l’IA à votre activité.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "12.4pt (16.56px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a class=\"cta cta-primary\" href=\"mailto:contactajaoub@gmail.com?subject=Demande%20de%20projet%20-%20TheFounder\">",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a class=\"cta cta-secondary\" href=\"realisations.html\">Nos réalisations</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<div class=\"impact-eyebrow\">L’IA en chiffres</div>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h2 class=\"impact-heading\" id=\"impact-title\">Des gains <span>mesurés</span> dans les études.</h2>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "24.0pt (32px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>mesurés</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "24.0pt (32px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"impact-number\" data-target=\"15\" data-decimals=\"0\" data-prefix=\"+\">+0</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "36.7pt (48.96px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<div class=\"impact-label\">de productivité</div>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "11.3pt (15px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"impact-context\">Support client : dossiers résolus par heure, 5 172 agents.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a class=\"impact-source\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://doi.org/10.1093/qje/qjae044\" title=\"Étude de 2025 sur 5 172 agents\">QJE · 2025 ↗</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"impact-number\" data-target=\"26\" data-decimals=\"0\">0</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "36.7pt (48.96px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"impact-number\" data-target=\"31\" data-decimals=\"0\">0</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "36.7pt (48.96px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<div class=\"impact-label\">d’économies réalisées ou attendues</div>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "11.3pt (15px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"impact-context\">Grands groupes : supply chain, finance, service client et RH.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a class=\"impact-source\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://www.capgemini.com/wp-content/uploads/2025/07/30062025-Digital-AI-in-Business-Operation-CRI_V6.pdf#page=38\" title=\"Enquête février–mars 2025, 716 responsables, figure 16 : économies réalisées ou attendues\">",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"impact-number\" data-target=\"40\" data-decimals=\"0\" data-prefix=\"−\">−0</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "36.7pt (48.96px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<div class=\"impact-label\">de temps de rédaction</div>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "11.3pt (15px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"impact-context\">Tâches courtes de rédaction : expérience avec 453 professionnels.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a class=\"impact-source\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://news.mit.edu/2023/study-finds-chatgpt-boosts-worker-productivity-writing-0714\" title=\"Étude Science 2023, 453 participants\">Science · 2023 ↗</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"impact-number\" data-target=\"25.1\" data-decimals=\"1\" data-prefix=\"+\">+0,0</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "36.7pt (48.96px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<div class=\"impact-label\">de rapidité d’exécution</div>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "11.3pt (15px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"impact-context\">18 tâches de conseil dans le périmètre de l’IA ; 758 participants.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a class=\"impact-source\" target=\"_blank\" rel=\"noopener noreferrer\" href=\"https://pubsonline.informs.org/doi/10.1287/orsc.2025.21838\" title=\"Étude Harvard / BCG, 758 consultants, publiée en 2026\">Harvard / BCG · 2026 ↗</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"impact-footnote\">Résultats d’études externes sur des tâches et fonctions précises, et non résultats de TheFounder ni gains garantis. Les effets varient selon les usages et les entreprises. L’IA peut aussi dégrader les résultats sur des tâches hors de ses capacités.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<div class=\"solutions-kicker\"><span class=\"solutions-kicker-star\">✳</span> LES SOLUTIONS THEFOUNDER <span class=\"solutions-kicker-line\"></span> 01 — 04</div>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "8.3pt (11px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h2 id=\"solutions-heading\">Des outils qui s’adaptent<br>à <em>votre entreprise.</em></h2>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "38.9pt (51.84px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<em>votre entreprise.</em>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "38.9pt (51.84px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"solutions-intro\">De l’IA au logiciel métier, nous créons les systèmes qui font avancer vos opérations.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-number\">01 <span aria-hidden=\"true\">↗</span></span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "8.3pt (11px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-title\">Intelligence artificielle</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "13.5pt (18px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-description\">Des agents et assistants IA connectés à vos opérations.</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>IA &amp; agents</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "7.5pt (10px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-number\">02 <span aria-hidden=\"true\">↗</span></span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "8.3pt (11px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-title\">Automatisation</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "13.5pt (18px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-description\">Devis, relances et tâches répétitives pris en charge par vos workflows.</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>Workflows &amp; intégrations</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "7.5pt (10px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-number\">03 <span aria-hidden=\"true\">↗</span></span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "8.3pt (11px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-title\">Logiciels sur mesure</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "13.5pt (18px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-description\">Des applications métier construites autour de vos processus.</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>Applications &amp; outils métier</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "7.5pt (10px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-number\">04 <span aria-hidden=\"true\">↗</span></span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "8.3pt (11px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-title\">CRM &amp; ERP</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "13.5pt (18px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"solution-description\">Clients, ventes, projets et opérations réunis au même endroit.</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>Gestion &amp; pilotage</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "7.5pt (10px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>Chaque solution est conçue pour vos besoins réels.</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"solutions.html\">Explorer toutes nos solutions <span aria-hidden=\"true\">↗</span></a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<div class=\"tf-process-eyebrow\"><i></i> NOTRE MÉTHODE <i></i></div>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "8.3pt (11px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h2 class=\"tf-process-title\" id=\"tf-process-title\">De votre besoin à la solution.<br><span>En 4 étapes.</span></h2>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "40.5pt (54px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>En 4 étapes.</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "40.5pt (54px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"tf-process-sub\">Un processus clair, du premier échange jusqu’à la mise en service.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "11.3pt (15px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"tf-process-num\">01</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h3>Diagnostic gratuit</h3>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "15.0pt (20px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p>Nous identifions vos besoins, vos processus et les tâches à automatiser.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"tf-process-num\">02</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h3>Proposition</h3>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "15.0pt (20px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p>Vous recevez une solution détaillée, un devis et un calendrier clair.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"tf-process-num\">03</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h3>Conception</h3>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "15.0pt (20px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p>Nous développons, connectons et testons vos outils, avec l’IA si pertinente.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"tf-process-num\">04</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h3>Déploiement</h3>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "15.0pt (20px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p>Mise en service, formation des équipes et accompagnement après livraison.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p class=\"tf-process-note\">Chaque projet est adapté à votre activité. Nos solutions incluent la formation des utilisateurs.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a class=\"tf-process-cta\" href=\"mailto:contactajaoub@gmail.com?subject=Demande%20de%20projet%20-%20TheFounder\">Discuter de mon projet <span aria-hidden=\"true\">↗</span></a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h2 id=\"tf-stack-heading\"><span>Notre</span> stack technologique</h2>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "36.0pt (48px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>Notre</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "36.0pt (48px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p>Les outils que nous utilisons selon les besoins du projet. Leur présence ne suppose aucun partenariat ni certification.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "12.8pt (17px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<small aria-hidden=\"true\">Codex</small>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<small aria-hidden=\"true\">Docker</small>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.5pt (14px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span class=\"tf-final-label\">PASSONS À L’ACTION</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.0pt (12px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<h2 id=\"tf-final-heading\">Et si on simplifiait <span>votre entreprise ?</span></h2>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "40.5pt (54px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>votre entreprise ?</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "40.5pt (54px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<p>Parlons de vos besoins et identifions les solutions digitales, automatisations et outils IA adaptés à votre activité.</p>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "13.5pt (18px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"mailto:contactajaoub@gmail.com?subject=Demande%20de%20projet%20-%20TheFounder\" class=\"tf-final-cta\">Discuter de mon projet <span aria-hidden=\"true\">↗</span></a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "11.3pt (15px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"index.html\" class=\"tf-footer-brand\" aria-label=\"TheFounder — Accueil\">The<span>Founder</span>.</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "15.8pt (21px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<span>Founder</span>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "15.8pt (21px)",
+              "fontWeight": "bold",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "3:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<small>Logiciels métier · Automatisation · IA</small>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "10.0pt (13.3333px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"contact.html\">Contact</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"mentions-legales.html\">Mentions légales</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      },
+      {
+        "html": "<a href=\"confidentialite.html\">Confidentialité</a>",
+        "summary": "Fix any of the following:\n  Element's background color could not be determined due to a pseudo element",
+        "checks": [
+          {
+            "id": "color-contrast",
+            "data": {
+              "fontSize": "9.8pt (13px)",
+              "fontWeight": "normal",
+              "messageKey": "pseudoContent",
+              "expectedContrastRatio": "4.5:1"
+            },
+            "message": "Element's background color could not be determined due to a pseudo element"
+          }
+        ]
+      }
+    ]
+  }
+]

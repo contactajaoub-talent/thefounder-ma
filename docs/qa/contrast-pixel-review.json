@@ -1,0 +1,113 @@
+{
+  "method": "Foreground CSS vs sampled background screenshot with glyph paint hidden; complementary evidence, not WCAG certification. Logotypes excluded.",
+  "results": [
+    {
+      "file": "index",
+      "width": 375,
+      "textFragments": 144,
+      "failures": []
+    },
+    {
+      "file": "solutions",
+      "width": 375,
+      "textFragments": 84,
+      "failures": []
+    },
+    {
+      "file": "contact",
+      "width": 375,
+      "textFragments": 24,
+      "failures": []
+    },
+    {
+      "file": "fondateur",
+      "width": 375,
+      "textFragments": 27,
+      "failures": []
+    },
+    {
+      "file": "realisations",
+      "width": 375,
+      "textFragments": 28,
+      "failures": []
+    },
+    {
+      "file": "methode",
+      "width": 375,
+      "textFragments": 43,
+      "failures": []
+    },
+    {
+      "file": "mentions-legales",
+      "width": 375,
+      "textFragments": 38,
+      "failures": []
+    },
+    {
+      "file": "confidentialite",
+      "width": 375,
+      "textFragments": 58,
+      "failures": []
+    },
+    {
+      "file": "404",
+      "width": 375,
+      "textFragments": 17,
+      "failures": []
+    },
+    {
+      "file": "index",
+      "width": 1440,
+      "textFragments": 129,
+      "failures": []
+    },
+    {
+      "file": "solutions",
+      "width": 1440,
+      "textFragments": 69,
+      "failures": []
+    },
+    {
+      "file": "contact",
+      "width": 1440,
+      "textFragments": 23,
+      "failures": []
+    },
+    {
+      "file": "fondateur",
+      "width": 1440,
+      "textFragments": 23,
+      "failures": []
+    },
+    {
+      "file": "realisations",
+      "width": 1440,
+      "textFragments": 24,
+      "failures": []
+    },
+    {
+      "file": "methode",
+      "width": 1440,
+      "textFragments": 35,
+      "failures": []
+    },
+    {
+      "file": "mentions-legales",
+      "width": 1440,
+      "textFragments": 29,
+      "failures": []
+    },
+    {
+      "file": "confidentialite",
+      "width": 1440,
+      "textFragments": 36,
+      "failures": []
+    },
+    {
+      "file": "404",
+      "width": 1440,
+      "textFragments": 21,
+      "failures": []
+    }
+  ]
+}
