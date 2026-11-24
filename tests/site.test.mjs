@@ -34,12 +34,16 @@ test('tous les CTA projet ciblent le contact confirmé et son objet',()=>{
     if(url.searchParams.get('subject')?.startsWith('Demande de projet')) {assert.equal(url.searchParams.get('subject'),'Demande de projet - TheFounder');count++;}
   }}assert.ok(count>=10);
 });
-test('neuf noms de technologies, sans visuel de marque tiers dans l’export public',()=>{
+test('neuf technologies, trois wordmarks officiels et six pictogrammes originaux',()=>{
   const html=text('index.html');
   assert.equal((html.match(/class="tf-tool-name"/g)||[]).length,9);
+  assert.equal((html.match(/class="tf-tech-media"/g)||[]).length,9);
+  assert.equal((html.match(/class="tf-tech-pictogram"/g)||[]).length,6);
   for(const name of ['n8n','Supabase','Next.js','Make','Codex','Claude','GitHub','Docker','Vercel'])assert.ok(html.includes(`class="tf-tool-name">${name}</span>`));
-  assert.ok(!html.includes('assets/logos/'));
-  assert.ok(!assets.some(x=>x.startsWith('assets/logos/')));
+  const wordmarks=['n8n','supabase','github'].map(x=>`assets/logos/${x}.svg`).sort();
+  assert.deepEqual(assets.filter(x=>x.startsWith('assets/logos/')).sort(),wordmarks);
+  for(const path of wordmarks)assert.ok(html.includes('/'+path),path);
+  for(const name of ['claude','codex','nextjs','docker','vercel','make'])assert.ok(!html.includes(`assets/logos/${name}.svg`));
 });
 test('accueil : ordre et nombre des sections conservés, valeurs accessibles sans JS',()=>{
   const html=text('index.html');assert.equal((html.match(/<section\b/g)||[]).length,6);

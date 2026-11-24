@@ -266,3 +266,27 @@ html{scroll-padding-top:24px} :focus-visible{outline:3px solid #6040d0;outline-o
 @media(hover:none){.tf-tool-logo{filter:none;opacity:1}}
 @media(max-width:550px){.tf-stack-tool[data-tool="make"]{padding-inline:0}.tf-stack-tool[data-tool="make"] .tf-tool-logo{width:96px;height:32px;max-width:none}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}.cta:hover,.solution-card:hover,.tf-process-step:hover,.tf-final-cta:hover{transform:none}}
+
+/* S05 — wordmarks authentiques et pictogrammes génériques originaux ; le reste du design ne change pas. */
+.tf-stack-tool{--tf-tech-accent:#7357ff;display:flex;flex-direction:column;gap:9px;min-height:130px}
+.tf-stack-tool[data-tool="n8n"]{--tf-tech-accent:#ff91ac}
+.tf-stack-tool[data-tool="supabase"]{--tf-tech-accent:#3ecf8e}
+.tf-stack-tool[data-tool="nextjs"]{--tf-tech-accent:#302838}
+.tf-stack-tool[data-tool="codex"]{--tf-tech-accent:#20584f}
+.tf-stack-tool[data-tool="claude"]{--tf-tech-accent:#bd7351}
+.tf-stack-tool[data-tool="github"]{--tf-tech-accent:#28202b}
+.tf-stack-tool[data-tool="docker"]{--tf-tech-accent:#2388bc}
+.tf-stack-tool[data-tool="vercel"]{--tf-tech-accent:#382e4d}
+.tf-tech-media{height:49px;width:100%;min-width:0;display:flex;align-items:center;justify-content:center}
+.tf-tech-wordmark{width:min(78%,175px);height:auto;max-height:43px;object-fit:contain;opacity:.8;filter:grayscale(1);transition:filter .3s ease,opacity .3s ease,transform .3s ease}
+.tf-stack-tool[data-tool="supabase"] .tf-tech-wordmark{filter:none;opacity:1}
+.tf-stack-tool[data-tool="github"] .tf-tech-wordmark{filter:none;opacity:.9}
+.tf-stack-tool:hover .tf-tech-wordmark,.tf-stack-tool:focus-visible .tf-tech-wordmark{filter:none;opacity:1;transform:scale(1.035)}
+.tf-tech-pictogram{width:42px;height:42px;display:block;fill:none;stroke:#99949e;stroke-width:2.25;stroke-linecap:round;stroke-linejoin:round;transition:stroke .3s ease,transform .3s ease}
+.tf-stack-tool:hover .tf-tech-pictogram,.tf-stack-tool:focus-visible .tf-tech-pictogram{stroke:var(--tf-tech-accent);transform:scale(1.04)}
+.tf-stack-tool .tf-tool-name{font-size:clamp(13px,1.6vw,18px);font-weight:700;letter-spacing:-.02em;color:#5c5663}
+.tf-stack-tool:hover .tf-tool-name,.tf-stack-tool:focus-visible .tf-tool-name{color:var(--tf-tech-accent)}
+.tf-stack-tool:is([data-tool="n8n"],[data-tool="supabase"],[data-tool="github"]) .tf-tool-name{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+@media(max-width:700px){.tf-stack-tool{min-height:106px;gap:6px;padding-inline:3px}.tf-tech-media{height:38px}.tf-tech-wordmark{width:92%;max-height:33px}.tf-tech-pictogram{width:30px;height:30px}.tf-stack-tool .tf-tool-name{font-size:clamp(11px,3.3vw,16px)}}
+@media(max-width:370px){.tf-tech-wordmark{width:96%;max-height:28px}.tf-tech-pictogram{width:27px;height:27px}}
+@media(prefers-reduced-motion:reduce){.tf-tech-wordmark,.tf-tech-pictogram{transition:none!important;transform:none!important}}
