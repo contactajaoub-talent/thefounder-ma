@@ -57,3 +57,23 @@
     fallback = setTimeout(observe, 2000);
   } else observe();
 })();
+
+/* Solutions : entrées progressives et suspension des animations hors écran. */
+(() => {
+  const cards = document.querySelectorAll('.sv-showcase');
+  if (!cards.length || !('IntersectionObserver' in window)) return;
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)');
+  if (reduce.matches) return;
+  document.documentElement.classList.add('sv-motion-ready');
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) entry.target.classList.toggle('sv-visible', entry.isIntersecting);
+  }, {rootMargin:'90px 0px 90px 0px',threshold:0.05});
+  cards.forEach(card => observer.observe(card));
+  reduce.addEventListener('change', () => {
+    if (reduce.matches) {
+      observer.disconnect();
+      cards.forEach(card => card.classList.add('sv-visible'));
+      document.documentElement.classList.remove('sv-motion-ready');
+    }
+  });
+})();
