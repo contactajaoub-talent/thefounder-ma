@@ -36,7 +36,7 @@ test('SEO de production et retour en preview sur fixture isolée, sans autorisat
     assert.equal(JSON.parse(data).about.length,3);
     assert.ok(JSON.parse(data).description.includes('Maroc'));
     assert.ok(html.includes("'sha256-"+createHash('sha256').update(data).digest('base64')+"'"));
-    const sitemap=await readFile(resolve(fixture,'dist/sitemap.xml'),'utf8');assert.equal((sitemap.match(/<url>/g)||[]).length,8);assert.ok(!sitemap.includes('404.html'));
+    const sitemap=await readFile(resolve(fixture,'dist/sitemap.xml'),'utf8');assert.equal((sitemap.match(/<url>/g)||[]).length,9);assert.ok(!sitemap.includes('404.html'));
     assert.ok(!sitemap.includes('.html'));
     assert.ok(sitemap.includes('https://example.invalid/solutions'));
     assert.ok(sitemap.includes('https://example.invalid/departements'));
