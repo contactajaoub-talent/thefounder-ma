@@ -47,8 +47,11 @@ try{
         assert.equal(await page.locator('.tf-tool-name').count(),9);
         const grid=await page.locator('.tf-stack-tool').evaluateAll(xs=>xs.map(x=>{const r=x.getBoundingClientRect();return {x:Math.round(r.x),y:Math.round(r.y)}}));
         assert.equal(new Set(grid.map(x=>x.x)).size,3);assert.equal(new Set(grid.map(x=>x.y)).size,3);
-        const clipped=await page.locator('.tf-tool-name').evaluateAll(xs=>xs.filter(x=>x.scrollWidth>x.clientWidth).map(x=>x.textContent));
+        await page.waitForFunction(()=>[...document.querySelectorAll('.tf-tech-wordmark')].every(x=>x.complete&&x.naturalWidth>0));
+        const clipped=await page.locator('.tf-tool-name').evaluateAll(xs=>xs.filter(x=>getComputedStyle(x).position!=='absolute'&&x.scrollWidth>x.clientWidth).map(x=>x.textContent));
         assert.deepEqual(clipped,[],'Les noms des technologies doivent rester entiers');
+        const overflow=await page.locator('.tf-tech-wordmark,.tf-tech-pictogram').evaluateAll(xs=>xs.filter(x=>{const r=x.getBoundingClientRect(),c=x.closest('.tf-stack-tool').getBoundingClientRect();return r.left<c.left-1||r.right>c.right+1||r.top<c.top-1||r.bottom>c.bottom+1;}).map(x=>x.outerHTML));
+        assert.deepEqual(overflow,[],'Les visuels restent dans leur cellule');
       }
       result.pageChecks.push({file,width,pass:true});
     }
@@ -79,12 +82,12 @@ try{
   assert.equal(await page.locator('.bubble').first().evaluate(x=>getComputedStyle(x).animationName),'none');
   result.checks.push('Compteurs au scroll, valeur française, une seule exécution, animations réduites');
   await page.emulateMedia({reducedMotion:'no-preference'});await visit(page,base);await page.locator('#technologies').scrollIntoViewIfNeeded();
-  const tool=page.locator('[data-tool="supabase"] .tf-tool-name');assert.equal(await tool.evaluate(x=>getComputedStyle(x).color),'rgb(87, 83, 95)');
-  await page.locator('[data-tool="supabase"]').hover();await page.waitForTimeout(300);assert.equal(await tool.evaluate(x=>getComputedStyle(x).color),'rgb(103, 71, 245)');
-  await page.mouse.move(0,0);await page.locator('[data-tool="supabase"]').focus();await page.waitForTimeout(300);assert.equal(await tool.evaluate(x=>getComputedStyle(x).color),'rgb(103, 71, 245)');
-  result.checks.push('Noms des technologies gris au repos, violet TheFounder au survol et au focus');
-  const touch=await newContext({viewport:{width:375,height:812},hasTouch:true,isMobile:true});const touchPage=await touch.newPage();await visit(touchPage,base);await touchPage.locator('#technologies').scrollIntoViewIfNeeded();assert.equal(await touchPage.locator('[data-tool="supabase"] .tf-tool-name').evaluate(x=>getComputedStyle(x).color),'rgb(103, 71, 245)');await touch.close();
-  result.checks.push('Noms lisibles et accent TheFounder sur appareil tactile');
+  const tool=page.locator('[data-tool="supabase"] .tf-tech-wordmark');assert.equal(await tool.evaluate(x=>getComputedStyle(x).filter),'grayscale(1)');
+  await page.locator('[data-tool="supabase"]').hover();await page.waitForTimeout(350);assert.equal(await tool.evaluate(x=>getComputedStyle(x).filter),'none');assert.equal(await tool.evaluate(x=>getComputedStyle(x).opacity),'1');
+  await page.mouse.move(0,0);await page.locator('[data-tool="supabase"]').focus();await page.waitForTimeout(350);assert.equal(await tool.evaluate(x=>getComputedStyle(x).filter),'none');
+  result.checks.push('Grille distante conservée : gris au repos et couleur au survol/focus');
+  const touch=await newContext({viewport:{width:375,height:812},hasTouch:true,isMobile:true});const touchPage=await touch.newPage();await visit(touchPage,base);await touchPage.locator('#technologies').scrollIntoViewIfNeeded();assert.equal(await touchPage.locator('[data-tool="supabase"] .tf-tech-wordmark').evaluate(x=>getComputedStyle(x).filter),'none');await touch.close();
+  result.checks.push('Visuels complets et colorés sans hover sur appareil tactile');
   // Accessibility engine in the real browser, across all pages, at desktop and mobile.
   for(const width of [375,1440]){
     await page.setViewportSize({width,height:900});

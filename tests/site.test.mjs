@@ -34,6 +34,23 @@ test('tous les CTA projet ciblent le contact confirmé et son objet',()=>{
     if(url.searchParams.get('subject')?.startsWith('Demande de projet')) {assert.equal(url.searchParams.get('subject'),'Demande de projet - TheFounder');count++;}
   }}assert.ok(count>=10);
 });
+test('indicateurs de lien : un seul symbole SVG, aucune flèche Unicode ni fallback de police',()=>{
+  const sprite='assets/icons/link.svg';
+  assert.ok(assets.includes(sprite));
+  assert.equal((text(sprite).match(/<symbol\b/g)||[]).length,1);
+  assert.match(text(sprite),/id="arrow-up-right" viewBox="0 0 24 24"/);
+  assert.match(text(sprite),/d="M7 17L17 7"/);assert.match(text(sprite),/d="M9 7h8v8"/);
+  let count=0;
+  for(const file of pages){
+    const html=text(file);assert.doesNotMatch(html,/[\u2190-\u21ff\u27f0-\u27ff\u2900-\u297f\u2b05-\u2b07\u27a1]/u,file);
+    const icons=[...html.matchAll(/<span class="link-icon" aria-hidden="true">(<svg[^>]+><use[^>]+><\/use><\/svg>)<\/span>/g)];
+    assert.equal(icons.length,(html.match(/class="link-icon"/g)||[]).length,file);
+    for(const [,svg] of icons){assert.match(svg,/aria-hidden="true"/);assert.match(svg,/focusable="false"/);assert.match(svg,/href="\/assets\/icons\/link.svg#arrow-up-right"/);}
+    count+=icons.length;
+  }
+  assert.equal(count,30);
+  assert.doesNotMatch(text('assets/site.css'),/content\s*:[^;}]*[\u2190-\u21ff\u27f0-\u27ff\u2900-\u297f\u27a1]/u);
+});
 test('neuf technologies avec visuels homogènes, sept marques et deux pictogrammes indépendants',()=>{
   const html=text('index.html');
   assert.equal((html.match(/class="tf-tool-name"/g)||[]).length,9);

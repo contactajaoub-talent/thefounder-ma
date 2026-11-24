@@ -18,6 +18,8 @@ test('SEO de production et retour en preview sur fixture isolée, sans autorisat
     const release={siteOrigin:'https://example.invalid',publicationApproved:true,legalApproved:true,privacyApproved:true,brandUseApproved:true};
     await writeFile(resolve(fixture,'config/release.json'),JSON.stringify(release));
     const run=(production=true,env={},args=[])=>spawnSync(process.execPath,['scripts/build.mjs',...(production?['--production']:[]),...args],{cwd:fixture,encoding:'utf8',env:{...process.env,VERCEL_ENV:'',VERCEL_TARGET_ENV:'',...env}});
+    // Exercise the guard independently of whether the real notices are now complete.
+    await writeFile(resolve(fixture,'confidentialite.html'),'<!DOCTYPE html><html lang="fr"><body>TODO_CLIENT : fixture technique incomplète.</body></html>');
     const blocked=run();assert.notEqual(blocked.status,0);assert.match(blocked.stderr,/compléter/);
     // Replace legal pages ONLY in the disposable fixture. No fictitious legal identity is created.
     for(const file of ['mentions-legales.html','confidentialite.html'])await writeFile(resolve(fixture,file),'<!DOCTYPE html><html lang="fr"><head><meta name="robots" content="noindex, nofollow"></head><body>Fixture technique de test, sans contenu juridique.</body></html>');

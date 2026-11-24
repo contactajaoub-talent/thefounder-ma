@@ -34,6 +34,8 @@ npm run test:browser
 
 Les dépendances Playwright et axe-core sont uniquement des dépendances de développement. Le script QA accepte `BASE_URL`, `BROWSER_EXECUTABLE`, `PLAYWRIGHT_MODULE_PATH`, `AXE_SOURCE_PATH` et `QA_OUTPUT_DIR`. Par défaut, les résultats sont dans `docs/qa/`. Pour une Preview protégée, utiliser le jeton OIDC temporaire du même projet via `vercel env run` ; le test l’envoie uniquement à l’origine contrôlée et n’enregistre aucune valeur de cookie ni de jeton. Ne pas désactiver la protection Vercel.
 
+Les indicateurs de lien/action partagent le symbole `assets/icons/link.svg#arrow-up-right`, utilisé en SVG inline via `<use>`. Réutiliser le wrapper décoratif `.link-icon` et conserver `aria-hidden="true"` / `focusable="false"` ; aucune flèche de police ou emoji. `.card-link-icon` gère le petit emplacement supérieur des cartes, et les autres emplacements héritent de `currentColor`. Le test `test:link-icons` vérifie la résolution réelle du symbole, les dimensions mobiles/desktop, les couleurs, le focus et le clic tactile ; WebKit est également testé si son moteur est installé. Redémarrer le serveur après toute modification de la liste des ressources publiques.
+
 ## Contenu livré
 
 Le [preloader fourni de deux secondes](docs/PRELOADER_INTEGRATION.md) est intégré uniquement à l’accueil. Ses trois images originales, CSS et JS sont dans `assets/preloader/`. `npm run test:preloader` vérifie sa séquence, sa fermeture et ses modes de secours dans le navigateur.
