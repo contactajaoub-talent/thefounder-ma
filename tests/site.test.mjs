@@ -86,3 +86,19 @@ test('accueil : ordre et nombre des sections conservés, valeurs accessibles san
 test('documents de lancement et modèles demandés présents',()=>{
   for(const file of ['TODO_CLIENT.md','business/catalogue-services.md','business/modele-devis.md','business/modele-facture.md','business/process-client.md','business/crm-prospection.csv','CHECKLIST-LANCEMENT.md'])assert.ok(existsSync(new URL('../'+file,import.meta.url)),file);
 });
+
+test('page solutions : quatre illustrations animées avec ancrages stables',()=>{
+  const html=text('solutions.html');
+  const css=text('assets/site.css');
+  const js=text('assets/site.js');
+  const ids=[...html.matchAll(/<section class="sv-showcase" id="([^"]+)"/g)].map(x=>x[1]);
+  assert.deepEqual(ids,['brain','workflow','software','crm']);
+  for (const className of ['sv-ai-canvas','sv-flow-visual','sv-software-window','sv-crm-window'])
+    assert.ok(html.includes('class="'+className) || html.includes(' '+className+'"'),className);
+  assert.equal((html.match(/class="sv-feature"/g)||[]).length,12);
+  assert.ok(html.includes('href="departements.html"'));
+  assert.ok(html.includes('Commençons par votre besoin.'));
+  assert.match(css,/@media\(max-width:470px\)/);
+  assert.match(css,/@media\(prefers-reduced-motion:reduce\)\{\.sv-page/);
+  assert.match(js,/IntersectionObserver/);
+});
