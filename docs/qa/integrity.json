@@ -1,0 +1,79 @@
+{
+  "version": "0.2.0",
+  "reviewDate": "2026-11-24",
+  "identityOriginals": [
+    {
+      "file": "thefounder-mark.png",
+      "sha256": "595401a1621e6a5b17d4897ab5f0a54367f7dc3bcfb0e9f2695ccde869066793",
+      "unchanged": true
+    },
+    {
+      "file": "thefounder-icon-1080.png",
+      "sha256": "dec208fa015c7303c271bb491bcccdad75108f70a861f027aa090cad5ca87028",
+      "unchanged": true
+    },
+    {
+      "file": "thefounder-identity-approved.png",
+      "sha256": "aecde802f4398628cf34b6ea15561f8019f025e3d46c7e77a20701a0d6e96c9d",
+      "unchanged": true
+    }
+  ],
+  "dist": {
+    "files": 28,
+    "bytes": 219661
+  },
+  "activeFilesScanned": 11,
+  "suspectedSecretFiles": [],
+  "changed": [
+    "docs/AUDIT_ET_RESTANT.md",
+    "index.html",
+    "package.json",
+    "README.md",
+    "scripts/dev-server.mjs",
+    "tests/homepage.test.mjs"
+  ],
+  "added": [
+    "404.html",
+    "assets/apple-touch-icon.png",
+    "assets/brand-mark.png",
+    "assets/favicon-32.png",
+    "assets/logos/claude.svg",
+    "assets/logos/codex.svg",
+    "assets/logos/docker.svg",
+    "assets/logos/github.svg",
+    "assets/logos/make.svg",
+    "assets/logos/n8n.svg",
+    "assets/logos/nextjs.svg",
+    "assets/logos/supabase.svg",
+    "assets/logos/vercel.svg",
+    "assets/og-thefounder.png",
+    "assets/site.css",
+    "assets/site.js",
+    "business/catalogue-services.md",
+    "business/crm-prospection.csv",
+    "business/modele-devis.md",
+    "business/modele-facture.md",
+    "business/process-client.md",
+    "CHECKLIST-LANCEMENT.md",
+    "confidentialite.html",
+    "config/release.json",
+    "contact.html",
+    "docs/LOGOS_ET_DROITS.md",
+    "docs/SOURCES_JURIDIQUES.md",
+    "docs/SOURCES_STATISTIQUES.md",
+    "fondateur.html",
+    "mentions-legales.html",
+    "methode.html",
+    "package-lock.json",
+    "realisations.html",
+    "robots.txt",
+    "scripts/build.mjs",
+    "scripts/site-files.mjs",
+    "solutions.html",
+    "tests/browser.mjs",
+    "tests/server.test.mjs",
+    "tests/site.test.mjs",
+    "TODO_CLIENT.md",
+    "RAPPORT_FINAL.md"
+  ]
+}
