@@ -18,6 +18,7 @@ async function newContext(options) {
   const context = await browser.newContext(options);
   if (process.env.VERCEL_OIDC_TOKEN) await context.route('**/*', route => {
     const headers = {...route.request().headers()};
+    delete headers['x-vercel-trusted-oidc-idp-token'];
     if (new URL(route.request().url()).origin === new URL(base).origin) headers['x-vercel-trusted-oidc-idp-token'] = process.env.VERCEL_OIDC_TOKEN;
     return route.continue({headers});
   });

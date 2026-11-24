@@ -1,6 +1,6 @@
 # Checklist de lancement — TheFounder
 
-Version de revue du 24 novembre 2026. **Aucune publication autorisée ou effectuée.** Les validations manquantes sont centralisées dans [TODO_CLIENT](TODO_CLIENT.md).
+Version de revue du 24 novembre 2026, complétée pour la PR #3. **La publication Production est autorisée uniquement après validation complète ; les blocages légaux et de marque subsistent.** La Preview est contrôlée, la production n’est pas modifiée. État actuel : [validation de production](docs/VALIDATION_PRODUCTION_PR3.md) et [TODO_CLIENT](TODO_CLIENT.md).
 
 ## Vérifié localement
 
@@ -24,10 +24,10 @@ Version de revue du 24 novembre 2026. **Aucune publication autorisée ou effectu
 
 ## À vérifier sur la cible finale
 
-- [ ] Configurer DNS et TLS seulement après accord sur la cible ; vérifier les variantes www / sans www et redirections.
-- [ ] Vérifier que l’hébergeur applique `_headers` ou sa configuration équivalente, la 404 avec code HTTP 404, les types MIME et la compression Brotli / gzip.
-- [ ] Restreindre l’accès à tout preview distant : `noindex` et `robots.txt` ne sont pas des contrôles d’accès.
-- [ ] Après autorisation : compléter les pages légales, renseigner les validations et `siteOrigin`, puis générer le build production local.
+- [x] Domaines existants vérifiés dans Vercel ; HTTPS de `thefounder.ma` répond. Aucun changement DNS/TLS effectué. Recontrôler www/canonique après le vrai déploiement Production.
+- [x] En-têtes effectifs et vraie 404 contrôlés sur la Preview via Build Output API ; types MIME corrects. Recontrôler la politique Production et la compression après publication autorisée.
+- [x] Preview protégée par l’authentification Vercel conservée ; aucune protection désactivée.
+- [ ] Compléter les pages légales et les preuves de marque, puis refléter les validations réelles. `siteOrigin` est confirmé ; le build Production reste volontairement bloqué.
 - [ ] Vérifier canonical, `og:url`, OG absolu, WebSite JSON-LD, sitemap et robots du build autorisé. Tester le partage sur les plateformes cibles.
 - [ ] Valider sur appareils physiques : Safari iOS, Chrome Android, zoom 200–400 %, contraste renforcé et lecteur d’écran (VoiceOver / NVDA). Aucun contrôle de ces environnements n’est revendiqué.
 - [ ] Mesurer Lighthouse mobile / desktop et Core Web Vitals sur HTTPS avec réseau réaliste ; les temps localhost ne sont pas un score public.
@@ -38,7 +38,7 @@ Version de revue du 24 novembre 2026. **Aucune publication autorisée ou effectu
 ## Blocages externes
 
 - [ ] Identité légale, adresse, statut et identifiants applicables fournis et confirmés.
-- [ ] Hébergeur retenu et informations de publication confirmés.
+- [x] Hébergeur Vercel et ses coordonnées publiques confirmés. Identité de l’éditeur toujours manquante.
 - [ ] Notice de confidentialité complète, modalités de messagerie et traitements, formalités CNDP et éventuels transferts validés.
 - [ ] Conditions de marque / variante Codex / gris au repos validés. Largeur Make minimale contrôlée à 96 px en mobile.
 - [ ] Modèles de facturation et clauses revus par un conseiller compétent avant usage.
@@ -46,7 +46,7 @@ Version de revue du 24 novembre 2026. **Aucune publication autorisée ou effectu
 ## Décisions et actions client à autoriser
 
 - [ ] Valider le rendu de la version livrée et les textes publics.
-- [ ] Donner l’autorisation explicite de publier cette version sur une cible déterminée.
+- [ ] Réunir toutes les conditions de l’autorisation de fusion/publication fournie dans la demande : informations légales, droits et build Production validés sur la version identifiée.
 - [ ] Autoriser toute modification de domaine, DNS ou compte d’hébergement.
 - [ ] Choisir le moyen d’encaissement et transmettre les coordonnées vérifiées ; décider de l’acompte proposé de 50 %.
 - [ ] Valider, signer et émettre les documents commerciaux réels.

@@ -26,7 +26,8 @@ Revue du 24 novembre 2026 sur `refonte/thefounder-v2`, à partir de `8cc8e4faceb
 - Navigateur Chrome : 54 contrôles de pages à six largeurs (320–1920 px), neuf pages ; 18 audits axe, aucune violation détectée. Menu mobile et clavier, focus, CTA mailto sans envoi, navigation sans JS, compteurs et mouvement réduit, grille 3 × 3, couleurs au survol/focus et tactile vérifiés.
 - Les quatre statistiques restent attribuées à des études externes avec population et limites ; revue des sources QJE, MIT/Science, Capgemini (figure 16 : réalisé **ou attendu**) et INFORMS. Voir `SOURCES_STATISTIQUES.md`.
 - `npm.cmd run build:production` réel doit rester en échec tant que les conditions suivantes manquent. Le succès de la fixture ne valide pas le site juridiquement.
-- La Preview du commit poussé doit ensuite être vérifiée : état Ready, statut GitHub, en-têtes réels, navigation et non-exposition des fichiers internes. Conserver les preuves hors de l’export public.
+- Preview du correctif `9809a8f8f83ff41d794b94a2c52d9197ffbd242c` : Ready et contrôle GitHub Vercel réussi ; configuration effective statique, `dist/`, Node 24.x. Navigateur distant : 54 contrôles et 18 audits sans violation détectée ; 29 vérifications HTTP réussies (en-têtes, vraie 404, ressources, robots, sitemap, fichiers internes absents). L’accès anonyme redirige vers `vercel.com/sso-api` ; protection conservée. Cette preuve concerne la Preview, pas une nouvelle Production.
+- `npm audit` : aucune vulnérabilité signalée dans le verrou courant. Comparaison Git : 22 fichiers d’interface et ressources identiques à la version validée, hors notices légales mises à jour. Recherche par motifs connus dans 54 fichiers texte suivis : aucun motif de secret détecté ; ce contrôle n’est pas une garantie exhaustive.
 
 ## TODO_CLIENT bloquants
 
