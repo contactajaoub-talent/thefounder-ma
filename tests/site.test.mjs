@@ -76,8 +76,8 @@ test('neuf technologies avec visuels homogènes, sept marques et deux pictogramm
   for(const x of ['claude','codex'])assert.ok(!html.includes(`assets/logos/${x}.svg`));
 });
 test('accueil : ordre et nombre des sections conservés, valeurs accessibles sans JS',()=>{
-  const html=text('index.html');assert.equal((html.match(/<section\b/g)||[]).length,6);
-  const names=['hero-title','tfv-title','impact-title','solutions-heading','tf-process-title','tf-stack-heading','tf-final-heading'];
+  const html=text('index.html');assert.equal((html.match(/<section\b/g)||[]).length,7);
+  const names=['hero-title','impact-title','tfv-title','solutions-heading','tf-process-title','tf-stack-heading','tf-final-heading'];
   const positions=names.map(x=>html.indexOf(`aria-labelledby="${x}"`));assert.ok(positions.every(x=>x>=0));
   assert.deepEqual(positions,[...positions].sort((a,b)=>a-b));
   assert.ok(html.includes('>+15</span>'));assert.ok(html.includes('>+25,1</span>'));
