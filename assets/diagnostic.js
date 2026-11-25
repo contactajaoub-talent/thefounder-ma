@@ -1,4 +1,4 @@
-/* TheFounder — diagnostic public. Envoi uniquement par action explicite mailto. */
+/* TheFounder — diagnostic public. Envoi HTTPS après consentement et vérification Turnstile. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -96,10 +96,11 @@
     const percent=(step+1)*20;
     $('progress-percent').textContent=percent+' %';$('progress-fill').style.width=percent+'%';$('progress-track').setAttribute('aria-valuenow',percent);
     $('back').hidden=step===0;
-    $('next').innerHTML=step===4?'Préparer ma synthèse <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>':'Continuer <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
+    $('next').innerHTML=step===4?'Envoyer ma demande <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>':'Continuer <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
   }
   function render(){
     nav();$('form-content').innerHTML=builders[step]();$('form-error').hidden=true;
+    renderCaptcha();
   }
   function showError(msg){const el=$('form-error');el.textContent=msg;el.hidden=false;el.scrollIntoView({behavior:'smooth',block:'center'});}
   function validate(){
@@ -195,7 +196,7 @@
         if(body.error==='captcha_rejected')throw Error('Vérification anti-spam refusée. Actualisez et réessayez.');
         throw Error('L’envoi n’a pas abouti. Vos réponses sont conservées sur cette page. Réessayez.');
       }
-      submitted=true;renderResult();showResult();
+      submitted=true;showResult();
       $('result-title').textContent='Votre demande est reçue.';
       const el=$('result-content');const p=document.createElement('p');p.className='notice-plain';
       p.textContent='Référence de votre demande : '+String(body.reference||id);el.prepend(p);
@@ -210,27 +211,6 @@
   function formatPlain(){
     const chosenDepts=proposal();return `PRÉDIAGNOSTIC — THEFOUNDER\nEntreprise : ${state.company}\nContact : ${state.name}\nSecteur : ${state.sector}\nTaille : ${state.size}\nClientèle : ${state.clientele||'Non indiquée'}\nVille : ${state.ville||'Non indiquée'}\nDépartements : ${state.departments.join(', ')}\nDétails par département : ${chosenDepts.map(d=>d.label+' : '+(state.followup[d.id]||'Non précisé')).join(' ; ')}\nProblèmes : ${state.problems.join(' ; ')}\nOutils actuels : ${state.tools.join(', ')}\nLogiciels cités : ${state.softwareNames||'Non précisés'}\nCentralisation : ${state.centralisation||'Non précisée'}\nIntégrations : ${state.integration||'Non précisées'}\nVolume : ${state.volume||'Non précisé'}\nTemps perdu estimé : ${state.time||'Non précisé'}\nImpacts : ${state.impacts.join(', ')}\nExemple : ${state.example||'Non fourni'}\nObjectifs : ${state.goals.join(', ')}\nÉchéance : ${state.timeline||'Non précisée'}\nContraintes : ${state.constraints.join(', ')}\nTypes de données : ${state.dataTypes.join(', ')}\nHébergement : ${state.hosting||'Non précisé'}\nBudget : ${state.budget||'Non communiqué'}\nProjet suivi par : ${state.owner||'Non précisé'}\nMoyen préféré : ${state.channel||'Non précisé'}\nE-mail : ${state.email||'Non indiqué'}\nTéléphone : ${state.phone||'Non indiqué'}\n\nDocument préparatoire, sans diagnostic automatique confirmé.`;
   }
-  $('email-summary').addEventListener('click',()=>{
-    // No silent submission: the prospect must send the message in their own email client.
-    const subject='Diagnostic digital gratuit - TheFounder - '+state.company.replace(/[\r\n]/g,' ').slice(0,90);
-    const content=formatPlain();
-    const body=content.length <= 2300 ? content : [
-      'Bonjour,', '',
-      'Je souhaite recevoir mon diagnostic digital gratuit.',
-      'Entreprise : '+state.company,
-      'Contact : '+state.name,
-      'Email : '+(state.email||'Non communiqué'),
-      'Téléphone : '+(state.phone||'Non communiqué'),
-      'Départements : '+state.departments.join(', '),
-      'Priorités : '+state.problems.join(', '),
-      '',
-      'Le détail complet est disponible dans le fichier JSON exportable ci-dessous.',
-      'Merci de me demander le fichier si nécessaire.'
-    ].join('\n');
-    $('email-action-note').hidden=false;
-    $('email-action-note').textContent='Votre messagerie doit s’ouvrir. Vérifiez le message et cliquez sur « Envoyer ». Si rien ne s’ouvre, copiez la synthèse.';
-    window.location.href='mailto:contactajaoub@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  });
   $('copy-summary').addEventListener('click',async()=>{
     const button=$('copy-summary');
     try{await navigator.clipboard.writeText(formatPlain());button.textContent='Synthèse copiée';}
