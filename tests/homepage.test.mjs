@@ -3,8 +3,8 @@ import assert from 'node:assert/strict';
 import { test } from 'node:test';
 const html=readFileSync(new URL('../index.html',import.meta.url),'utf8');
 const css=readFileSync(new URL('../assets/site.css',import.meta.url),'utf8');
-test('structure des six sections',()=>{
-  for(const x of ['id="hero-title"','id="impact"','id="solutions"','id="processus"','id="technologies"','id="contact"'])assert.ok(html.includes(x),x);
+test('structure des sept sections',()=>{
+  for(const x of ['id="hero-title"','id="defis"','id="impact"','id="solutions"','id="processus"','id="technologies"','id="contact"'])assert.ok(html.includes(x),x);
 });
 test('navigation et CTA mailto',()=>{
   assert.ok(html.includes('mailto:contactajaoub@gmail.com'));

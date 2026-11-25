@@ -36,10 +36,11 @@ test('SEO de production et retour en preview sur fixture isolée, sans autorisat
     assert.equal(JSON.parse(data).about.length,3);
     assert.ok(JSON.parse(data).description.includes('Maroc'));
     assert.ok(html.includes("'sha256-"+createHash('sha256').update(data).digest('base64')+"'"));
-    const sitemap=await readFile(resolve(fixture,'dist/sitemap.xml'),'utf8');assert.equal((sitemap.match(/<url>/g)||[]).length,9);assert.ok(!sitemap.includes('404.html'));
+    const sitemap=await readFile(resolve(fixture,'dist/sitemap.xml'),'utf8');assert.equal((sitemap.match(/<url>/g)||[]).length,10);assert.ok(!sitemap.includes('404.html'));
     assert.ok(!sitemap.includes('.html'));
     assert.ok(sitemap.includes('https://example.invalid/solutions'));
     assert.ok(sitemap.includes('https://example.invalid/departements'));
+    assert.ok(sitemap.includes('https://example.invalid/diagnostic'));
     const solutionsHtml=await readFile(resolve(fixture,'dist/solutions.html'),'utf8');
     assert.ok(solutionsHtml.includes('href="https://example.invalid/solutions"'));
     assert.ok(solutionsHtml.includes('href="/departements"'));
@@ -91,7 +92,7 @@ test('export preview et serveur HTTP sécurisé, indépendants des validations r
     assert.equal(response.headers.get('x-content-type-options'),'nosniff');
     assert.match(response.headers.get('content-security-policy'),/frame-ancestors 'none'/);
     assert.match(response.headers.get('x-robots-tag'),/noindex/);
-    for(const path of ['/solutions','/departements','/realisations','/assets/preloader/thefounder-symbol.png','/assets/site.js'])assert.equal((await fetch(base+path)).status,200,path);
+    for(const path of ['/solutions','/departements','/diagnostic','/realisations','/assets/preloader/thefounder-symbol.png','/assets/site.js'])assert.equal((await fetch(base+path)).status,200,path);
     for(const [legacy,canonical] of [['/index.html','/'],['/solutions.html','/solutions'],['/departements.html','/departements']]){
       const r=await fetch(base+legacy,{redirect:'manual'});
       assert.equal(r.status,308,legacy);
