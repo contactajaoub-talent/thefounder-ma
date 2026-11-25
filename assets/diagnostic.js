@@ -87,7 +87,7 @@
     `<div class="form-field-spacer"></div>`+
     question('Comment préférez-vous échanger ?',choices('channel',['E-mail','WhatsApp','Visioconférence','Téléphone'],{columns:2}),{hint:'Vous pouvez choisir une méthode écrite si vous le préférez.'})+
     `<div class="question"><div class="question-head"><h3>Récapitulatif de vos réponses</h3><span class="optional">Vérifiable</span></div>${summary()}</div>`+
-    `<label class="privacy-check"><input id="consent" type="checkbox" ${state.consent?'checked':''}><span>J’accepte d’être recontacté au sujet de ma demande de diagnostic digital. <strong>Dans cette démo, aucune donnée n’est transmise.</strong></span></label>`+
+    `<label class="privacy-check"><input id="consent" type="checkbox" ${state.consent?'checked':''}><span>J’accepte la transmission de mes réponses et coordonnées à TheFounder pour traiter ma demande de diagnostic et me recontacter. <a href="/confidentialite" target="_blank" rel="noopener">Consulter les informations de confidentialité</a>.</span></label>`+
     `<div class="section-tip"><span class="tip-symbol">i</span><span>Le rapport détaillé sera établi après analyse des réponses et vérification des contraintes, pas automatiquement sur la seule base des cases cochées.</span></div>`;}
   const builders=[content1,content2,content3,content4,content5];
   function nav(){

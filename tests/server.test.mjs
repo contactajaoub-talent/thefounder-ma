@@ -15,7 +15,7 @@ test('SEO de production et retour en preview sur fixture isolée, sans autorisat
       await mkdir(dirname(resolve(fixture,file)),{recursive:true});await copyFile(resolve(root,file),resolve(fixture,file));
     }
     await mkdir(resolve(fixture,'config'),{recursive:true});
-    const release={siteOrigin:'https://example.invalid',publicationApproved:true,legalApproved:true,privacyApproved:true,brandUseApproved:true};
+    const release={siteOrigin:'https://example.invalid',publicationApproved:true,legalApproved:true,privacyApproved:true,brandUseApproved:true,diagnosticPrivacyApproved:true};
     await writeFile(resolve(fixture,'config/release.json'),JSON.stringify(release));
     const run=(production=true,env={},args=[])=>spawnSync(process.execPath,['scripts/build.mjs',...(production?['--production']:[]),...args],{cwd:fixture,encoding:'utf8',env:{...process.env,VERCEL_ENV:'',VERCEL_TARGET_ENV:'',THEFOUNDER_INTAKE_URL:'https://intake.example.invalid/functions/v1/submit-diagnostic',THEFOUNDER_TURNSTILE_SITE_KEY:'fixture-only',...env}});
     // Exercise the guard independently of whether the real notices are now complete.

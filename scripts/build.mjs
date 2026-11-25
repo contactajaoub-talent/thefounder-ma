@@ -13,7 +13,7 @@ const production = explicitProduction || vercelProduction;
 const release = JSON.parse(await readFile(resolve(root, 'config/release.json'), 'utf8'));
 let origin;
 if (production) {
-  const missing = ['publicationApproved', 'legalApproved', 'privacyApproved', 'brandUseApproved'].filter(key => release[key] !== true);
+  const missing = ['publicationApproved', 'legalApproved', 'privacyApproved', 'brandUseApproved', 'diagnosticPrivacyApproved'].filter(key => release[key] !== true);
   if (missing.length) throw Error(`Publication bloquée : validations réelles manquantes dans config/release.json : ${missing.join(', ')}. Ne pas les activer sans preuve.`);
   const url = new URL(release.siteOrigin);
   if (url.protocol !== 'https:' || url.pathname !== '/' || url.search || url.hash || url.username || url.password) throw Error('siteOrigin doit être une origine HTTPS validée, sans chemin ni paramètres.');
