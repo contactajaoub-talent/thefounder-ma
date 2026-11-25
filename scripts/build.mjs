@@ -45,7 +45,7 @@ const website = production ? JSON.stringify({
   ]
 }) : null;
 const hash = website ? createHash('sha256').update(website).digest('base64') : null;
-const policy = hash ? csp.replace("script-src 'self'", `script-src 'self' 'sha256-${hash}'`) : csp;
+let policy = hash ? csp.replace("script-src 'self'", `script-src 'self' 'sha256-${hash}'`) : csp;
 for (const file of pages) {
   let html = await readFile(resolve(root, file), 'utf8');
   if (production) {
@@ -60,6 +60,12 @@ for (const file of pages) {
   output.set(file, html);
 }
 for (const file of assets) output.set(file, await readFile(resolve(root, file)));
+const intake = process.env.THEFOUNDER_INTAKE_URL || '';
+const siteKey = process.env.THEFOUNDER_TURNSTILE_SITE_KEY || '';
+if(production && (!intake.startsWith('https://') || !siteKey)) throw Error('Réception CRM : endpoint HTTPS et Turnstile requis.');
+if(intake){const u=new URL(intake);if(u.username||u.password||u.search||u.hash||u.protocol!=='https:'||/localhost|127\.0\.0\.1/.test(u.hostname))throw Error('Endpoint public invalide');policy=policy.replace("connect-src 'self'", "connect-src 'self' "+u.origin);for(const [file,html] of output){if(file.endsWith('.html'))output.set(file,html.replace("connect-src 'self'", "connect-src 'self' "+u.origin));}}
+output.set('assets/diagnostic-config.js','window.TF_DIAGNOSTIC_CONFIG=Object.freeze('+JSON.stringify({intakeEndpoint:intake,turnstileSiteKey:siteKey})+');');
+
 output.set('robots.txt', production ? `User-agent: *\nAllow: /\nSitemap: ${origin}/sitemap.xml\n` : 'User-agent: *\nDisallow: /\n');
 output.set('sitemap.xml', `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">${production ? pages.filter(x => x !== '404.html').map(x => `<url><loc>${origin}${cleanUrlForPage(x)}</loc></url>`).join('') : ''}</urlset>\n`);
 const headers = {...securityHeaders, 'Content-Security-Policy':policy, ...(production ? {'Strict-Transport-Security':'max-age=31536000'} : {'X-Robots-Tag':'noindex, nofollow'})};

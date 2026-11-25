@@ -138,7 +138,7 @@
   });
   $('form-content').addEventListener('input',e=>{const field=e.target.dataset.input;if(field&&Object.prototype.hasOwnProperty.call(state,field))state[field]=e.target.value;});
   $('form-content').addEventListener('change',e=>{const field=e.target.dataset.input;if(field&&Object.prototype.hasOwnProperty.call(state,field))state[field]=e.target.value;if(e.target.id==='consent')state.consent=e.target.checked;});
-  $('next').addEventListener('click',()=>{const err=validate();if(err)return showError(err);if(step<4){step++;render();$('steps').scrollIntoView({behavior:'smooth',block:'start'});}else showResult();});
+  $('next').addEventListener('click',async()=>{const err=validate();if(err)return showError(err);if(step<4){step++;render();$('steps').scrollIntoView({behavior:'smooth',block:'start'});}else await submitDiagnostic();});
   $('back').addEventListener('click',()=>{if(step>0){step--;render();$('steps').scrollIntoView({behavior:'smooth',block:'start'});}});
   $('steps').addEventListener('click',e=>{const tab=e.target.closest('[data-go]');if(!tab)return;const target=Number(tab.dataset.go);if(target>=0&&target<step){step=target;render();}});
   function proposal(){const selected=departments.filter(d=>state.departments.includes(d.label));return selected.slice(0,3);}
@@ -150,6 +150,57 @@
       <h3>Fonctionnement actuel</h3><p>Outils : ${esc(state.tools.join(', '))}. ${state.softwareNames?'Logiciels cités : '+esc(state.softwareNames)+'.':''} ${state.time?'Temps perdu déclaré : '+esc(state.time)+'.':''} ${state.centralisation?'Centralisation : '+esc(state.centralisation)+'.':''}</p>
       <h3>Pistes techniques à vérifier</h3>${rows||'<p>À étudier lors du diagnostic.</p>'}<p class="notice-plain">Ce sont des hypothèses, pas des recommandations définitives. Il faudra vérifier les processus, la qualité des données, les risques, les coûts et les outils réellement disponibles.</p>
       <h3>Objectifs et calendrier</h3><p>${esc(state.goals.join(', ')||'Non précisés')} ${state.timeline?'· '+esc(state.timeline):''}</p>`;
+  }
+  let submissionId=crypto.randomUUID();
+  let submitted=false;
+  let sitekeyWidget=null;
+  let captchaScriptPromise=null;
+  function renderCaptcha(){
+    const config=window.TF_DIAGNOSTIC_CONFIG||{};
+    if(!config.turnstileSiteKey || step!==4)return;
+    if(!$('captcha-container')){
+      const box=document.createElement('div');box.id='captcha-container';box.className='captcha-container';
+      $('form-content').appendChild(box);
+    }
+    const start=()=>{if(window.turnstile && $('captcha-container')){
+      if(sitekeyWidget!=null){try{window.turnstile.remove(sitekeyWidget)}catch{}}
+      sitekeyWidget=window.turnstile.render('#captcha-container',{sitekey:config.turnstileSiteKey,theme:'light',action:'diagnostic'});
+    }};
+    if(window.turnstile)return start();
+    if(!captchaScriptPromise){
+      captchaScriptPromise=new Promise((resolve,reject)=>{
+        const script=document.createElement('script');script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+        script.async=true;script.onload=resolve;script.onerror=reject;document.head.appendChild(script);
+      });
+    }
+    captchaScriptPromise.then(start).catch(()=>showError('Le contrôle anti-spam est indisponible. Réessayez.'));
+  }
+  async function submitDiagnostic(){
+    if(submitted)return;
+    const config=window.TF_DIAGNOSTIC_CONFIG||{};
+    if(!config.intakeEndpoint || !/^https:\/\//.test(config.intakeEndpoint) && !/^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?\//.test(config.intakeEndpoint)){
+      showError('Le formulaire n’est pas encore connecté au serveur de réception.');return;
+    }
+    const token=sitekeyWidget!=null && window.turnstile ? window.turnstile.getResponse(sitekeyWidget) : '';
+    if(config.turnstileSiteKey && !token){showError('Veuillez confirmer la vérification anti-spam.');return;}
+    const button=$('next');button.disabled=true;button.textContent='Envoi sécurisé en cours…';
+    try{
+      const id=submissionId;
+      const result=await fetch(config.intakeEndpoint,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+        submissionId:id,answers:{...state},website:$('company-fax')?.value||'',turnstileToken:token
+      })});
+      const body=await result.json().catch(()=>({}));
+      if(!result.ok || !body.ok){
+        if(body.error==='rate_limited')throw Error('Trop de demandes depuis ce réseau. Réessayez plus tard.');
+        if(body.error==='captcha_rejected')throw Error('Vérification anti-spam refusée. Actualisez et réessayez.');
+        throw Error('L’envoi n’a pas abouti. Vos réponses sont conservées sur cette page. Réessayez.');
+      }
+      submitted=true;renderResult();showResult();
+      $('result-title').textContent='Votre demande est reçue.';
+      const el=$('result-content');const p=document.createElement('p');p.className='notice-plain';
+      p.textContent='Référence de votre demande : '+String(body.reference||id);el.prepend(p);
+      $('next').disabled=true;
+    }catch(e){showError(e.message);button.disabled=false;nav();if(sitekeyWidget!=null && window.turnstile)window.turnstile.reset(sitekeyWidget);}
   }
   function showResult(){renderResult();lastFocus=document.activeElement;$('result-modal').hidden=false;document.body.style.overflow='hidden';$('modal-close').focus();}
   function closeModal(){$('result-modal').hidden=true;document.body.style.overflow='';lastFocus?.focus();}
