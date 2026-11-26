@@ -83,9 +83,9 @@
     return `<div class="summary-panel"><div class="summary-row"><strong>Entreprise</strong><span>${esc(state.sector||'Non renseigné')} · ${esc(state.size||'—')}</span></div><div class="summary-row"><strong>Départements</strong><span>${esc(deps)}</span></div><div class="summary-row"><strong>Problèmes</strong><span>${esc(p)}</span></div><div class="summary-row"><strong>Outils</strong><span>${esc(state.tools.join(' · ')||'Non renseignés')}</span></div><div class="summary-row"><strong>Objectifs</strong><span>${esc(state.goals.join(' · ')||'À préciser')}</span></div></div>`;
   }
   function content5(){return label('05 · FINALISATION','Qui pouvons-nous recontacter ?','Nous avons les éléments nécessaires pour préparer un premier diagnostic. Vérifiez votre récapitulatif et laissez un moyen de vous joindre.')+
-    `<div class="field-grid">${field('name','Votre nom complet','text','Prénom et nom',true)}${field('company','Nom de votre entreprise','text','Nom de votre société',true)}${field('email','E-mail professionnel','email','vous@entreprise.com')}${field('phone','Téléphone professionnel / WhatsApp','tel','+212 ...')}</div>`+
+    `<div class="field-grid">${field('name','Votre nom complet','text','Prénom et nom',true)}${field('company','Nom de votre entreprise','text','Nom de votre société',true)}${field('email','E-mail professionnel','email','vous@entreprise.com')}${field('phone','Téléphone professionnel','tel','Ex. : +212 6 00 00 00 00',true)}</div>`+
     `<div class="form-field-spacer"></div>`+
-    question('Comment préférez-vous échanger ?',choices('channel',['E-mail','WhatsApp','Visioconférence','Téléphone'],{columns:2}),{hint:'Vous pouvez choisir une méthode écrite si vous le préférez.'})+
+    question('Comment préférez-vous échanger ?',choices('channel',['Téléphone','E-mail','Visioconférence'],{columns:2}),{hint:'Vous pouvez choisir une méthode écrite si vous le préférez.'})+
     `<div class="question"><div class="question-head"><h3>Récapitulatif de vos réponses</h3><span class="optional">Vérifiable</span></div>${summary()}</div>`+
     `<label class="privacy-check"><input id="consent" type="checkbox" ${state.consent?'checked':''}><span>J’accepte la transmission de mes réponses et coordonnées à TheFounder pour traiter ma demande de diagnostic et me recontacter. <a href="/confidentialite" target="_blank" rel="noopener">Consulter les informations de confidentialité</a>.</span></label>`+
     `<div class="section-tip"><span class="tip-symbol">i</span><span>Le rapport détaillé sera établi après analyse des réponses et vérification des contraintes, pas automatiquement sur la seule base des cases cochées.</span></div>`;}
@@ -109,7 +109,8 @@
     if(step===2 && !state.tools.length)return 'Indiquez au moins un outil utilisé (ou « Aucun outil structuré »).';
     if(step===3 && !state.goals.length)return 'Choisissez au moins un objectif principal.';
     if(step===4){if(!state.name.trim())return 'Indiquez votre nom.';if(!state.company.trim())return 'Indiquez le nom de votre entreprise.';
-      if(!state.email.trim()&&!state.phone.trim())return 'Indiquez un e-mail ou un numéro professionnel.';
+      if(!state.phone.trim())return 'Indiquez votre numéro de téléphone professionnel.';
+      if(!/^[+\d\s().-]{7,25}$/.test(state.phone.trim())||state.phone.replace(/\D/g,'').length<7||state.phone.replace(/\D/g,'').length>15)return 'Vérifiez le numéro de téléphone (7 à 15 chiffres).';
       if(state.email&& !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email.trim()))return 'Vérifiez le format de l’adresse e-mail.';
       if(!state.consent)return 'Pour finaliser la demande, confirmez votre accord pour être recontacté.';}
     return '';
@@ -158,14 +159,16 @@
   let captchaScriptPromise=null;
   function renderCaptcha(){
     const config=window.TF_DIAGNOSTIC_CONFIG||{};
-    if(!config.turnstileSiteKey || step!==4)return;
+    if(step!==4)return;
+    if(!config.turnstileSiteKey){showError('Le contrôle anti-spam n’est pas configuré. Veuillez revenir plus tard.');return;}
     if(!$('captcha-container')){
       const box=document.createElement('div');box.id='captcha-container';box.className='captcha-container';
       $('form-content').appendChild(box);
+      const status=document.createElement('p');status.id='captcha-status';status.className='modal-note';status.setAttribute('role','status');status.setAttribute('aria-live','polite');status.textContent='Vérification anti-spam Cloudflare : automatique ou avec une case à cocher selon votre navigateur.';$('form-content').appendChild(status);
     }
     const start=()=>{if(window.turnstile && $('captcha-container')){
       if(sitekeyWidget!=null){try{window.turnstile.remove(sitekeyWidget)}catch{}}
-      sitekeyWidget=window.turnstile.render('#captcha-container',{sitekey:config.turnstileSiteKey,theme:'light',action:'diagnostic'});
+      sitekeyWidget=window.turnstile.render('#captcha-container',{sitekey:config.turnstileSiteKey,theme:'light',appearance:'always',action:'diagnostic',callback:()=>{const status=$('captcha-status');if(status)status.textContent='Vérification anti-spam validée.';},'expired-callback':()=>{const status=$('captcha-status');if(status)status.textContent='La vérification a expiré. Veuillez recommencer.';},'error-callback':()=>{const status=$('captcha-status');if(status)status.textContent='Vérification indisponible. Actualisez la page ou vérifiez les bloqueurs de contenu.';}});
     }};
     if(window.turnstile)return start();
     if(!captchaScriptPromise){
@@ -183,7 +186,8 @@
       showError('Le formulaire n’est pas encore connecté au serveur de réception.');return;
     }
     const token=sitekeyWidget!=null && window.turnstile ? window.turnstile.getResponse(sitekeyWidget) : '';
-    if(config.turnstileSiteKey && !token){showError('Veuillez confirmer la vérification anti-spam.');return;}
+    if(!config.turnstileSiteKey){showError('Le contrôle anti-spam est indisponible.');return;}
+    if(!token){showError('La vérification anti-spam n’est pas terminée. Attendez sa validation ou cochez la case si elle apparaît.');return;}
     const button=$('next');button.disabled=true;button.textContent='Envoi sécurisé en cours…';
     try{
       const id=submissionId;
@@ -197,7 +201,7 @@
         throw Error('L’envoi n’a pas abouti. Vos réponses sont conservées sur cette page. Réessayez.');
       }
       submitted=true;showResult();
-      $('result-title').textContent='Votre demande est reçue.';
+      $('result-title').textContent='Merci ! Votre demande a bien été reçue.';
       const el=$('result-content');const p=document.createElement('p');p.className='notice-plain';
       p.textContent='Référence de votre demande : '+String(body.reference||id);el.prepend(p);
       $('next').disabled=true;
