@@ -16,3 +16,10 @@
 .result-actions{display:flex;flex-wrap:wrap;gap:10px}
 .result-actions button{flex:1 1 180px;white-space:normal}
 @media(max-width:490px){.diagnostic-home{padding:7px 8px;font-size:10px}}
+
+/* Confirmation de réception CRM */
+.diagnostic-success{padding:clamp(28px,5vw,56px);text-align:center;display:grid;justify-items:center;gap:16px;outline:none}
+.diagnostic-success h2{font-size:clamp(1.7rem,3vw,2.4rem);line-height:1.2;margin:0;color:#24213b}
+.diagnostic-success p{max-width:37rem;margin:0;color:#49445f;line-height:1.65}
+.diagnostic-success .secondary-action{display:inline-flex;text-decoration:none;margin-top:12px}
+.next-button:disabled{opacity:.65;cursor:wait}
