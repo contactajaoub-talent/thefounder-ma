@@ -6,8 +6,9 @@ const css=readFileSync(new URL('../assets/site.css',import.meta.url),'utf8');
 test('structure des sept sections',()=>{
   for(const x of ['id="hero-title"','id="defis"','id="impact"','id="solutions"','id="processus"','id="technologies"','id="contact"'])assert.ok(html.includes(x),x);
 });
-test('navigation et CTA mailto',()=>{
-  assert.ok(html.includes('mailto:contactajaoub@gmail.com'));
+test('navigation et CTA dirigent vers le diagnostic',()=>{
+  assert.ok(html.includes('href="/diagnostic"'));
+  assert.ok(!html.includes('mailto:contactajaoub@gmail.com?subject=Demande%20de%20projet'));
   assert.ok(!html.includes('data-next="Contact"'));
 });
 test('grille de neuf technologies',()=>{
