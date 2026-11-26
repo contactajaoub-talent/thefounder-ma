@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#f8f7fe">
   <meta name="robots" content="noindex, nofollow">
 <meta name="referrer" content="strict-origin-when-cross-origin">
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://challenges.cloudflare.com; style-src 'self'; img-src 'self'; font-src 'self'; connect-src 'self' https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com; object-src 'none'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
 <meta property="og:type" content="website"><meta property="og:locale" content="fr_MA"><meta property="og:site_name" content="TheFounder"><meta property="og:title" content="Diagnostic digital gratuit pour entreprises au Maroc | TheFounder"><meta property="og:description" content="Diagnostic digital gratuit pour les entreprises au Maroc : identifiez vos problèmes de gestion en cinq étapes et préparez une demande personnalisée à TheFounder."><meta property="og:image" content="/assets/og-thefounder.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="TheFounder — Logiciels métier, automatisation et IA"><meta name="twitter:card" content="summary_large_image">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png"><link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
   <title>Diagnostic digital gratuit pour entreprises au Maroc | TheFounder</title>
@@ -36,7 +36,7 @@
           <div class="form-error" id="form-error" role="alert" hidden></div>
           <div class="wizard-footer"><button type="button" class="back-button" id="back" aria-label="Revenir à l'étape précédente">Précédent</button><span class="footer-help">Vous pouvez revenir modifier vos réponses.</span><button type="button" class="next-button" id="next">Continuer <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div>
         </div>
-        <p class="privacy-footnote"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Les réponses restent dans votre navigateur jusqu’à ce que vous choisissiez de les envoyer depuis votre messagerie. Aucun envoi automatique. <a href="/confidentialite">Confidentialité</a>.</p>
+        <p class="privacy-footnote"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="10" width="14" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> Les informations envoyées sont enregistrées dans notre CRM uniquement après votre accord, afin de traiter votre demande et vous recontacter. <a href="/confidentialite">Confidentialité</a>.</p>
       </section>
       <aside class="side-panel" aria-label="Ce que permet le diagnostic">
         <div class="side-top"><span class="side-tag"><span></span> UN DIAGNOSTIC UTILE</span><h2>Du problème identifié<br><em>à une piste concrète.</em></h2><p>Pas de logiciel standard imposé. Nous partons du fonctionnement réel de votre entreprise.</p></div>
@@ -46,7 +46,6 @@
       </aside>
     </main>
   </div>
-  <div class="modal-backdrop" id="result-modal" hidden><div class="modal" role="dialog" aria-modal="true" aria-labelledby="result-title"><button type="button" class="modal-close" id="modal-close" aria-label="Fermer">×</button><div class="modal-top-icon">✦</div><span class="eyebrow">RÉCAPITULATIF DU PRÉDIAGNOSTIC</span><h2 id="result-title">Votre demande est prête.</h2><p class="modal-lead">Cet aperçu n’est pas un rapport final : il rassemble vos réponses et les premières pistes à vérifier pendant le diagnostic.</p><div id="result-content" class="result-content"></div><div class="result-actions"><button id="email-summary" class="next-button" type="button">Ouvrir ma messagerie pour envoyer</button><button id="copy-summary" class="secondary-action" type="button">Copier la synthèse</button><button id="export-json" class="secondary-action" type="button">Exporter les réponses (.json)</button></div><p id="email-action-note" class="modal-note" role="status" aria-live="polite" hidden></p><p class="modal-note">Votre messagerie s’ouvre avec une demande préremplie. Cliquez sur « Envoyer » dans votre messagerie pour nous transmettre votre diagnostic. Si votre logiciel limite la longueur du message, exportez le fichier JSON et joignez-le. Aucune réception n’est confirmée sur cette page.</p></div></div>
-<script src="/assets/diagnostic.js" defer></script>
+<script src="/assets/diagnostic-config.js" defer></script><script src="/assets/diagnostic.js" defer></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-/* TheFounder — diagnostic public. Envoi uniquement par action explicite mailto. */
+/* TheFounder — diagnostic public. Confirmation uniquement après persistance CRM. */
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
@@ -33,7 +33,13 @@
   const constraints = ['Budget limité','Conserver nos outils','Confidentialité des données','Hébergement local souhaité','Plusieurs sites / équipes','Formation des utilisateurs','Limiter les abonnements','Besoin d’intégrations','Disponibilité limitée'];
   const state = {sector:'',size:'',clientele:'',ville:'',role:'',departments:[],problems:[],followup:{},tools:[],softwareNames:'',centralisation:'',integration:'',volume:'',time:'',impacts:[],example:'',goals:[],timeline:'',constraints:[],dataTypes:[],hosting:'',budget:'',owner:'',decision:'',name:'',company:'',email:'',phone:'',channel:'',consent:false};
   let step=0;
-  let lastFocus=null;
+  let sending=false;
+  const submissionId=()=>crypto.randomUUID();
+  let currentSubmissionId=null;
+  let widget=null;
+  let captchaScript=null;
+  let attemptedAnswers=null;
+  const normalizePhone=value=>value.trim().replace(/[\s().-]/g,'').replace(/^00/,'+');
   const chosen = (field,value) => Array.isArray(state[field]) ? state[field].includes(value) : state[field]===value;
   const opts = arr => arr.map(x=>typeof x==='string'?{value:x,label:x}:x);
   function question(title,content,{required=false,hint='',note=''}={}){
@@ -83,11 +89,11 @@
     return `<div class="summary-panel"><div class="summary-row"><strong>Entreprise</strong><span>${esc(state.sector||'Non renseigné')} · ${esc(state.size||'—')}</span></div><div class="summary-row"><strong>Départements</strong><span>${esc(deps)}</span></div><div class="summary-row"><strong>Problèmes</strong><span>${esc(p)}</span></div><div class="summary-row"><strong>Outils</strong><span>${esc(state.tools.join(' · ')||'Non renseignés')}</span></div><div class="summary-row"><strong>Objectifs</strong><span>${esc(state.goals.join(' · ')||'À préciser')}</span></div></div>`;
   }
   function content5(){return label('05 · FINALISATION','Qui pouvons-nous recontacter ?','Nous avons les éléments nécessaires pour préparer un premier diagnostic. Vérifiez votre récapitulatif et laissez un moyen de vous joindre.')+
-    `<div class="field-grid">${field('name','Votre nom complet','text','Prénom et nom',true)}${field('company','Nom de votre entreprise','text','Nom de votre société',true)}${field('email','E-mail professionnel','email','vous@entreprise.com')}${field('phone','Téléphone professionnel / WhatsApp','tel','+212 ...')}</div>`+
+    `<div class="field-grid">${field('name','Votre nom complet','text','Prénom et nom',true)}${field('company','Nom de votre entreprise','text','Nom de votre société',true)}${field('email','E-mail professionnel','email','vous@entreprise.com')}${field('phone','Numéro de téléphone professionnel','tel','+212 6 ...',true)}</div><p class="question-hint">Indicatif international requis. L’e-mail est facultatif.</p>`+
     `<div class="form-field-spacer"></div>`+
-    question('Comment préférez-vous échanger ?',choices('channel',['E-mail','WhatsApp','Visioconférence','Téléphone'],{columns:2}),{hint:'Vous pouvez choisir une méthode écrite si vous le préférez.'})+
+    question('Comment préférez-vous échanger ?',choices('channel',['E-mail','Visioconférence','Téléphone'],{columns:2}),{hint:'Vous pouvez choisir une méthode écrite si vous le préférez.'})+
     `<div class="question"><div class="question-head"><h3>Récapitulatif de vos réponses</h3><span class="optional">Vérifiable</span></div>${summary()}</div>`+
-    `<label class="privacy-check"><input id="consent" type="checkbox" ${state.consent?'checked':''}><span>J’accepte d’être recontacté au sujet de ma demande de diagnostic digital. <strong>Dans cette démo, aucune donnée n’est transmise.</strong></span></label>`+
+    `<label class="privacy-check"><input id="consent" type="checkbox" ${state.consent?'checked':''}><span>J’accepte d’être recontacté au sujet de ma demande de diagnostic digital. Les informations seront enregistrées dans le CRM TheFounder pour traiter ma demande. J’ai consulté la <a href="/confidentialite" target="_blank" rel="noopener noreferrer">politique de confidentialité</a>.</span></label>`+
     `<div class="section-tip"><span class="tip-symbol">i</span><span>Le rapport détaillé sera établi après analyse des réponses et vérification des contraintes, pas automatiquement sur la seule base des cases cochées.</span></div>`;}
   const builders=[content1,content2,content3,content4,content5];
   function nav(){
@@ -96,10 +102,11 @@
     const percent=(step+1)*20;
     $('progress-percent').textContent=percent+' %';$('progress-fill').style.width=percent+'%';$('progress-track').setAttribute('aria-valuenow',percent);
     $('back').hidden=step===0;
-    $('next').innerHTML=step===4?'Préparer ma synthèse <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>':'Continuer <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
+    $('next').innerHTML=step===4?'Envoyer mon diagnostic <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>':'Continuer <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>';
   }
   function render(){
     nav();$('form-content').innerHTML=builders[step]();$('form-error').hidden=true;
+    if(step===4){if(!state.phone){state.phone='+212 ';$('f-phone').value=state.phone;}renderCaptcha();}
   }
   function showError(msg){const el=$('form-error');el.textContent=msg;el.hidden=false;el.scrollIntoView({behavior:'smooth',block:'center'});}
   function validate(){
@@ -107,8 +114,9 @@
     if(step===1){if(!state.departments.length)return 'Sélectionnez au moins un département à examiner.';if(!state.problems.length)return 'Sélectionnez au moins un problème rencontré.';}
     if(step===2 && !state.tools.length)return 'Indiquez au moins un outil utilisé (ou « Aucun outil structuré »).';
     if(step===3 && !state.goals.length)return 'Choisissez au moins un objectif principal.';
-    if(step===4){if(!state.name.trim())return 'Indiquez votre nom.';if(!state.company.trim())return 'Indiquez le nom de votre entreprise.';
-      if(!state.email.trim()&&!state.phone.trim())return 'Indiquez un e-mail ou un numéro professionnel.';
+    if(step===4){if(state.name.trim().length<2)return 'Indiquez votre nom.';if(state.company.trim().length<2)return 'Indiquez le nom de votre entreprise.';
+      if(!state.phone.trim())return 'Indiquez un numéro de téléphone professionnel.';
+      if(!/^[+\d\s().-]+$/.test(state.phone.trim())||!/^\+[1-9]\d{7,14}$/.test(normalizePhone(state.phone)))return 'Vérifiez le format du numéro de téléphone (indicatif inclus).';
       if(state.email&& !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(state.email.trim()))return 'Vérifiez le format de l’adresse e-mail.';
       if(!state.consent)return 'Pour finaliser la demande, confirmez votre accord pour être recontacté.';}
     return '';
@@ -138,9 +146,9 @@
   });
   $('form-content').addEventListener('input',e=>{const field=e.target.dataset.input;if(field&&Object.prototype.hasOwnProperty.call(state,field))state[field]=e.target.value;});
   $('form-content').addEventListener('change',e=>{const field=e.target.dataset.input;if(field&&Object.prototype.hasOwnProperty.call(state,field))state[field]=e.target.value;if(e.target.id==='consent')state.consent=e.target.checked;});
-  $('next').addEventListener('click',()=>{const err=validate();if(err)return showError(err);if(step<4){step++;render();$('steps').scrollIntoView({behavior:'smooth',block:'start'});}else showResult();});
-  $('back').addEventListener('click',()=>{if(step>0){step--;render();$('steps').scrollIntoView({behavior:'smooth',block:'start'});}});
-  $('steps').addEventListener('click',e=>{const tab=e.target.closest('[data-go]');if(!tab)return;const target=Number(tab.dataset.go);if(target>=0&&target<step){step=target;render();}});
+  $('next').addEventListener('click',()=>{const err=validate();if(err)return showError(err);if(step<4){step++;render();$('steps').scrollIntoView({behavior:'smooth',block:'start'});}else sendDiagnostic();});
+  $('back').addEventListener('click',()=>{if(!sending&&step>0){step--;render();$('steps').scrollIntoView({behavior:'smooth',block:'start'});}});
+  $('steps').addEventListener('click',e=>{if(sending)return;const tab=e.target.closest('[data-go]');if(!tab)return;const target=Number(tab.dataset.go);if(target>=0&&target<step){step=target;render();}});
   function proposal(){const selected=departments.filter(d=>state.departments.includes(d.label));return selected.slice(0,3);}
   function renderResult(){
     const selected=proposal();
@@ -151,45 +159,74 @@
       <h3>Pistes techniques à vérifier</h3>${rows||'<p>À étudier lors du diagnostic.</p>'}<p class="notice-plain">Ce sont des hypothèses, pas des recommandations définitives. Il faudra vérifier les processus, la qualité des données, les risques, les coûts et les outils réellement disponibles.</p>
       <h3>Objectifs et calendrier</h3><p>${esc(state.goals.join(', ')||'Non précisés')} ${state.timeline?'· '+esc(state.timeline):''}</p>`;
   }
-  function showResult(){renderResult();lastFocus=document.activeElement;$('result-modal').hidden=false;document.body.style.overflow='hidden';$('modal-close').focus();}
-  function closeModal(){$('result-modal').hidden=true;document.body.style.overflow='';lastFocus?.focus();}
-  $('modal-close').addEventListener('click',closeModal);
-  $('result-modal').addEventListener('click',e=>{if(e.target===$('result-modal'))closeModal();});
-  document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!$('result-modal').hidden)closeModal();});
-  function formatPlain(){
-    const chosenDepts=proposal();return `PRÉDIAGNOSTIC — THEFOUNDER\nEntreprise : ${state.company}\nContact : ${state.name}\nSecteur : ${state.sector}\nTaille : ${state.size}\nClientèle : ${state.clientele||'Non indiquée'}\nVille : ${state.ville||'Non indiquée'}\nDépartements : ${state.departments.join(', ')}\nDétails par département : ${chosenDepts.map(d=>d.label+' : '+(state.followup[d.id]||'Non précisé')).join(' ; ')}\nProblèmes : ${state.problems.join(' ; ')}\nOutils actuels : ${state.tools.join(', ')}\nLogiciels cités : ${state.softwareNames||'Non précisés'}\nCentralisation : ${state.centralisation||'Non précisée'}\nIntégrations : ${state.integration||'Non précisées'}\nVolume : ${state.volume||'Non précisé'}\nTemps perdu estimé : ${state.time||'Non précisé'}\nImpacts : ${state.impacts.join(', ')}\nExemple : ${state.example||'Non fourni'}\nObjectifs : ${state.goals.join(', ')}\nÉchéance : ${state.timeline||'Non précisée'}\nContraintes : ${state.constraints.join(', ')}\nTypes de données : ${state.dataTypes.join(', ')}\nHébergement : ${state.hosting||'Non précisé'}\nBudget : ${state.budget||'Non communiqué'}\nProjet suivi par : ${state.owner||'Non précisé'}\nMoyen préféré : ${state.channel||'Non précisé'}\nE-mail : ${state.email||'Non indiqué'}\nTéléphone : ${state.phone||'Non indiqué'}\n\nDocument préparatoire, sans diagnostic automatique confirmé.`;
+  function renderCaptcha(){
+    const config=window.TF_DIAGNOSTIC_CONFIG||{};
+    if(!config.turnstileSiteKey)return;
+    const container=document.createElement('div');container.id='captcha-container';$('form-content').appendChild(container);
+    const start=()=>{
+      if(step!==4||!container.isConnected)return;
+      if(widget!==null)window.turnstile.remove(widget);
+      widget=window.turnstile.render(container,{sitekey:config.turnstileSiteKey,action:'diagnostic',appearance:'interaction-only',
+        'error-callback':()=>{showError('Le contrôle anti-spam a échoué. Réessayez dans un instant.');return true;},
+        'timeout-callback':()=>showError('Le contrôle anti-spam a expiré. Réessayez.')});
+    };
+    if(window.turnstile)return start();
+    if(!captchaScript)captchaScript=new Promise((resolve,reject)=>{
+      const script=document.createElement('script');script.src='https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async=true;script.onload=resolve;script.onerror=reject;document.head.appendChild(script);
+    }).catch(error=>{captchaScript=null;throw error;});
+    captchaScript.then(start).catch(()=>showError('Le contrôle anti-spam est indisponible. Réessayez en revenant à cette étape.'));
   }
-  $('email-summary').addEventListener('click',()=>{
-    // No silent submission: the prospect must send the message in their own email client.
-    const subject='Diagnostic digital gratuit - TheFounder - '+state.company.replace(/[\r\n]/g,' ').slice(0,90);
-    const content=formatPlain();
-    const body=content.length <= 2300 ? content : [
-      'Bonjour,', '',
-      'Je souhaite recevoir mon diagnostic digital gratuit.',
-      'Entreprise : '+state.company,
-      'Contact : '+state.name,
-      'Email : '+(state.email||'Non communiqué'),
-      'Téléphone : '+(state.phone||'Non communiqué'),
-      'Départements : '+state.departments.join(', '),
-      'Priorités : '+state.problems.join(', '),
-      '',
-      'Le détail complet est disponible dans le fichier JSON exportable ci-dessous.',
-      'Merci de me demander le fichier si nécessaire.'
-    ].join('\n');
-    $('email-action-note').hidden=false;
-    $('email-action-note').textContent='Votre messagerie doit s’ouvrir. Vérifiez le message et cliquez sur « Envoyer ». Si rien ne s’ouvre, copiez la synthèse.';
-    window.location.href='mailto:contactajaoub@gmail.com?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
-  });
-  $('copy-summary').addEventListener('click',async()=>{
-    const button=$('copy-summary');
-    try{await navigator.clipboard.writeText(formatPlain());button.textContent='Synthèse copiée';}
-    catch{const el=document.createElement('textarea');el.value=formatPlain();document.body.appendChild(el);el.select();try{document.execCommand('copy');button.textContent='Synthèse copiée';}catch{button.textContent='Copie non disponible';}el.remove();}
-    setTimeout(()=>button.textContent='Copier la synthèse',1800);
-  });
-  $('export-json').addEventListener('click',()=>{
-    const exportData={schema:'thefounder-prediagnostic-v1',mode:'export_utilisateur',createdAt:new Date().toISOString(),responses:{...state},hypotheses:proposal().map(dep=>({departement:dep.label,piste:dep.solution,verificationRequise:true}))};
-    const blob=new Blob([JSON.stringify(exportData,null,2)],{type:'application/json;charset=utf-8'});
-    const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='thefounder-prediagnostic-reponses.json';a.click();URL.revokeObjectURL(u);
-  });
+  async function sendDiagnostic(){
+    if(sending)return;
+    const config=window.TF_DIAGNOSTIC_CONFIG||{};
+    if(!config.intakeEndpoint||!config.turnstileSiteKey)return showError('Le formulaire n’est pas encore connecté au serveur de réception.');
+    const token=widget!==null&&window.turnstile?window.turnstile.getResponse(widget):'';
+    if(!token){if(widget!==null)window.turnstile.reset(widget);return showError('La vérification anti-spam est en cours. Réessayez dans un instant.');}
+    sending=true;
+    const button=$('next');
+    button.disabled=true;
+    button.textContent='Transmission en cours…';
+    const controls=[...document.querySelectorAll('#form-content input, #form-content select, #form-content textarea, #form-content button, #back, #steps button')].map(el=>[el,el.disabled]);
+    controls.forEach(([el])=>el.disabled=true);
+    $('form-error').hidden=true;
+    const answers={...state,phone:normalizePhone(state.phone),email:state.email.trim(),name:state.name.trim(),company:state.company.trim()};
+    const serialized=JSON.stringify(answers);
+    if(attemptedAnswers!==serialized){currentSubmissionId=submissionId();attemptedAnswers=serialized;}
+    try {
+      const response=await fetch(config.intakeEndpoint,{
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        credentials:'omit',
+        body:JSON.stringify({
+          submissionId:currentSubmissionId,
+          answers,
+          turnstileToken:token,
+          website:'',
+          fax:''
+        }),
+        signal:AbortSignal.timeout(40000)
+      });
+      const data=await response.json().catch(()=>null);
+      if(!response.ok||!data?.ok||!data?.reference)throw Error(
+        response.status===429?'Trop de demandes depuis ce réseau. Réessayez plus tard.':
+        response.status===422?'Certaines réponses doivent être corrigées.':
+        response.status===403?'La vérification anti-spam a échoué. Réessayez.':
+        response.status===409?'Cette demande a déjà été reçue avec un contenu différent. Rechargez la page pour une nouvelle demande.':
+        'Votre demande n’a pas pu être enregistrée. Réessayez dans un instant.'
+      );
+      const wizard=document.querySelector('.wizard');
+      wizard.innerHTML='<div class="diagnostic-success" role="status" tabindex="-1"><div class="modal-top-icon" aria-hidden="true">✓</div><h2>Merci pour votre confiance !</h2><p>Votre demande de diagnostic a bien été reçue.</p><p>Notre équipe analysera vos besoins et vous contactera prochainement pour échanger sur votre projet.</p><p><strong>L’équipe TheFounder.</strong></p><a class="secondary-action" href="/">Retour au site</a></div>';
+      wizard.querySelector('.diagnostic-success').focus();
+      document.querySelector('.privacy-footnote')?.remove();
+    }catch(error){
+      showError(['TimeoutError','AbortError'].includes(error?.name)?'Le délai de connexion est dépassé. Vos réponses sont conservées. Réessayez.':error instanceof TypeError?'Connexion impossible. Vos réponses sont conservées. Réessayez.':error?.message||'Enregistrement impossible. Réessayez.');
+      if(widget!==null&&window.turnstile)window.turnstile.reset(widget);
+    }finally{
+      sending=false;
+      controls.forEach(([el,disabled])=>el.disabled=disabled);
+      if(button.isConnected){button.disabled=false;nav();}
+    }
+  }
   render();
 })();

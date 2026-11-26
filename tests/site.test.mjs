@@ -39,12 +39,12 @@ test('métadonnées uniques et aucune interception de lien ni code en ligne',()=
   }
   assert.equal(titles.size,pages.length);
 });
-test('tous les CTA projet ciblent le contact confirmé et son objet',()=>{
+test('tous les CTA commerciaux ciblent le diagnostic',()=>{
   let count=0;
   for(const file of pages){for(const m of text(file).matchAll(/href="(mailto:[^"]+)"/g)){
     const url=new URL(m[1]);assert.equal(url.pathname,'contactajaoub@gmail.com');
-    if(url.searchParams.get('subject')?.startsWith('Demande de projet')) {assert.equal(url.searchParams.get('subject'),'Demande de projet - TheFounder');count++;}
-  }}assert.ok(count>=10);
+    assert.ok(!url.searchParams.get('subject')?.startsWith('Demande de projet'),file);
+  }count+=(text(file).match(/href="\/diagnostic"/g)||[]).length;}assert.ok(count>=10);
 });
 test('indicateurs de lien : un seul symbole SVG, aucune flèche Unicode ni fallback de police',()=>{
   const sprite='assets/icons/link.svg';
@@ -120,8 +120,8 @@ test('diagnostic V1 et défis V4 intégrés et accessibles',()=>{
   assert.ok(home.includes('href="/diagnostic"'));
   assert.ok(home.includes('/assets/problems.css'));
   assert.ok(home.includes('/assets/problems.js'));
-  assert.ok(diag.includes('id="email-summary"'));
+  assert.ok(diag.includes('/assets/diagnostic-config.js'));
   assert.ok(diag.includes('href="/confidentialite"'));
   assert.ok(!diag.includes('data:image/png;base64'));
-  assert.ok(text('assets/diagnostic.js').includes('mailto:contactajaoub@gmail.com'));
+  assert.ok(!text('assets/diagnostic.js').includes('mailto:'));
 });
