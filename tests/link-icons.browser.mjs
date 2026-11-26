@@ -62,7 +62,7 @@ for(const engine of engines){
    await card.evaluate(x=>x.blur());
     if(width===1440){await card.scrollIntoViewIfNeeded();await page.waitForTimeout(350);await card.hover();await page.waitForFunction(()=>document.querySelector('.solution-card').matches(':hover'));await page.waitForTimeout(250);assert.notEqual(await slot.evaluate(x=>getComputedStyle(x).backgroundColor),idle);await page.locator('.solutions-section').screenshot({path:resolve(out,'solutions-hover-desktop.png')});}
    const cta=page.locator('.hero .cta-primary');
-   assert.match(await cta.getAttribute('href'),/^mailto:contactajaoub@gmail\.com\?/);
+   assert.equal(await cta.getAttribute('href'),'/diagnostic');
    assert.equal(await cta.innerText(),'Discuter de mon projet');
    const alignment=await cta.evaluate(x=>{const a=x.getBoundingClientRect(),b=x.querySelector('.link-icon').getBoundingClientRect();return Math.abs((a.y+a.height/2)-(b.y+b.height/2));});assert.ok(alignment<1);
   }
@@ -70,7 +70,7 @@ for(const engine of engines){
   const touchPage=await touchContext.newPage();await touchPage.goto(base);await touchPage.locator('#thefounder-preloader').waitFor({state:'hidden'});
   await touchPage.locator('.hero .cta-primary').evaluate(x=>{window.__linkClicks=[];x.addEventListener('click',e=>{e.preventDefault();window.__linkClicks.push(x.href);});});
   await touchPage.locator('.hero .cta-primary').tap();
-  const clicks=await touchPage.evaluate(()=>window.__linkClicks);assert.equal(clicks.length,1);assert.match(clicks[0],/^mailto:contactajaoub@gmail\.com\?/);
+  const clicks=await touchPage.evaluate(()=>window.__linkClicks);assert.equal(clicks.length,1);assert.equal(new URL(clicks[0]).pathname,'/diagnostic');
   assert.ok(await touchPage.locator('.hero .link-icon svg').evaluate(x=>x.getBBox().width>0));
   await touchPage.locator('.hero').screenshot({path:resolve(out,'cta-tactile.png')});await touchContext.close();
   const noJS=await createContext({javaScriptEnabled:false,viewport:{width:375,height:812}}),np=await noJS.newPage();await np.goto(base);
