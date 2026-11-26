@@ -11,7 +11,8 @@
     "build:production": "node scripts/build.mjs --production",
     "test:browser": "node tests/browser.mjs",
     "test:preloader": "node tests/preloader.browser.mjs",
-    "test:link-icons": "node tests/link-icons.browser.mjs"
+    "test:link-icons": "node tests/link-icons.browser.mjs",
+    "test:diagnostic": "node tests/diagnostic.browser.mjs"
   },
   "devDependencies": {
     "axe-core": "4.11.0",

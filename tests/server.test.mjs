@@ -62,6 +62,8 @@ test('SEO de production et retour en preview sur fixture isolée, sans autorisat
     assert.notEqual(run().status,0);
     assert.notEqual(run(false,{VERCEL_ENV:'production'}).status,0);
     assert.notEqual(run(false,{VERCEL_TARGET_ENV:'production'},['--preview']).status,0);
+    await writeFile(resolve(fixture,'config/release.json'),JSON.stringify({...release,diagnosticPrivacyApproved:false}));
+    assert.notEqual(run().status,0,'Diagnostic privacy approval must block production');
     await writeFile(resolve(fixture,'config/release.json'),JSON.stringify(release));
     const automatic=run(false,{VERCEL_ENV:'production'});assert.equal(automatic.status,0,automatic.stderr);
     assert.equal(JSON.parse(await readFile(resolve(fixture,'dist/build-manifest.json'))).mode,'production');
