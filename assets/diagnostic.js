@@ -193,19 +193,5 @@
       if(button.isConnected){button.disabled=false;nav();}
     }
   }
-  function formatPlain(){
-    const chosenDepts=proposal();return `PRÉDIAGNOSTIC — THEFOUNDER\nEntreprise : ${state.company}\nContact : ${state.name}\nSecteur : ${state.sector}\nTaille : ${state.size}\nClientèle : ${state.clientele||'Non indiquée'}\nVille : ${state.ville||'Non indiquée'}\nDépartements : ${state.departments.join(', ')}\nDétails par département : ${chosenDepts.map(d=>d.label+' : '+(state.followup[d.id]||'Non précisé')).join(' ; ')}\nProblèmes : ${state.problems.join(' ; ')}\nOutils actuels : ${state.tools.join(', ')}\nLogiciels cités : ${state.softwareNames||'Non précisés'}\nCentralisation : ${state.centralisation||'Non précisée'}\nIntégrations : ${state.integration||'Non précisées'}\nVolume : ${state.volume||'Non précisé'}\nTemps perdu estimé : ${state.time||'Non précisé'}\nImpacts : ${state.impacts.join(', ')}\nExemple : ${state.example||'Non fourni'}\nObjectifs : ${state.goals.join(', ')}\nÉchéance : ${state.timeline||'Non précisée'}\nContraintes : ${state.constraints.join(', ')}\nTypes de données : ${state.dataTypes.join(', ')}\nHébergement : ${state.hosting||'Non précisé'}\nBudget : ${state.budget||'Non communiqué'}\nProjet suivi par : ${state.owner||'Non précisé'}\nMoyen préféré : ${state.channel||'Non précisé'}\nE-mail : ${state.email||'Non indiqué'}\nTéléphone : ${state.phone||'Non indiqué'}\n\nDocument préparatoire, sans diagnostic automatique confirmé.`;
-  }
-  $('copy-summary').addEventListener('click',async()=>{
-    const button=$('copy-summary');
-    try{await navigator.clipboard.writeText(formatPlain());button.textContent='Synthèse copiée';}
-    catch{const el=document.createElement('textarea');el.value=formatPlain();document.body.appendChild(el);el.select();try{document.execCommand('copy');button.textContent='Synthèse copiée';}catch{button.textContent='Copie non disponible';}el.remove();}
-    setTimeout(()=>button.textContent='Copier la synthèse',1800);
-  });
-  $('export-json').addEventListener('click',()=>{
-    const exportData={schema:'thefounder-prediagnostic-v1',mode:'export_utilisateur',createdAt:new Date().toISOString(),responses:{...state},hypotheses:proposal().map(dep=>({departement:dep.label,piste:dep.solution,verificationRequise:true}))};
-    const blob=new Blob([JSON.stringify(exportData,null,2)],{type:'application/json;charset=utf-8'});
-    const u=URL.createObjectURL(blob),a=document.createElement('a');a.href=u;a.download='thefounder-prediagnostic-reponses.json';a.click();URL.revokeObjectURL(u);
-  });
   render();
 })();
