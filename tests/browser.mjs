@@ -66,10 +66,11 @@ try{
   await button.click();await page.locator('.nav a[href="realisations.html"]').click();assert.match(page.url(),/realisations.html$/);
   await visit(page,base);await page.locator('.solution-card').first().click();assert.match(page.url(),/solutions.html#brain$/);
   result.checks.push('Menu mobile, activation clavier, Échap et retour focus, fermeture après ancre, pages et offres');
-  // Intercept the click before the OS mail handler; no message is sent.
-  await visit(page,base);await page.evaluate(()=>{window.__mail=null;document.addEventListener('click',e=>{const a=e.target.closest('a[href^="mailto:"]');if(a){window.__mail=a.href;e.preventDefault();}},true)});
-  await page.locator('.cta-primary').click();const mail=await page.evaluate(()=>window.__mail);const url=new URL(mail);assert.equal(url.pathname,'contactajaoub@gmail.com');assert.equal(url.searchParams.get('subject'),'Demande de projet - TheFounder');
-  result.checks.push('Clic CTA vers mailto et objet exact, sans envoi ni ouverture de messagerie');
+  // Hero directs visitors to the existing solutions page, not to e-mail.
+  await visit(page,base);
+  await page.locator('.hero .cta-primary').click();
+  assert.match(new URL(page.url()).pathname,/^\/solutions(?:\.html)?$/);
+  result.checks.push('CTA Hero Explorer nos solutions mène à la page Solutions');
   // One-shot viewport animation, French decimals, and live reduced-motion preference.
   await page.setViewportSize({width:1440,height:900});await visit(page,base);
   const counter=page.locator('.impact-number[data-target="25.1"]');

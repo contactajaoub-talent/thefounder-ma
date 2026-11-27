@@ -77,3 +77,28 @@
     }
   });
 })();
+
+
+/* Approved IA impact cards: reveal when visible, never hide content without JS. */
+(() => {
+  const section = document.querySelector('.tf-impact-v2');
+  if (!section || !('IntersectionObserver' in window)) return;
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  if (motion.matches) return;
+  const cards = [...section.querySelectorAll('.impact-stat')];
+  if (!cards.length) return;
+  const observer = new IntersectionObserver(entries => {
+    for (const entry of entries) {
+      if (!entry.isIntersecting) continue;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    }
+  }, {threshold: .10, rootMargin: '0px 0px -20px 0px'});
+  cards.forEach(card => observer.observe(card));
+  section.classList.add('tf-stats-reveal-ready');
+  motion.addEventListener('change', () => {
+    if (!motion.matches) return;
+    observer.disconnect();
+    cards.forEach(card => card.classList.add('is-visible'));
+  });
+})();

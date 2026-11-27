@@ -20,3 +20,25 @@ test('sources disponibles et ressources locales',()=>{
   assert.ok(existsSync(new URL('../assets/thefounder-icon-1080.png',import.meta.url)));
   assert.ok(html.includes('capgemini.com'));
 });
+
+test('Hero validé : compact, CTA Solutions et quatre icônes animées',()=>{
+  assert.match(html, /class="hero tf-hero-v2"/);
+  assert.match(html, /Votre prochain levier de croissance \?/);
+  assert.match(html, /href="\/solutions">Explorer nos solutions/);
+  assert.match(html, /Nous concevons des logiciels sur mesure, automatisons vos processus et intégrons l’IA à votre activité\./);
+  assert.equal((html.match(/class="bubble bubble-[1-4]"/g)||[]).length,4);
+  assert.match(css, /@keyframes tf-float-one/);
+  assert.match(css, /\.tf-hero-v2 \{[\s\S]*?min-height:0 !important/);
+});
+test('Impact IA : chiffres animés, quatre sources et responsive',()=>{
+  const section=html.split('<section class="impact-section tf-impact-v2"')[1]?.split('</section>')[0]||'';
+  assert.match(section, /Du potentiel aux <span>résultats mesurés\.<\/span>/);
+  assert.match(section, /Découvrez ce que les études révèlent sur l’impact réel/);
+  for(const n of ['15','26','31','40','25.1'])assert.ok(section.includes('data-target="'+n+'"'),n);
+  for(const s of ['doi.org','capgemini.com','news.mit.edu','informs.org'])assert.ok(section.includes(s),s);
+  assert.match(css, /\.tf-impact-v2 \.impact-statbar/);
+  assert.match(css, /@media\(max-width:520px\)/);
+  const js=readFileSync(new URL('../assets/site.js',import.meta.url),'utf8');
+  assert.match(js, /Approved IA impact cards/);
+  assert.match(js, /prefers-reduced-motion: reduce/);
+});

@@ -81,7 +81,7 @@ test('accueil : ordre et nombre des sections conservés, valeurs accessibles san
   const positions=names.map(x=>html.indexOf(`aria-labelledby="${x}"`));assert.ok(positions.every(x=>x>=0));
   assert.deepEqual(positions,[...positions].sort((a,b)=>a-b));
   assert.ok(html.includes('>+15</span>'));assert.ok(html.includes('>+25,1</span>'));
-  assert.match(html,/Résultats d’études externes/);
+  assert.match(html,/Résultats issus d’études externes/);
 });
 test('documents de lancement et modèles demandés présents',()=>{
   for(const file of ['TODO_CLIENT.md','business/catalogue-services.md','business/modele-devis.md','business/modele-facture.md','business/process-client.md','business/crm-prospection.csv','CHECKLIST-LANCEMENT.md'])assert.ok(existsSync(new URL('../'+file,import.meta.url)),file);
