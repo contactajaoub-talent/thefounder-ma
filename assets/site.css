@@ -717,3 +717,7 @@ html{scroll-padding-top:24px} :focus-visible{outline:3px solid #6040d0;outline-o
 .sv-motion-ready .sv-showcase:not(.sv-visible) .sv-art *,
 .sv-motion-ready .sv-showcase:not(.sv-visible) .sv-art *::before,
 .sv-motion-ready .sv-showcase:not(.sv-visible) .sv-art *::after{animation-play-state:paused!important}
+
+/* Home only: keep the two requested headings on one line at every viewport. */
+.hero #hero-title .hero-question{display:block;white-space:nowrap;font-size:min(1em,5.4vw,68px);letter-spacing:-.054em}
+.tf-final #tf-final-heading{max-width:none;white-space:nowrap;font-size:min(54px,4.5vw)}
