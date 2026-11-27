@@ -54,3 +54,81 @@
 @media(max-width:700px){.tfv-problems .tfv-card{min-height:334px}.tfv-problems .tfv-card h3{font-size:19px;min-height:57px}.tfv-problems .tfv-category{font-size:9.5px}.tfv-problems .tfv-impact strong{font-size:11.5px}}
 @media(max-width:370px){.tfv-problems .tfv-card{min-height:344px}.tfv-problems .tfv-card h3{font-size:18px;min-height:66px}.tfv-problems .tfv-impact strong{font-size:11px}}
 
+
+
+/* HOME VISUAL SCALE 2026-11-27 — problem cards, preserve nine real examples and mobile carousel. */
+.tfv-problems{padding:94px 26px 96px}
+.tfv-problems .tfv-wrap{max-width:1270px}
+.tfv-problems .tfv-head{max-width:930px;margin-bottom:46px}
+.tfv-problems .tfv-head h2{font-size:clamp(40px,4.45vw,66px)}
+.tfv-problems .tfv-head p{font-size:17px;line-height:1.58}
+.tfv-problems .tfv-grid{gap:19px}
+.tfv-problems .tfv-card{
+  padding:25px 25px 21px;
+  min-height:380px;
+  border-radius:22px;
+}
+.tfv-problems .tfv-card-top{flex:0 0 38px}
+.tfv-problems .tfv-card-icon{width:39px;height:39px}
+.tfv-problems .tfv-card-icon svg{width:22px;height:22px}
+.tfv-problems .tfv-mini{
+  max-width:255px;height:105px;flex:0 0 105px;
+  margin:4px auto 15px;
+}
+.tfv-problems .tfv-category{font-size:11px;line-height:1.35;margin:7px 0 9px}
+.tfv-problems .tfv-card h3{
+  font-size:clamp(20px,1.63vw,23px);
+  line-height:1.24;min-height:57px;margin:0 0 12px;
+}
+.tfv-problems .tfv-impact{
+  min-height:82px;padding:13px 14px;gap:12px;
+}
+.tfv-problems .tfv-impact-label{font-size:10px}
+.tfv-problems .tfv-impact strong{font-size:13px;line-height:1.39}
+.tfv-problems .tfv-impact-symbol{width:29px;height:29px;flex-basis:29px}
+.tfv-problems .tfv-footer-cta{padding:31px 35px;margin-top:27px}
+.tfv-problems .tfv-footer-cta h3{font-size:clamp(26px,2.6vw,35px)}
+.tfv-problems .tfv-footer-cta p{font-size:15px}
+.tfv-problems .tfv-main-cta{font-size:15px;min-height:53px;padding:15px 23px}
+.tfv-problems .tfv-more{font-size:13px}
+
+@media(max-width:940px){
+  .tfv-problems{padding:73px 22px 78px}
+  .tfv-problems .tfv-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+  .tfv-problems .tfv-card{min-height:365px}
+  .tfv-problems .tfv-card h3{font-size:22px}
+}
+@media(max-width:700px){
+  .tfv-problems{padding:60px 0 68px}
+  .tfv-problems .tfv-head{padding:0 20px;margin-bottom:29px}
+  .tfv-problems .tfv-head h2{font-size:clamp(34px,8.4vw,45px)}
+  .tfv-problems .tfv-head p{font-size:14.5px;max-width:420px}
+  /* Keep horizontal snap carousel (not a 2-col grid) on small screens. */
+  .tfv-problems .tfv-grid{
+    display:flex;gap:13px;overflow-x:auto;
+    scroll-snap-type:x mandatory;scroll-padding-inline:18px;
+    padding:5px 18px 21px;
+  }
+  .tfv-problems .tfv-card{
+    flex:0 0 min(86vw,370px);
+    min-height:373px;padding:23px 22px 19px;
+  }
+  .tfv-problems .tfv-mini{
+    max-width:245px;height:98px;flex-basis:98px;
+    margin:4px auto 11px;
+  }
+  .tfv-problems .tfv-category{font-size:10px;margin-top:6px}
+  .tfv-problems .tfv-card h3{font-size:21px;min-height:54px;margin-bottom:10px}
+  .tfv-problems .tfv-impact{min-height:80px;padding:11px 12px}
+  .tfv-problems .tfv-impact strong{font-size:12.5px}
+  .tfv-problems .tfv-footer-cta{margin:3px 17px 0;padding:25px 21px}
+  .tfv-problems .tfv-footer-cta h3{font-size:25px}
+  .tfv-problems .tfv-footer-cta p{font-size:14px}
+  .tfv-problems .tfv-main-cta{font-size:14px;min-height:49px}
+}
+@media(max-width:370px){
+  .tfv-problems .tfv-card{flex-basis:86vw;min-height:386px;padding:20px 18px}
+  .tfv-problems .tfv-mini{max-width:216px}
+  .tfv-problems .tfv-card h3{font-size:20px;min-height:60px}
+  .tfv-problems .tfv-impact strong{font-size:12px}
+}

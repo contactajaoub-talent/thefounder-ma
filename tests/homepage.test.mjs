@@ -42,3 +42,24 @@ test('Impact IA : chiffres animés, quatre sources et responsive',()=>{
   assert.match(js, /Approved IA impact cards/);
   assert.match(js, /prefers-reduced-motion: reduce/);
 });
+
+
+test('visual scaling home: desktop, laptop and mobile without modifying content',()=>{
+  const problemCss=readFileSync(new URL('../assets/problems.css',import.meta.url),'utf8');
+  for(const id of ['impact','defis','solutions','processus','technologies','contact'])assert.ok(html.includes('id="'+id+'"'));
+  assert.match(css,/HOME VISUAL SCALE 2026-11-27/);
+  assert.match(problemCss,/HOME VISUAL SCALE 2026-11-27/);
+  for(const rule of ['#solutions .solution-card','#processus .tf-process-step','#technologies .tf-stack-tool','#contact .tf-final-cta']){
+    assert.ok(css.includes(rule),rule);
+  }
+  for(const rule of ['.tfv-problems .tfv-card','.tfv-problems .tfv-mini','.tfv-problems .tfv-impact']){
+    assert.ok(problemCss.includes(rule),rule);
+  }
+  assert.match(css,/@media \(min-width:821px\) and \(max-width:1100px\)/);
+  assert.match(css,/@media \(max-width:580px\)/);
+  assert.match(problemCss,/@media\(max-width:700px\)/);
+  assert.equal((html.match(/class="tfv-card"/g)||[]).length,9);
+  assert.equal((html.match(/class="tf-stack-tool"/g)||[]).length,9);
+  assert.equal((html.match(/class="impact-stat"/g)||[]).length,4);
+  assert.ok(html.includes('href="/diagnostic"'));
+});
